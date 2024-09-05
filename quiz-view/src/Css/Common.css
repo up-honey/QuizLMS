@@ -1,0 +1,13 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+
+.footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+    text-align: left;
+    }
