@@ -6,6 +6,7 @@ import com.Quiz.lms.service.MemberService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,7 +31,13 @@ public class MemberController {
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout() {
-        // 로그아웃 기능 구현 (토큰 제거 등)
+        // 로그아웃 기능 구현 (예: 세션 무효화, 토큰 제거 등)
         return ResponseEntity.ok("Logout successful");
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        String errorMessage = ex.getBindingResult().getAllErrors().get(0).getDefaultMessage();
+        return ResponseEntity.badRequest().body(errorMessage);
     }
 }
