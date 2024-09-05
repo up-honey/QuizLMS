@@ -17,8 +17,8 @@ class QuizLmsApplicationTests {
 		Member member = new Member();
 		member.setId(1L);
 		member.setPassword("1234");
-		member.setName("세종킹");
-		member.setUsername("SJKING");
+		member.setName("test0");
+		member.setUsername("test0");
 
 		memberRepository.save(member);
 
