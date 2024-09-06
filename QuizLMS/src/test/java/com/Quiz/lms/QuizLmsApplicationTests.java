@@ -15,10 +15,10 @@ class QuizLmsApplicationTests {
 	@Test
 	void contextLoads() {
 		Member member = new Member();
-		member.setId(1L);
-		member.setPassword("1234");
-		member.setName("test0");
-		member.setUsername("test0");
+		member.setId(2L);
+		member.setUsername("test22");
+		member.setPassword("qwer");
+		member.setName("test12");
 
 		memberRepository.save(member);
 
