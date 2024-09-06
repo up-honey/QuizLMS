@@ -1,49 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>카테고리 목록</title>
+    <title>카테고리 수정</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
-    <h1>카테고리 목록</h1>
-    <a href="/category/create" class="btn btn-primary">카테고리 등록</a>
-    <table class="table table-bordered mt-3">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>이름</th>
-                <th>작업</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="category : ${paging.content}">
-                <td th:text="${category.id}"></td>
-                <td th:text="${category.name}"></td>
-                <td>
-                    <a th:href="@{/category/modify/{id}(id=${category.id})}" class="btn btn-warning">수정</a>
-                    <a th:href="@{/category/delete/{id}(id=${category.id})}" class="btn btn-danger" 
-                       onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div>
-        <nav>
-            <ul class="pagination">
-                <li class="page-item" th:class="${paging.hasPrevious() ? '' : 'disabled'}">
-                    <a class="page-link" th:href="@{/category/list(page=${paging.number - 1})}">이전</a>
-                </li>
-                <li class="page-item" th:each="i : ${#numbers.sequence(0, paging.totalPages - 1)}"
-                    th:class="${i == paging.number ? 'active' : ''}">
-                    <a class="page-link" th:href="@{/category/list(page=${i})}" th:text="${i + 1}"></a>
-                </li>
-                <li class="page-item" th:class="${paging.hasNext() ? '' : 'disabled'}">
-                    <a class="page-link" th:href="@{/category/list(page=${paging.number + 1})}">다음</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    <h1>카테고리 수정</h1>
+    <form th:action="@{/category/modify/{id}(id=${id})}" th:object="${categoryForm}" method="post">
+        <div class="form-group">
+            <label for="name">카테고리 이름</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" required>
+            <div th:if="${#fields.hasErrors('name')}" class="text-danger">
+                <span th:errors="*{name}">이름 오류</span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">등록</button>
+        <a href="/category/list" class="btn btn-secondary">목록으로 돌아가기</a>
+    </form>
 </div>
 </body>
 </html>

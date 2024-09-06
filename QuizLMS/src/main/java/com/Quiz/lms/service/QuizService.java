@@ -1,20 +1,25 @@
 package com.Quiz.lms.service;
 
-import com.Quiz.lms.domain.Category;
-import com.Quiz.lms.domain.Quiz;
-import com.Quiz.lms.domain.SelectedQuiz;
-import com.Quiz.lms.repository.CategoryRepository;
-import com.Quiz.lms.repository.QuizRepository;
-import com.Quiz.lms.repository.SelectedQuizRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.List;
+import com.Quiz.lms.domain.Category;
+import com.Quiz.lms.domain.Quiz;
+import com.Quiz.lms.domain.SelectedQuiz;
+import com.Quiz.lms.dto.QuizForm;
+import com.Quiz.lms.repository.CategoryRepository;
+import com.Quiz.lms.repository.QuizRepository;
+import com.Quiz.lms.repository.SelectedQuizRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -71,5 +76,40 @@ public class QuizService {
         return quizPage;
     }
 
+    public Page<Quiz> getQuiz(Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startRow = currentPage * pageSize;
+        int endRow = (currentPage + 1) * pageSize;
+        
+        List<Quiz> categories = quizRepository.findAllWithPagination(startRow, endRow);
+        long total = categoryRepository.countCategories();
+        
+        return new PageImpl<>(categories, pageable, total);
+    }
+    
+    public Quiz getQuiz(Long id){
+        return quizRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Quiz not found"));
+
+    }
+    
+//  퀴즈 수정
+    public void modify( Long id, String title, String categoryName, String answer){
+    	Optional<Quiz> quiz = quizRepository.findById(id);
+    	
+    	Category category = categoryRepository.findByName(categoryName);
+    	
+        quiz.get().setTitle(title);
+    	
+        quiz.get().setCategory(category);
+        quiz.get().setAnswer(answer);
+        quizRepository.save(quiz.get());
+    }
+    
+//  카테고리 삭제
+    public void delete(Long id){
+       quizRepository.deleteById(id);
+    }
 
 }

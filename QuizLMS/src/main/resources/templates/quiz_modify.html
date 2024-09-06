@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>퀴즈 수정</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>퀴즈 수정</h1>
+    <form th:action="@{/quiz/modify/{id}(id=${id})}" th:object="${quizForm}" method="post">
+       <div class="form-group">
+              <label for="name">카테고리 이름</label>
+            <input type="text" id="categoryName" th:field="*{categoryName}" class="form-control" required>
+            <div th:if="${#fields.hasErrors('categoryName')}" class="text-danger">
+                <span th:errors="*{categoryName}">이름 오류</span>
+            </div>
+            </div>
+        <div class="form-group">
+            <label for="name">제목</label>
+            <input type="text" id="title" th:field="*{title}" class="form-control" required>
+            <div th:if="${#fields.hasErrors('title')}" class="text-danger">
+                <span th:errors="*{title}">제목 오류</span>
+            </div>
+            </div>       
+             
+              <div class="form-group">
+              <label for="name">정답</label>
+            <input type="text" id="answer" th:field="*{answer}" class="form-control" required>
+            <div th:if="${#fields.hasErrors('answer')}" class="text-danger">
+                <span th:errors="*{answer}">정답 오류</span>
+            </div>
+             </div>
+        
+        <button type="submit" class="btn btn-primary">등록</button>
+        <a href="/quiz/list" class="btn btn-secondary">목록으로 돌아가기</a>
+    </form>
+</div>
+</body>
+</html>

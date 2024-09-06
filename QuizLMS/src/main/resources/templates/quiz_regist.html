@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>카테고리 등록</title>
+    <title>퀴즈 등록</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
-    <h1>카테고리 등록</h1>
-    <form th:action="@{/category/create}" th:object="${categoryForm}" method="post">
+    <h1>퀴즈 등록</h1>
+    <form th:action="@{/quiz/create}" th:object="${quizForm}" method="post">
         <div class="form-group">
             <label for="name">카테고리 이름</label>
-            <input type="text" id="name" th:field="*{name}" class="form-control" required>
-            <div th:if="${#fields.hasErrors('name')}" class="text-danger">
-                <span th:errors="*{name}">이름 오류</span>
+            <input type="text" id="category.name" th:field="*{category.name}" class="form-control" required>
+            <div th:if="${#fields.hasErrors('category.name')}" class="text-danger">
+                <span th:errors="*{category.name}">이름 오류</span>
             </div>
             <label for="name">제목</label>
             <input type="text" id="title" th:field="*{title}" class="form-control" required>
@@ -22,14 +22,14 @@
             
             <label for="name">정답</label>
             <input type="text" id="answer" th:field="*{answer}" class="form-control" required>
-            <div th:if="${#fields.hasErrors('title')}" class="text-danger">
-                <span th:errors="*{title}">이름 오류</span>
+            <div th:if="${#fields.hasErrors('answer')}" class="text-danger">
+                <span th:errors="*{answer}">이름 오류</span>
             </div>
             
             
         </div>
         <button type="submit" class="btn btn-primary">등록</button>
-        <a href="/category/list" class="btn btn-secondary">목록으로 돌아가기</a>
+        <a href="/quiz/list" class="btn btn-secondary">목록으로 돌아가기</a>
     </form>
 </div>
 </body>
