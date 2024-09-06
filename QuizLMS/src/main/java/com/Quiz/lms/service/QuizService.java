@@ -30,9 +30,10 @@ public class QuizService {
     private final CategoryRepository categoryRepository;
 
     //    퀴즈 등록
-    public void create(String CategoryName, String title, String answer ){
+    public void create(Long categoryId, String title, String answer ){
        // 카테고리 이름으로 카테고리 레포지토리에서 카테고리를 찾아옴
-        Category category = categoryRepository.findByName(CategoryName);
+        Category category = categoryRepository.findById(categoryId)
+        		 .orElseThrow(() -> new IllegalArgumentException("Invalid category Id:" + categoryId));
         // 퀴즈를 등록하기 위해 새로운 퀴즈를 생성후 값 세팅
         Quiz quiz = new Quiz();
         quiz.setCategory(category);

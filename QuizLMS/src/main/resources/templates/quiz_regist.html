@@ -9,11 +9,13 @@
     <h1>퀴즈 등록</h1>
     <form th:action="@{/quiz/create}" th:object="${quizForm}" method="post">
         <div class="form-group">
-            <label for="name">카테고리 이름</label>
-            <input type="text" id="categoryName" th:field="*{categoryName}" class="form-control" required>
-            <div th:if="${#fields.hasErrors('categoryName')}" class="text-danger">
+            <label for="name">카테고리</label>
+            <select class="form-control" id="categoryName" th:field="*{categoryName}" required>
+          	  <option value="">카테고리를 선택하세요</option>
+           	 	<option th:if="${#fields.hasErrors('categoryName')}" class="text-danger">
                 <span th:errors="*{categoryName}">이름 오류</span>
-            </div>
+            </option>
+            </select>
             <label for="name">제목</label>
             <input type="text" id="title" th:field="*{title}" class="form-control" required>
             <div th:if="${#fields.hasErrors('title')}" class="text-danger">

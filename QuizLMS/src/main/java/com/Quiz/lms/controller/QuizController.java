@@ -21,6 +21,7 @@ import com.Quiz.lms.domain.Quiz;
 import com.Quiz.lms.domain.QuizResult;
 import com.Quiz.lms.dto.CategoryForm;
 import com.Quiz.lms.dto.QuizForm;
+import com.Quiz.lms.service.CategoryService;
 import com.Quiz.lms.service.QuizResultService;
 import com.Quiz.lms.service.QuizService;
 
@@ -34,11 +35,13 @@ public class QuizController {
 
     private final QuizService quizService;
     private final QuizResultService quizResultService;
+    private final CategoryService categoryService;
    
     // 퀴즈 등록 폼
     @GetMapping("/create")
     public String createForm(Model model) {
         model.addAttribute("quizForm", new QuizForm());
+        model.addAttribute("category", categoryService.getCategoryList());
         return "quiz_regist"; // 카테고리 등록 페이지
     }
 
@@ -48,9 +51,10 @@ public class QuizController {
                          BindingResult bindingResult, 
                          Model model) {
         if (bindingResult.hasErrors()) {
+        	model.addAttribute("category", categoryService.getCategoryList());
             return "quiz_regist"; // 오류가 있을 경우 등록 페이지로 돌아감
         }
-        quizService.create(quizForm.getCategoryName(), quizForm.getTitle(), quizForm.getAnswer());
+        quizService.create(quizForm.getCategoryId(), quizForm.getTitle(), quizForm.getAnswer());
         return "redirect:/quiz/list"; // 등록 후 목록 페이지로 리다이렉트
     }
 
