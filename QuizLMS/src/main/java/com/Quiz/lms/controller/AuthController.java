@@ -57,7 +57,6 @@ public class AuthController {
 
     // 중복 검사 메소드 추가
     @GetMapping("/check-username")
-    @ResponseBody
     public ResponseEntity<Map<String, Object>> checkUsername(@RequestParam String username) {
         boolean isTaken = memberRepository.findByUsername(username).isPresent();
         Map<String, Object> response = new HashMap<>();
@@ -66,7 +65,6 @@ public class AuthController {
     }
 
     @GetMapping("/check-email")
-    @ResponseBody
     public ResponseEntity<Map<String, Object>> checkEmail(@RequestParam String email) {
         boolean isTaken = memberRepository.findByEmail(email).isPresent();
         Map<String, Object> response = new HashMap<>();
@@ -75,7 +73,6 @@ public class AuthController {
     }
 
     @GetMapping("/check-nickname")
-    @ResponseBody
     public ResponseEntity<Map<String, Object>> checkNickname(@RequestParam String nickname) {
         boolean isTaken = memberRepository.findByNickname(nickname).isPresent();
         Map<String, Object> response = new HashMap<>();
@@ -84,7 +81,6 @@ public class AuthController {
     }
 
     @GetMapping("/check-phone-number")
-    @ResponseBody
     public ResponseEntity<Map<String, Object>> checkPhoneNumber(@RequestParam String phoneNumber) {
         boolean isTaken = memberRepository.findByPhoneNumber(phoneNumber).isPresent();
         Map<String, Object> response = new HashMap<>();

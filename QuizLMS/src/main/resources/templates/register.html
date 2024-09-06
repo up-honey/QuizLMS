@@ -62,20 +62,86 @@
   </style>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
+    $(document).ready(function() {
+      // 중복 검사 함수
+      function checkDuplicate(url, value, callback) {
+        $.get(url, { value: value }, function(response) {
+          if (response && response.available !== undefined) {
+            callback(response.available);
+          } else {
+            console.error('Invalid response from server:', response);
+            callback(true); // 기본적으로 사용 가능으로 처리
+          }
+        }).fail(function() {
+          alert('Error checking for duplicates.');
+          callback(true); // 오류 발생 시 기본적으로 사용 가능으로 처리
+        });
+      }
 
+      // 실시간 중복 검사
+      $('#username').on('blur', function() {
+        var username = $(this).val();
+        checkDuplicate('/check-username', username, function(available) {
+          if (!available) {
+            $('#username').siblings('.error').text('Username is already taken.');
+          } else {
+            $('#username').siblings('.error').text('');
+          }
+        });
+      });
 
-      // 폼 제출 전 검증
-      $('form').on('submit', function(event) {
+      $('#email').on('blur', function() {
+        var email = $(this).val();
+        checkDuplicate('/check-email', email, function(available) {
+          if (!available) {
+            $('#email').siblings('.error').text('Email is already registered.');
+          } else {
+            $('#email').siblings('.error').text('');
+          }
+        });
+      });
+
+      $('#nickname').on('blur', function() {
+        var nickname = $(this).val();
+        checkDuplicate('/check-nickname', nickname, function(available) {
+          if (!available) {
+            $('#nickname').siblings('.error').text('Nickname is already taken.');
+          } else {
+            $('#nickname').siblings('.error').text('');
+          }
+        });
+      });
+
+      $('#phoneNumber').on('blur', function() {
+        var phoneNumber = $(this).val();
+        checkDuplicate('/check-phone-number', phoneNumber, function(available) {
+          if (!available) {
+            $('#phoneNumber').siblings('.error').text('Phone number is already in use.');
+          } else {
+            $('#phoneNumber').siblings('.error').text('');
+          }
+        });
+      });
+
+      // 폼 제출 전 유효성 검사
+      $('form').on('submit', function(e) {
         var valid = true;
-        $('.error').each(function() {
-          if ($(this).text().trim() !== '') {
+        $('.form-group .error').each(function() {
+          if ($(this).text() !== '') {
             valid = false;
           }
         });
 
+        var password = $('#password').val();
+        var confirmPassword = $('#confirmPassword').val();
+        if (password !== confirmPassword) {
+          $('#confirmPassword').siblings('.error').text('Passwords do not match.');
+          valid = false;
+        }
+
         if (!valid) {
-          event.preventDefault();
-          alert('Please fix the errors in the form.');
+          e.preventDefault();
+          alert('Please correct the errors before submitting.');
         }
       });
     });
