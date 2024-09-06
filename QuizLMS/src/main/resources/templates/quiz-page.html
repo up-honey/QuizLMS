@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${categoryName} + ' Quiz'"></title>
+</head>
+<body>
+<h1 th:text="${categoryName} + ' Quiz'"></h1>
+<form th:action="@{/quiz/submit}" method="post">
+    <input type="hidden" name="categoryName" th:value="${categoryName}" />
+    <input type="hidden" name="userId" value="1" /> <!-- Assume user ID 1 for now -->
+    <div th:each="quiz, stat : ${quizzes}">
+        <h3 th:text="${quiz.question}"></h3>
+        <div th:each="option : ${quiz.options}">
+            <input type="radio" th:name="'answer' + ${stat.index}" th:value="${option}" />
+            <label th:text="${option}"></label>
+        </div>
+    </div>
+    <button type="submit">Submit Quiz</button>
+</form>
+</body>
+</html>
