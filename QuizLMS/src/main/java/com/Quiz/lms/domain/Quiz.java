@@ -19,7 +19,7 @@ public class Quiz {
     @Column(name = "title")
     private  String title;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "category")
     private  Category category;
 
