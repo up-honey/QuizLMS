@@ -1,5 +1,4 @@
 package com.Quiz.lms.controller;
-import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -13,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Quiz.lms.domain.Category;
-import com.Quiz.lms.domain.CategoryForm;
+import com.Quiz.lms.dto.CategoryForm;
 import com.Quiz.lms.service.CategoryService;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/category")
@@ -50,6 +49,7 @@ public class CategoryController {
     public String modifyForm(@PathVariable("id") Long id, Model model) {
         Category category = categoryService.getCategory(id);
         model.addAttribute("categoryForm", category);
+        model.addAttribute("id", id);
         return "category_modify"; // 카테고리 수정 페이지
     }
 
@@ -59,6 +59,7 @@ public class CategoryController {
                          @ModelAttribute("categoryForm") CategoryForm categoryForm) {
         Category category = categoryService.getCategory(id);
         categoryService.modify(category, categoryForm.getName());
+        
         return "redirect:/category/list"; // 수정 후 목록 페이지로 리다이렉트
     }
 

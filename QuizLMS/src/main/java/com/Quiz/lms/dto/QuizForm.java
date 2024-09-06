@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class QuizForm {
-    private String name;
-    private Category category;
+    private String title;
+    private String categoryName;
     private String answer;
 }

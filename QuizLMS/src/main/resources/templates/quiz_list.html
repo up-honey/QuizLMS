@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>퀴즈 목록</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>퀴즈 목록</h1>
+    <a href="/quiz/create" class="btn btn-primary">퀴즈 등록</a>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>카테고리</th>
+                <th>제목</th>
+                <th>정답</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="quiz : ${paging.content}">
+                <td th:text="${quiz.id}"></td>
+                <td th:text="${quiz.category.name}"></td>
+                 <td th:text="${quiz.title}"></td>
+                  <td th:text="${quiz.answer}"></td>
+                <td>
+                    <a th:href="@{/quiz/modify/{id}(id=${quiz.id})}" class="btn btn-warning">수정</a>
+                    <a th:href="@{/quiz/delete/{id}(id=${quiz.id})}" class="btn btn-danger" 
+                       onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <nav>
+            <ul class="pagination">
+                <li class="page-item" th:class="${paging.hasPrevious() ? '' : 'disabled'}">
+                    <a class="page-link" th:href="@{/quiz/list(page=${paging.number - 1})}">이전</a>
+                </li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(0, paging.totalPages - 1)}"
+                    th:class="${i == paging.number ? 'active' : ''}">
+                    <a class="page-link" th:href="@{/quiz/list(page=${i})}" th:text="${i + 1}"></a>
+                </li>
+                <li class="page-item" th:class="${paging.hasNext() ? '' : 'disabled'}">
+                    <a class="page-link" th:href="@{/quiz/list(page=${paging.number + 1})}">다음</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>
