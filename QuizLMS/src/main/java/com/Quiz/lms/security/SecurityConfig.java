@@ -17,6 +17,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/register", "/login", "/css/**", "/js/**").permitAll() // 로그인 및 리소스는 인증 없이 접근 가능
@@ -31,12 +32,14 @@ public class SecurityConfig {
                 )
                 .logout(logout ->
                         logout
+                                .logoutUrl("/logout")
                                 .logoutSuccessUrl("/login?logout")
                                 .permitAll()
                 );
 
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
