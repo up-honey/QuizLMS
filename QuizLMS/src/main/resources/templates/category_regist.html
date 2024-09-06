@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>카테고리 등록</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>카테고리 등록</h1>
+    <form th:action="@{/category/create}" th:object="${categoryForm}" method="post">
+        <div class="form-group">
+            <label for="name">카테고리 이름</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" required>
+            <div th:if="${#fields.hasErrors('name')}" class="text-danger">
+                <span th:errors="*{name}">이름 오류</span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">등록</button>
+        <a href="/category/list" class="btn btn-secondary">목록으로 돌아가기</a>
+    </form>
+</div>
+</body>
+</html>
