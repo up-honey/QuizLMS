@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Quiz Results</title>
+</head>
+<body>
+<h1>Quiz Results</h1>
+<div th:each="result : ${results}">
+  <p>
+    Question: <span th:text="${result.quiz.question}"></span><br/>
+    Your Answer: <span th:text="${result.answerGiven}"></span><br/>
+    Correct Answer: <span th:text="${result.quiz.answer}"></span><br/>
+    Result: <span th:text="${result.correct ? 'Correct' : 'Incorrect'}"></span>
+  </p>
+</div>
+<a th:href="@{/quiz/category/{categoryName}(categoryName=${results[0].quiz.category.name})}">Take Another Quiz</a>
+</body>
+</html>
