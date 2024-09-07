@@ -16,13 +16,23 @@ const Quiz = () => {
     };
 
     return (
-        <div className="quiz-container">
-            <QuizQuestion question={question} />
-            <QuizOptions
-                options={options}
-                selectedOption={selectedOption}
-                onSelectOption={handleSelectOption}
-            />
+        <div className="wrapper">
+            <div className="status-bar">
+                <div className="status-item">남은 개수: 9개</div>
+                <div className="status-item">맞힌 개수: 1개</div>
+                <div className="status-item">현재 순위: 3등</div>
+            </div>
+            <div className="timer-bar">
+                <div className="timer" style={{ width: '50%' }}></div>
+            </div>
+            <div className="quiz-container">
+                <QuizQuestion question={question} />
+                <QuizOptions
+                    options={options}
+                    selectedOption={selectedOption}
+                    onSelectOption={handleSelectOption}
+                />
+            </div>
         </div>
     );
 };

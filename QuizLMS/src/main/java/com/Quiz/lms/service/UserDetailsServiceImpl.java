@@ -22,7 +22,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return new User(member.getUsername(), member.getPassword(), new ArrayList<>()); // 유저 정보를 반환
+//        return new User(member.getUsername(), member.getPassword(), new ArrayList<>()); // 유저 정보를 반환
+        return org.springframework.security.core.userdetails.User
+                .withUsername(member.getUsername())
+                .password(member.getPassword())
+//                .roles(member.getRoles().toArray(new String[0]))
+                .build();
     }
 }
 
