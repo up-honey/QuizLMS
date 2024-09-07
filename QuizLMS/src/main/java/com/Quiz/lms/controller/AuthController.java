@@ -64,27 +64,30 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/check-email")
-    public ResponseEntity<Map<String, Object>> checkEmail(@RequestParam String email) {
-        boolean isTaken = memberRepository.findByEmail(email).isPresent();
-        Map<String, Object> response = new HashMap<>();
-        response.put("available", !isTaken);
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/check-nickname")
-    public ResponseEntity<Map<String, Object>> checkNickname(@RequestParam String nickname) {
-        boolean isTaken = memberRepository.findByNickname(nickname).isPresent();
-        Map<String, Object> response = new HashMap<>();
-        response.put("available", !isTaken);
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/check-phone-number")
-    public ResponseEntity<Map<String, Object>> checkPhoneNumber(@RequestParam String phoneNumber) {
-        boolean isTaken = memberRepository.findByPhoneNumber(phoneNumber).isPresent();
-        Map<String, Object> response = new HashMap<>();
-        response.put("available", !isTaken);
-        return ResponseEntity.ok(response);
-    }
+//    @GetMapping("/check-email")
+//    @ResponseBody
+//    public ResponseEntity<Map<String, Object>> checkEmail(@RequestParam String email) {
+//        boolean isTaken = memberRepository.findByEmail(email).isPresent();
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("available", !isTaken);
+//        return ResponseEntity.ok(response);
+//    }
+//
+//    @GetMapping("/check-nickname")
+//    @ResponseBody
+//    public ResponseEntity<Map<String, Object>> checkNickname(@RequestParam String nickname) {
+//        boolean isTaken = memberRepository.findByNickname(nickname).isPresent();
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("available", !isTaken);
+//        return ResponseEntity.ok(response);
+//    }
+//
+//    @GetMapping("/check-phone-number")
+//    @ResponseBody
+//    public ResponseEntity<Map<String, Object>> checkPhoneNumber(@RequestParam String phoneNumber) {
+//        boolean isTaken = memberRepository.findByPhoneNumber(phoneNumber).isPresent();
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("available", !isTaken);
+//        return ResponseEntity.ok(response);
+//    }
 }
