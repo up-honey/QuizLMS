@@ -57,7 +57,6 @@ public class AuthController {
 
     // 중복 검사 메소드 추가
     @GetMapping("/check-username")
-    @ResponseBody
     public ResponseEntity<Map<String, Object>> checkUsername(@RequestParam String username) {
         boolean isTaken = memberRepository.findByUsername(username).isPresent();
         Map<String, Object> response = new HashMap<>();
