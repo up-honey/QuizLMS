@@ -14,7 +14,7 @@
 - 🎨 프론트엔드: React.js
 - 🖥 백엔드: Node.js, Express, Spring Boot
 - 💾 데이터베이스: Oracle
-- 🔐 인증: JWT, Spring Security
+- 🔐 인증: RememberMe, Spring Security
 
 ## 📥 사용 방법
 1. 저장소를 클론합니다
