@@ -64,6 +64,8 @@ function Header({ isLoggedln, setIsLoggedIn, username}) {
                         <Link to="/quiz">퀴즈 테스트 페이지 이동</Link>
                         </>
                     )}
+
+                <Link to="/chat">    챗봇</Link>
                 </nav>
             </div>
         </div>
