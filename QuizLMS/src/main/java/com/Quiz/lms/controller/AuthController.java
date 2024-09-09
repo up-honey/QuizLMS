@@ -1,5 +1,6 @@
 package com.Quiz.lms.controller;
 
+import com.Quiz.lms.domain.Member;
 import com.Quiz.lms.dto.MemberDTO;
 import com.Quiz.lms.service.MemberService;
 import com.Quiz.lms.repository.MemberRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class AuthController {
@@ -50,10 +52,17 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(MemberDTO memberDTO) {
-        // 로그인 처리 로직 추가
-        return "redirect:/";
+    public String login(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
+        Optional<Member> member = memberService.login(memberDTO.getUsername(), memberDTO.getPassword());
+        if (member.isPresent()) {
+            // 로그인 성공 시 처리 (세션 관리 등 필요)
+            return "redirect:/";
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Invalid username or password");
+            return "redirect:/login";
+        }
     }
+
 
     // 중복 검사 메소드 추가
     @GetMapping("/check-username")
