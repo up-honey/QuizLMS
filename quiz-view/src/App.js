@@ -6,6 +6,7 @@ import Footer from "./Componants/Footer";
 import Login from "./Componants/Login";
 import Join from "./Componants/Join";
 import QuizSelection from "./Componants/QuizSelection";
+import ChatBot from "./Componants/ChatBot"; // 새로 추가한 ChatBot 컴포넌트
 import api from "./Componants/api";
 
 function App() {
@@ -48,6 +49,8 @@ function App() {
             <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />} />
             {/* 회원가입 경로 */}
             <Route path="/join" element={<Join />} />
+            {/* 새로운 ChatBot 라우트 */}
+            <Route path="/chat" element={<ChatBot />} />
           </Routes>
         </div>
         {/* Footer는 모든 페이지에서 공통으로 보여줍니다 */}

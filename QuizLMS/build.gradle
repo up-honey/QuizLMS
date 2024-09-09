@@ -69,6 +69,7 @@ dependencies {
 	// MySQL JDBC 드라이버 추가
     implementation 'mysql:mysql-connector-java:8.0.32' // 사용 중인 MySQL 버전에 맞게 조정
 
+//	runtimeOnly 'mysql:mysql-connector-java'
 
 
 }
