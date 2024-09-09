@@ -10,15 +10,13 @@ import lombok.Setter;
 public class SelectedQuiz {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "quiz_seq")
-    @SequenceGenerator(name = "quiz_seq", sequenceName = "QUIZ_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @Column(name = "category_name")
     private String categoryName;
 
-    @Column(name = "quiz_id")
-    private Long quizId;
-
+    @ManyToOne
+    private Quiz quiz; // Quiz 엔티티를 참조
 }

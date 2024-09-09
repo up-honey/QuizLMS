@@ -1,5 +1,6 @@
 package com.Quiz.lms.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +31,7 @@ public class QuizService {
     private final CategoryRepository categoryRepository;
 
     //    퀴즈 등록
-    public void create(String CategoryName, String title, String answer ){
+    public void create(String CategoryName, String title, String answer, List<String> options  ){
        // 카테고리 이름으로 카테고리 레포지토리에서 카테고리를 찾아옴
         Category category = categoryRepository.findByName(CategoryName);
         // 퀴즈를 등록하기 위해 새로운 퀴즈를 생성후 값 세팅
@@ -38,9 +39,20 @@ public class QuizService {
         quiz.setCategory(category);
         quiz.setTitle(title);
         quiz.setAnswer(answer);
+        quiz.setOptions(options);
         // 생성한 퀴즈를 레포지토리를 사용하여 저장
         quizRepository.save(quiz);
     }
+    
+    //퀴즈 정답을 들고오는 메소드
+    public String getCorrectAnswer(long id) {
+    	return quizRepository.findById(id).getAnswer();
+    	
+    }
+    public Quiz getQuizById(long id) {
+    	return quizRepository.findById(id);
+    }
+
 
     // 카테고리 별로 퀴즈 10개 뽑기
     public Page<Quiz> selectTenQuiz(String CategoryName,int pageNumber,int pageSize){
@@ -48,11 +60,12 @@ public class QuizService {
       return quizPage;
     }
 
-    // 카테고리 별로 퀴즈 10개를 뽑지만 중복이 안되게 하는 메소드(클루드 제공)
     @Transactional
-    public Page<Quiz> selectUniqueQuizzes(String categoryName, int pageSize) {
+    public Page<SelectedQuiz> selectUniqueQuizzes(String categoryName, int pageSize) {
+        // 선택된 퀴즈 ID 목록을 가져옵니다.
         List<Long> selectedIds = selectedQuizRepository.findQuizIdsByCategoryName(categoryName);
 
+        // 퀴즈를 가져오는 대신 SelectedQuiz로 변경
         Page<Quiz> quizPage = quizRepository.findByCategoryNameAndIdNotIn(
                 categoryName,
                 new HashSet<>(selectedIds),
@@ -65,17 +78,23 @@ public class QuizService {
             quizPage = quizRepository.findByCategoryName(categoryName, PageRequest.of(0, pageSize));
         }
 
-        // 새로 선택된 퀴즈 ID 저장
+        // 새로 선택된 퀴즈를 저장할 리스트
+        List<SelectedQuiz> selectedQuizList = new ArrayList<>();
+        
         quizPage.getContent().forEach(quiz -> {
             SelectedQuiz selectedQuiz = new SelectedQuiz();
             selectedQuiz.setCategoryName(categoryName);
-            selectedQuiz.setQuizId(quiz.getId());
-            selectedQuizRepository.save(selectedQuiz);
+            selectedQuiz.setQuiz(quiz); // Quiz 객체를 설정
+            selectedQuiz = selectedQuizRepository.save(selectedQuiz); // DB에 저장한 SelectedQuiz 객체를 다시 가져옴
+            selectedQuizList.add(selectedQuiz); // 추가된 SelectedQuiz를 리스트에 저장
         });
 
-        return quizPage;
+        // SelectedQuiz 리스트를 Page로 변환
+        return new PageImpl<>(selectedQuizList, quizPage.getPageable(), quizPage.getTotalElements());
     }
 
+    
+    
     public Page<Quiz> getQuiz(Pageable pageable) {
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();

@@ -10,11 +10,10 @@ import lombok.Setter;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_seq")
-    @SequenceGenerator(name = "category_seq", sequenceName = "category_SEQ", allocationSize = 1)
-   @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // MySQL의 AUTO_INCREMENT 사용
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
-    private  String name;
+    private String name;
 }
