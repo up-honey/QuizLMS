@@ -13,7 +13,7 @@
 ## 🛠 기술 스택
 - 🎨 프론트엔드: React.js
 - 🖥 백엔드: Node.js, Express, Spring Boot
-- 💾 데이터베이스: Oracle
+- 💾 데이터베이스: MySql
 - 🔐 인증: RememberMe, Spring Security
 
 ## 📥 사용 방법
