@@ -14,10 +14,11 @@ function App() {
   const [username, setUsername] = useState('');
   
   useEffect(() => {
+
       const checkLoginStatus = async () => {
           try {
               const response = await api.get('/api/members/check');
-              if (response.status === 200 && response.data.loggedIn) {
+              if (response.status === 200 && response.data.loggedIn && response.data.username !== "anonymousUser") {
                   setIsLoggedIn(true);
                   setUsername(response.data.username);
               } else {
