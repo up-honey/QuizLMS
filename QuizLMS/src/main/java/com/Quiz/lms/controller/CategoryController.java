@@ -1,15 +1,17 @@
 package com.Quiz.lms.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.Quiz.lms.domain.Category;
 import com.Quiz.lms.dto.CategoryForm;
@@ -18,32 +20,36 @@ import com.Quiz.lms.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-@Controller
-@RequestMapping("/category")
+@RestController
+@RequestMapping("/api/category")
 @RequiredArgsConstructor
 public class CategoryController {
 
     private final CategoryService categoryService;
 
-    // 카테고리 등록 폼
-    @GetMapping("/create")
-    public String createForm(Model model) {
-        model.addAttribute("categoryForm", new CategoryForm());
-        return "category_regist"; // 카테고리 등록 페이지
-    }
-
-    // 카테고리 등록 처리
+    // 카테고리 등록
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute("categoryForm") CategoryForm categoryForm, 
-                         BindingResult bindingResult, 
-                         Model model) {
-        if (bindingResult.hasErrors()) {
-            return "category_regist"; // 오류가 있을 경우 등록 페이지로 돌아감
-        }
+    public ResponseEntity<String> create(@Valid @RequestBody CategoryForm categoryForm) {
         categoryService.create(categoryForm.getName());
-        return "redirect:/category/list"; // 등록 후 목록 페이지로 리다이렉트
+        return new ResponseEntity<>("Category created successfully", HttpStatus.CREATED);
     }
-
+    
+    
+    // 카테고리 등록 폼
+	/*
+	 * @GetMapping("/create") public String createForm(Model model) {
+	 * model.addAttribute("categoryForm", new CategoryForm()); return
+	 * "category_regist"; // 카테고리 등록 페이지 }
+	 */
+    // 카테고리 등록 처리
+	/*
+	 * @PostMapping("/create") public String
+	 * create(@Valid @ModelAttribute("categoryForm") CategoryForm categoryForm,
+	 * BindingResult bindingResult, Model model) { if (bindingResult.hasErrors()) {
+	 * return "category_regist"; // 오류가 있을 경우 등록 페이지로 돌아감 }
+	 * categoryService.create(categoryForm.getName()); return
+	 * "redirect:/category/list"; // 등록 후 목록 페이지로 리다이렉트 }
+	 */
     // 카테고리 수정 폼
     @GetMapping("/modify/{id}")
     public String modifyForm(@PathVariable("id") Long id, Model model) {

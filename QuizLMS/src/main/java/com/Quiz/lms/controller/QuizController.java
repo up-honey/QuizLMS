@@ -15,17 +15,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.Quiz.lms.domain.Category;
 import com.Quiz.lms.domain.Quiz;
 import com.Quiz.lms.domain.QuizResult;
 import com.Quiz.lms.domain.SelectedQuiz;
-import com.Quiz.lms.dto.CategoryForm;
 import com.Quiz.lms.dto.QuizForm;
 import com.Quiz.lms.repository.MemberRepository;
+import com.Quiz.lms.service.CategoryService;
 import com.Quiz.lms.service.QuizResultService;
 import com.Quiz.lms.service.QuizService;
 
@@ -40,11 +38,13 @@ public class QuizController {
     private final QuizService quizService;
     private final QuizResultService quizResultService;
     private final MemberRepository memberRepository;
+    private final CategoryService categoryService;
    
     // 퀴즈 등록 폼
     @GetMapping("/create")
     public String createForm(Model model) {
         model.addAttribute("quizForm", new QuizForm());
+        model.addAttribute("category", categoryService.getCategoryList());
         return "quiz_regist"; // 카테고리 등록 페이지
     }
 
@@ -54,9 +54,10 @@ public class QuizController {
                          BindingResult bindingResult, 
                          Model model) {
         if (bindingResult.hasErrors()) {
+        	model.addAttribute("category", categoryService.getCategoryList());
             return "quiz_regist"; // 오류가 있을 경우 등록 페이지로 돌아감
         }
-        quizService.create(quizForm.getCategoryName(), quizForm.getTitle(), quizForm.getAnswer(),quizForm.getOptions());
+        quizService.create(quizForm.getCategoryName(), quizForm.getTitle(), quizForm.getAnswer(), quizForm.getOptions());
         return "redirect:/quiz/list"; // 등록 후 목록 페이지로 리다이렉트
     }
 
@@ -152,14 +153,16 @@ public class QuizController {
         quizForm.setCategoryName(quizz.getCategory().getName());
         model.addAttribute("quizForm", quizForm);
         model.addAttribute("id", id);
+        model.addAttribute("category", categoryService.getCategoryList());
         return "quiz_modify"; // 카테고리 수정 페이지
     }
 
     // 퀴즈 수정 처리
     @PostMapping("/modify/{id}")
     public String modify(@PathVariable("id") Long id, 
-                         @ModelAttribute("quizForm") QuizForm quizForm) {
-
+                         @ModelAttribute("quizForm") QuizForm quizForm, Model model) {
+    	
+    	model.addAttribute("category", categoryService.getCategoryList());
         quizService.modify(id, quizForm.getTitle(), quizForm.getCategoryName(), quizForm.getAnswer());
         return "redirect:/quiz/list"; // 수정 후 목록 페이지로 리다이렉트
     }
