@@ -63,11 +63,11 @@ public class SecurityConfig {
         http	
             .authenticationProvider(authenticationProvider())
             .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers("/api/members/register", "/login", "/logout")
+                .ignoringRequestMatchers("/api/members/register", "/login", "/logout", "/api/chat")
             )
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    .requestMatchers("/api/members/register", "/api/members/check", "join", "/login", "/css/**", "/js/**").permitAll()
+                    .requestMatchers("/api/members/register", "/api/members/check", "join", "/login", "/css/**", "/js/**", "/api/chat").permitAll()
                     .anyRequest().authenticated()
             )
             .formLogin(formLogin ->
