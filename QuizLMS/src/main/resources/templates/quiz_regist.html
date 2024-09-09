@@ -12,8 +12,10 @@
             <label for="name">카테고리</label>
             <select class="form-control" id="categoryName" th:field="*{categoryName}" required>
           	  <option value="">카테고리를 선택하세요</option>
-           	 	<option th:if="${#fields.hasErrors('categoryName')}" class="text-danger">
-                <span th:errors="*{categoryName}">이름 오류</span>
+           	 	<option th:each="category : ${category}"
+                		th:value="${category.name}"
+               			 th:text="${category.name}">
+                
             </option>
             </select>
             <label for="name">제목</label>

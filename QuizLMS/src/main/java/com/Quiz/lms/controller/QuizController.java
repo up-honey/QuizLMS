@@ -54,7 +54,7 @@ public class QuizController {
         	model.addAttribute("category", categoryService.getCategoryList());
             return "quiz_regist"; // 오류가 있을 경우 등록 페이지로 돌아감
         }
-        quizService.create(quizForm.getCategoryId(), quizForm.getTitle(), quizForm.getAnswer());
+        quizService.create(quizForm.getCategoryName(), quizForm.getTitle(), quizForm.getAnswer());
         return "redirect:/quiz/list"; // 등록 후 목록 페이지로 리다이렉트
     }
 

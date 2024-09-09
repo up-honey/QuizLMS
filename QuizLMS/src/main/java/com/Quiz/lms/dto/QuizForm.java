@@ -13,6 +13,5 @@ public class QuizForm {
     private String categoryName;
     private String answer;
     
-    @NotNull(message = "카테고리는 필수 입력 항목입니다.")
-    private Long categoryId;
+
 }
