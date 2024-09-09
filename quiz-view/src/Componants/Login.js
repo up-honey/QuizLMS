@@ -9,24 +9,24 @@ function Login({ setIsLoggedIn, setUsername}) {
     const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
 
-    function getCsrfToken() {
-        return document.cookie.split('; ')
-        .find(row => row.startsWith('XSRF-TOKEN='))
-        ?.split('=')[1];
-    }
+    // function getCsrfToken() {
+    //     return document.cookie.split('; ')
+    //     .find(row => row.startsWith('XSRF-TOKEN='))
+    //     ?.split('=')[1];
+    // }
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+        
         try{
-            const csrfToken = getCsrfToken();
+            // const csrfToken = getCsrfToken();
             const response = await api.post(
                 '/login',
                 `username=${encodeURIComponent(loginUsername)}&password=${encodeURIComponent(password)}&remember-me=${rememberMe}`,
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-XSRF-TOKEN': csrfToken
+                        // 'X-XSRF-TOKEN': csrfToken
                     },
                     withCredentials: true // 자격 증명 포함
                 }

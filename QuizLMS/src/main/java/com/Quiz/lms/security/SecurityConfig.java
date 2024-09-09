@@ -23,9 +23,10 @@ public class SecurityConfig {
 
         http	
             .authenticationProvider(authenticationProvider())
-            .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers("/api/members/register", "/login", "/logout", "/api/chat")
-            )
+//            .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//                .ignoringRequestMatchers("/api/members/register", "/login", "/logout", "/api/chat")
+//            )
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
                     .requestMatchers("/api/members/register", "/api/members/check", "join", "/login", "/css/**", "/js/**", "/api/chat").permitAll()
