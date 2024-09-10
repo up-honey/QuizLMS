@@ -25,7 +25,7 @@ public class CategoryRestController {
 
     // 특정 카테고리 조회
     @GetMapping("/{id}")
-    public Category getCategory(@PathVariable Long id) {
+    public Category getCategory(@PathVariable("id") Long id) { // @PathVariable에 경로 변수 이름 명시
         return categoryService.getCategory(id);
     }
 
@@ -38,7 +38,7 @@ public class CategoryRestController {
 
     // 카테고리 수정
     @PutMapping("/modify/{id}")
-    public String modifyCategory(@PathVariable Long id, @RequestBody CategoryForm categoryForm) {
+    public String modifyCategory(@PathVariable("id") Long id, @RequestBody CategoryForm categoryForm) {
         Category category = categoryService.getCategory(id);
         categoryService.modify(category, categoryForm.getName());
         return "Category updated successfully";
@@ -46,8 +46,9 @@ public class CategoryRestController {
 
     // 카테고리 삭제
     @DeleteMapping("/delete/{id}")
-    public String deleteCategory(@PathVariable Long id) {
+    public String deleteCategory(@PathVariable("id") Long id) {
         categoryService.delete(id);
         return "Category deleted successfully";
     }
 }
+
