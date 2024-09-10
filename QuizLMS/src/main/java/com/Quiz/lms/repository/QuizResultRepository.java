@@ -12,4 +12,5 @@ public interface QuizResultRepository extends JpaRepository<QuizResult, Long> {
     List<QuizResult> findByUserIdAndQuizCategoryName(Long userId, String categoryName);
     Page<QuizResult> findByUserId(Long userid, Pageable page);
     List<QuizResult> findByUserId(Long userid);
+    List<QuizResult> findByQuizId(Long quizid);
 }

@@ -5,6 +5,12 @@
 </head>
 <body>
 <h1 th:text="${quiz.category.name} + ' Quiz'"></h1>
+
+<!-- 정답률 표시 -->
+<div>
+    <h3>정답률: <span th:text="${radio} + '%'"></span></h3>
+</div>
+
 <form th:action="@{/quiz/submit}" method="post">
     <input type="hidden" name="categoryName" th:value="${quiz.category.name}" />
     <div th:each="quiz, stat : ${quiz}">
@@ -19,7 +25,7 @@
         </div>
     </div>
     <!-- Submit 버튼 삭제 -->
-	<a th:href="@{/result/list}" class="btn btn-info">돌아가기</a>
+    <a th:href="@{/result/list}" class="btn btn-info">돌아가기</a>
 </form>
 </body>
 </html>

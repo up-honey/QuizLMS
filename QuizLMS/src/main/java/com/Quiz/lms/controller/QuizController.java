@@ -152,6 +152,8 @@ public class QuizController {
     @GetMapping("/solution/{id}")
     public String getTrueQuiz(@PathVariable("id") Long quizId, Model model) {
         Quiz quiz = quizService.getQuizById(quizId); // ID로 퀴즈 가져오기
+        Double radio = quizResultService.getQuizCorrectRadio(quizId);//정답률 계산하는 메소드
+        model.addAttribute("radio", radio); // 모델에 정답률 추가
         model.addAttribute("quiz", quiz); // 모델에 퀴즈 추가
         return "quiz_solution"; // 퀴즈 상세 페이지로 이동
     }

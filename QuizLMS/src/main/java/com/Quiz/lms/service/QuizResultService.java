@@ -75,6 +75,30 @@ public class QuizResultService {
     	return quizResultRepository.findByUserId(userId, pageable);
     }
     
+    
+    
+    public double getQuizCorrectRadio(Long quizID) {
+        // 전체 퀴즈 결과를 가져옵니다.
+        List<QuizResult> quizResults = quizResultRepository.findByQuizId(quizID);
+        
+        // 정답 수와 전체 수를 계산합니다.
+        int correctCount = 0;
+        int totalCount = quizResults.size();
+
+        for (QuizResult result : quizResults) {
+            if (result.isCorrect()) { // isCorrect() 메소드는 정답 여부를 반환한다고 가정합니다.
+                correctCount++;
+            }
+        }
+
+        // 정답률 계산
+       double correctRate = (totalCount > 0) ? (double) correctCount / totalCount * 100 : 0.0;
+       return correctRate;
+    }
+    
+    
+    
+    
     public List<QuizResult> getAllResultsByUserId(Long userId){
     	
          // 모든 결과를 가져옵니다
