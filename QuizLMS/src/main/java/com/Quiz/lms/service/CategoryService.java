@@ -52,7 +52,9 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-
+    // 카테고리 목록 조회 (페이징 처리)
+ 
+    
     public Page<Category> getCategories(Pageable pageable) {
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
@@ -64,6 +66,9 @@ public class CategoryService {
         
         return new PageImpl<>(categories, pageable, total);
     }
+    
+    // 카테고리 목록 조회 (페이징 처리, PageRequest 직접 사용)
+
     
     public Page<Category> getCategory(int page) {
     	Pageable pageable = PageRequest.of(page, 10);

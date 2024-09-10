@@ -18,6 +18,9 @@ repositories {
 }
 
 dependencies {
+	//Spring Boot 페이징 데이터 HATEOAS
+	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+
 	// Spring Boot 스타터 - 웹 애플리케이션 개발
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 

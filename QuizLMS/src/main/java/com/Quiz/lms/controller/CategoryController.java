@@ -1,13 +1,17 @@
 package com.Quiz.lms.controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,17 +28,47 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/category")
 @RequiredArgsConstructor
 public class CategoryController {
-
+	@Autowired
     private final CategoryService categoryService;
 
-    // 카테고리 등록
+//	private final PagedResourcesAssembler<Category> assembler;
+
+	
+	// 카테고리 등록
     @PostMapping("/create")
     public ResponseEntity<String> create(@Valid @RequestBody CategoryForm categoryForm) {
         categoryService.create(categoryForm.getName());
         return new ResponseEntity<>("Category created successfully", HttpStatus.CREATED);
     }
     
+    // 카테고리 수정
+    @PutMapping("/modify/{id}")
+    public ResponseEntity<String> modify(@PathVariable("id") Long id, 
+                                          @Valid @RequestBody CategoryForm categoryForm) {
+        Category category = categoryService.getCategory(id);
+        categoryService.modify(category, categoryForm.getName());
+        return new ResponseEntity<>("Category updated successfully", HttpStatus.OK);
+    }
     
+    // 카테고리 삭제
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        categoryService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+    
+    @GetMapping("/list")
+    public ResponseEntity<Page<Category>> getCategories(
+            @RequestParam(value="page", defaultValue = "0") int page,
+            @RequestParam(value="size", defaultValue = "10") int size) {
+        
+        Page<Category> categories = categoryService.getCategories(PageRequest.of(page, size));
+        return ResponseEntity.ok(categories);
+    }
+  }
+
+
+
     // 카테고리 등록 폼
 	/*
 	 * @GetMapping("/create") public String createForm(Model model) {
@@ -50,42 +84,43 @@ public class CategoryController {
 	 * categoryService.create(categoryForm.getName()); return
 	 * "redirect:/category/list"; // 등록 후 목록 페이지로 리다이렉트 }
 	 */
+    
     // 카테고리 수정 폼
-    @GetMapping("/modify/{id}")
-    public String modifyForm(@PathVariable("id") Long id, Model model) {
-        Category category = categoryService.getCategory(id);
-        model.addAttribute("categoryForm", category);
-        model.addAttribute("id", id);
-        return "category_modify"; // 카테고리 수정 페이지
-    }
+//    @GetMapping("/modify/{id}")
+//    public String modifyForm(@PathVariable("id") Long id, Model model) {
+//        Category category = categoryService.getCategory(id);
+//        model.addAttribute("categoryForm", category);
+//        model.addAttribute("id", id);
+//        return "category_modify"; // 카테고리 수정 페이지
+//    }
 
     // 카테고리 수정 처리
-    @PostMapping("/modify/{id}")
-    public String modify(@PathVariable("id") Long id, 
-                         @ModelAttribute("categoryForm") CategoryForm categoryForm) {
-        Category category = categoryService.getCategory(id);
-        categoryService.modify(category, categoryForm.getName());
-        
-        return "redirect:/category/list"; // 수정 후 목록 페이지로 리다이렉트
-    }
+//    @PostMapping("/modify/{id}")
+//    public String modify(@PathVariable("id") Long id, 
+//                         @ModelAttribute("categoryForm") CategoryForm categoryForm) {
+//        Category category = categoryService.getCategory(id);
+//        categoryService.modify(category, categoryForm.getName());
+//        
+//        return "redirect:/category/list"; // 수정 후 목록 페이지로 리다이렉트
+//    }
 
     // 카테고리 삭제
-    @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
-        categoryService.delete(id);
-        return "redirect:/category/list"; // 삭제 후 목록 페이지로 리다이렉트
-    }
+//    @GetMapping("/delete/{id}")
+//    public String delete(@PathVariable("id") Long id) {
+//        categoryService.delete(id);
+//        return "redirect:/category/list"; // 삭제 후 목록 페이지로 리다이렉트
+//    }
 
 	 
-	 @GetMapping("/list") 
-	 public String getCategories(Model model, @RequestParam(value="page", defaultValue = "0") int page,
-	 @RequestParam(value="size",defaultValue = "10") int size) { 
-	 Page<Category> categories = categoryService.getCategories(PageRequest.of(page, size));
-	 //model.addAttribute("categories", categories.getContent());
-	 model.addAttribute("paging", categories); // Add paging information return
-	 return "category_list";
-	  }
+//	 @GetMapping("/list") 
+//	 public String getCategories(Model model, @RequestParam(value="page", defaultValue = "0") int page,
+//	 @RequestParam(value="size",defaultValue = "10") int size) { 
+//	 Page<Category> categories = categoryService.getCategories(PageRequest.of(page, size));
+//	 //model.addAttribute("categories", categories.getContent());
+//	 model.addAttribute("paging", categories); // Add paging information return
+//	 return "category_list";
+//	  }
 	
-}
+
 
 

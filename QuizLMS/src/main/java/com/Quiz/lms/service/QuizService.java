@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.Quiz.lms.domain.Category;
 import com.Quiz.lms.domain.Quiz;
 import com.Quiz.lms.domain.SelectedQuiz;
-import com.Quiz.lms.dto.QuizForm;
 import com.Quiz.lms.repository.CategoryRepository;
 import com.Quiz.lms.repository.QuizRepository;
 import com.Quiz.lms.repository.SelectedQuizRepository;
@@ -24,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+
 public class QuizService {
 
     private final QuizRepository quizRepository;
@@ -31,7 +31,8 @@ public class QuizService {
     private final CategoryRepository categoryRepository;
 
     //    퀴즈 등록
-    public void create(String CategoryName, String title, String answer, List<String> options  ){
+    @Transactional
+    public Quiz create(String CategoryName, String title, String answer, List<String> options  ){
        // 카테고리 이름으로 카테고리 레포지토리에서 카테고리를 찾아옴
         Category category = categoryRepository.findByName(CategoryName);
         // 퀴즈를 등록하기 위해 새로운 퀴즈를 생성후 값 세팅
@@ -41,7 +42,7 @@ public class QuizService {
         quiz.setAnswer(answer);
         quiz.setOptions(options);
         // 생성한 퀴즈를 레포지토리를 사용하여 저장
-        quizRepository.save(quiz);
+        return quizRepository.save(quiz);
     }
     
     //퀴즈 정답을 들고오는 메소드
@@ -114,17 +115,30 @@ public class QuizService {
     }
     
 //  퀴즈 수정
-    public void modify( Long id, String title, String categoryName, String answer){
-    	Optional<Quiz> quiz = quizRepository.findById(id);
-    	
-    	Category category = categoryRepository.findByName(categoryName);
-    	
-        quiz.get().setTitle(title);
-    	
-        quiz.get().setCategory(category);
-        quiz.get().setAnswer(answer);
-        quizRepository.save(quiz.get());
-    }
+	/*
+	 * @Transactional public Quiz modify(Long id, String title, String categoryName,
+	 * String answer) { Quiz quiz = quizRepository.findById(id) .orElseThrow(() ->
+	 * new ResourceNotFoundException("Quiz not found with id: " + id));
+	 * 
+	 * Category category = categoryRepository.findByName(categoryName)
+	 * .orElseThrow(() -> new
+	 * ResourceNotFoundException("Category not found with name: " + categoryName));
+	 * 
+	 * quiz.setTitle(title); quiz.setCategory(category); quiz.setAnswer(answer);
+	 * 
+	 * return quizRepository.save(quiz); }
+	 */
+//    public void modify( Long id, String title, String categoryName, String answer){
+//    	Optional<Quiz> quiz = quizRepository.findById(id);
+//    	
+//    	Category category = categoryRepository.findByName(categoryName);
+//    	
+//        quiz.get().setTitle(title);
+//    	
+//        quiz.get().setCategory(category);
+//        quiz.get().setAnswer(answer);
+//        quizRepository.save(quiz.get());
+//    }
     
 //  카테고리 삭제
     public void delete(Long id){
