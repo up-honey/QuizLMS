@@ -90,39 +90,6 @@
         });
       });
 
-      $('#email').on('blur', function() {
-        var email = $(this).val();
-        checkDuplicate('/check-email', email, function(available) {
-          if (!available) {
-            $('#email').siblings('.error').text('Email is already registered.');
-          } else {
-            $('#email').siblings('.error').text('');
-          }
-        });
-      });
-
-      $('#nickname').on('blur', function() {
-        var nickname = $(this).val();
-        checkDuplicate('/check-nickname', nickname, function(available) {
-          if (!available) {
-            $('#nickname').siblings('.error').text('Nickname is already taken.');
-          } else {
-            $('#nickname').siblings('.error').text('');
-          }
-        });
-      });
-
-      $('#phoneNumber').on('blur', function() {
-        var phoneNumber = $(this).val();
-        checkDuplicate('/check-phone-number', phoneNumber, function(available) {
-          if (!available) {
-            $('#phoneNumber').siblings('.error').text('Phone number is already in use.');
-          } else {
-            $('#phoneNumber').siblings('.error').text('');
-          }
-        });
-      });
-
       // 폼 제출 전 유효성 검사
       $('form').on('submit', function(e) {
         var valid = true;

@@ -32,7 +32,7 @@ const ChatBot = () => {
       
       const assistantMessage = { 
         role: 'assistant', 
-        content: response.data.response || '응답을 받지 못했습니다.'
+        content: response.data.response || '응답을 받지 못했습니다바오.'
       };
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
@@ -41,7 +41,7 @@ const ChatBot = () => {
       
       const errorMessage = { 
         role: 'assistant', 
-        content: `API 호출 중 오류가 발생했습니다: ${error.response ? error.response.status : 'Unknown'} - ${error.response ? error.response.data.error : error.message}` 
+        content: `API 호출 중 오류가 발생했습니다바오: ${error.response ? error.response.status : 'Unknown'} - ${error.response ? error.response.data.error : error.message}` 
       };
       setMessages(prev => [...prev, errorMessage]);
     }
@@ -50,7 +50,7 @@ const ChatBot = () => {
   return (
     <div className="chat-container">
       <h1>🐼 푸바오와 대화해요</h1>
-      <p>안녕하세요! 저는 판다 푸바오예요. 함께 이야기 나눠볼까요?</p>
+      <p>안녕하세요! 저는 판다 푸바오예요. 함께 이야기 나눠볼까요바오?</p>
       
       <div className="chat-layout">
         <div className="chat-messages" ref={chatContainerRef}>
@@ -68,7 +68,7 @@ const ChatBot = () => {
             } 
             alt={isRedPanda ? "래서판다" : "푸바오"}
           />
-          <p>{isRedPanda ? "나는 사실 래서판다예요!" : "푸바오예요!"}</p>
+          <p>{isRedPanda ? "나는 사실 래서판다예요!" : "푸바오예요바오!"}</p>
         </div>
       </div>
 
@@ -77,12 +77,13 @@ const ChatBot = () => {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="여기에 메시지를 입력해주세요..."
+          placeholder="여기에 메시지를 입력해주세요바오..."
         />
-        <button type="submit">전송</button>
+        <button type="submit">전송바오</button>
       </form>
     </div>
-  );
+  ); 
 };
 
 export default ChatBot;
+

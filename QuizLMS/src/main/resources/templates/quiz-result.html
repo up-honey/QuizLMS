@@ -31,5 +31,9 @@
     </form>
 
     <a th:href="@{/quiz/category/{categoryName}(categoryName=${results[0].quiz.category.name})}">Take Another Quiz</a>
+    
+    <form action="/result/list" method="get">
+        <button type="submit" class="nav-link btn btn-link">퀴즈 결과 조회</button>
+    </form>
 </body>
 </html>

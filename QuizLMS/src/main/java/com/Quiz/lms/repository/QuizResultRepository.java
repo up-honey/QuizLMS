@@ -1,11 +1,16 @@
 package com.Quiz.lms.repository;
 
-import com.Quiz.lms.domain.Member;
-import com.Quiz.lms.domain.QuizResult;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import com.Quiz.lms.domain.QuizResult;
 
 public interface QuizResultRepository extends JpaRepository<QuizResult, Long> {
     List<QuizResult> findByUserIdAndQuizCategoryName(Long userId, String categoryName);
+    Page<QuizResult> findByUserId(Long userid, Pageable page);
+    List<QuizResult> findByUserId(Long userid);
+    List<QuizResult> findByQuizId(Long quizid);
 }
