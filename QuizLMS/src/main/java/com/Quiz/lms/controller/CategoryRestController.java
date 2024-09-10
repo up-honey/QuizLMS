@@ -6,9 +6,9 @@ import com.Quiz.lms.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/category")
@@ -19,36 +19,37 @@ public class CategoryRestController {
 
     // 카테고리 목록 조회 (페이징 지원)
     @GetMapping("/list")
-    public Page<Category> getCategories(Pageable pageable) {
-        return categoryService.getCategories(pageable);
+    public ResponseEntity<Page<Category>> getCategories(Pageable pageable) {
+        Page<Category> categories = categoryService.getCategories(pageable);
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
     // 특정 카테고리 조회
     @GetMapping("/{id}")
-    public Category getCategory(@PathVariable("id") Long id) { // @PathVariable에 경로 변수 이름 명시
-        return categoryService.getCategory(id);
+    public ResponseEntity<Category> getCategory(@PathVariable("id") Long id) {
+        Category category = categoryService.getCategory(id);
+        return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
     // 카테고리 생성
     @PostMapping("/create")
-    public String createCategory(@RequestBody CategoryForm categoryForm) {
+    public ResponseEntity<String> createCategory(@RequestBody CategoryForm categoryForm) {
         categoryService.create(categoryForm.getName());
-        return "Category created successfully";
+        return new ResponseEntity<>("Category created successfully", HttpStatus.CREATED);
     }
 
     // 카테고리 수정
     @PutMapping("/modify/{id}")
-    public String modifyCategory(@PathVariable("id") Long id, @RequestBody CategoryForm categoryForm) {
+    public ResponseEntity<String> modifyCategory(@PathVariable("id") Long id, @RequestBody CategoryForm categoryForm) {
         Category category = categoryService.getCategory(id);
         categoryService.modify(category, categoryForm.getName());
-        return "Category updated successfully";
+        return new ResponseEntity<>("Category updated successfully", HttpStatus.OK);
     }
 
     // 카테고리 삭제
     @DeleteMapping("/delete/{id}")
-    public String deleteCategory(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteCategory(@PathVariable("id") Long id) {
         categoryService.delete(id);
-        return "Category deleted successfully";
+        return new ResponseEntity<>("Category deleted successfully", HttpStatus.NO_CONTENT);
     }
 }
-
