@@ -61,8 +61,8 @@ public class QuizController {
     }
 
 
-    @GetMapping("/category")
-    public String getQuizzesByCategory(Model model, @RequestParam(value="categoryName") String categoryName) {
+    @GetMapping("/category/{categoryName}")
+    public String getQuizzesByCategory(Model model, @PathVariable(value="categoryName") String categoryName) {
         Page<SelectedQuiz> quizzes = quizService.selectUniqueQuizzes(categoryName, 10);
         model.addAttribute("quizzes", quizzes.getContent());
         model.addAttribute("categoryName", categoryName);

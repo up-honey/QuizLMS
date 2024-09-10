@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>퀴즈 결과</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>내 퀴즈 결과</h2>
+
+    <!-- 전체 퀴즈와 맞춘 퀴즈 수 표시 -->
+    <div class="alert alert-info">
+        <strong>총 퀴즈 수:</strong> <span th:text="${totalQuizCount}">0</span> |
+        <strong>맞춘 퀴즈 수:</strong> <span th:text="${correctQuizCount}">0</span>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>퀴즈 제목</th>
+                <th>카테고리</th>
+                <th>정답 여부</th>
+                <th>제출한 답변</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="result : ${paging.content}">
+                <td th:text="${result.quiz.title}">퀴즈 제목</td>
+                <td th:text="${result.quiz.category.name}">카테고리</td>
+                <td th:text="${result.correct ? '정답' : '오답'}">정답 여부</td>
+                <td th:text="${result.answerGiven}">제출한 답변</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 페이지네이션 -->
+    <nav>
+        <ul class="pagination">
+            <li class="page-item" th:class="${paging.hasPrevious() ? '' : 'disabled'}">
+                <a class="page-link" th:href="@{/result/list(page=${paging.number - 1})}">이전</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, paging.totalPages - 1)}"
+                th:class="${i == paging.number ? 'active' : ''}">
+                <a class="page-link" th:href="@{/result/list(page=${i})}" th:text="${i + 1}"></a>
+            </li>
+            <li class="page-item" th:class="${paging.hasNext() ? '' : 'disabled'}">
+                <a class="page-link" th:href="@{/result/list(page=${paging.number + 1})}">다음</a>
+            </li>
+        </ul>
+    </nav>
+
+    <a href="/quiz" class="btn btn-primary">퀴즈 목록으로 돌아가기</a>
+</div>
+</body>
+</html>
