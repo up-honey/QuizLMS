@@ -16,7 +16,7 @@
     <p>퀴즈 카테고리를 선택해주세요!</p>
     <div class="row">
         <div class="col-md-4">
-            <a href="/quiz-page.html" onclick="loadQuiz('english')" class="btn btn-primary btn-block">English</a>
+            <a th:href="@{/quiz/category/{categoryName}(categoryName=${'국어'})}" onclick="loadQuiz('english')" class="btn btn-primary btn-block">국어</a>
         </div>
         <div class="col-md-4">
             <a href="#" onclick="loadQuiz('korean-history')" class="btn btn-primary btn-block">Korean History</a>

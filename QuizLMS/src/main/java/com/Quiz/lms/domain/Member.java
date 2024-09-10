@@ -12,8 +12,7 @@ import lombok.Setter;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
-    @SequenceGenerator(name = "member_seq", sequenceName = "MEMBER_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // MySQL의 AUTO_INCREMENT 사용
     @Column(name = "id")
     private Long id;
 
@@ -28,17 +27,4 @@ public class Member {
     @Column(name = "name", nullable = false)
     @NotBlank(message = "Name is mandatory")
     private String name;
-
-//    @Column(name = "phone_number", nullable = false, unique = true)
-//    @NotBlank(message = "Phone number is mandatory")
-//    private String phoneNumber;
-//
-//    @Column(name = "email", nullable = false, unique = true)
-//    @NotBlank(message = "Email is mandatory")
-//    @Email(message = "Email should be valid")
-//    private String email;
-//
-//    @Column(name = "nickname", nullable = false, unique = true)
-//    @NotBlank(message = "Nickname is mandatory")
-//    private String nickname;
 }

@@ -12,8 +12,7 @@ import java.time.LocalDateTime;
 public class QuizResult {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "quizResult_seq")
-    @SequenceGenerator(name = "quizResult_seq", sequenceName = "QUIZRESULT_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // MySQL의 AUTO_INCREMENT 사용
     @Column(name = "id")
     private Long id;
 
@@ -24,8 +23,8 @@ public class QuizResult {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "is_correct")
-    private boolean isCorrect;
+    @Column(name = "correct")
+    private boolean correct;
 
     @Column(name = "answer_given")
     private String answerGiven;

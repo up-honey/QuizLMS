@@ -6,18 +6,18 @@ const api = axios.create({
 });
 
 // CSRF 토큰을 요청 헤더에 자동으로 추가
-api.interceptors.request.use(config => {
-    const csrfToken = getCsrfToken();
-    if (csrfToken) {
-        config.headers['X-XSRF-TOKEN'] = csrfToken;
-    }
-    return config;
-});
+// api.interceptors.request.use(config => {
+//     const csrfToken = getCsrfToken();
+//     if (csrfToken) {
+//         config.headers['X-XSRF-TOKEN'] = csrfToken;
+//     }
+//     return config;
+// });
 
-function getCsrfToken() {
-    return document.cookie.split('; ')
-    .find(row => row.startsWith('XSRF-TOKEN='))
-    ?.split('=')[1];
-}
+// function getCsrfToken() {
+//     return document.cookie.split('; ')
+//     .find(row => row.startsWith('XSRF-TOKEN='))
+//     ?.split('=')[1];
+// }
 
 export default api;

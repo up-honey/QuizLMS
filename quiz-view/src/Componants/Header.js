@@ -11,7 +11,7 @@ function Header({ isLoggedln, setIsLoggedIn, username}) {
         try{
             const response = await fetch('/logout', {
                 method: 'POST', // 스프링 시큐리티 로그아웃은 기본적으로 POST 요청
-                credentials: 'include' // 세션 쿠키를 포함하여 요청
+                //credentials: 'include' // 세션 쿠키를 포함하여 요청
             });
 
             if(response.ok){
@@ -31,7 +31,7 @@ function Header({ isLoggedln, setIsLoggedIn, username}) {
         <div className="quiz-header">
             <div className="wrapper">
                 <div className="quiz-icon">
-                    퀴즈 맞추기
+                    <Link to="/">퀴즈맞춰봐</Link>
                 </div>
                 <div className="quiz-info">
                     {/* 로그인 이름 처리 */}
@@ -52,11 +52,11 @@ function Header({ isLoggedln, setIsLoggedIn, username}) {
                 </div>
                 <nav className="gnb">
                     {/* 홈이 아닐 때 생성 */}
-                    {location.pathname !== "/" && (
+                    {/* {location.pathname !== "/" && (
                         <>
                         <Link to="/">Home</Link>
                         </>
-                    )}
+                    )} */}
 
                     {/* 현재 경로가 /quiz가 아닌 경우에만 '퀴즈 테스트 페이지 이동' 링크를 표시 */}
                     {location.pathname !== "/quiz" && (

@@ -11,30 +11,22 @@ import com.Quiz.lms.domain.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     Category findByName(String name);
-    
 
     void deleteById(long id);
-    
+
     // 페이징을 위한 메서드 추가
+    @Query(value = "SELECT * FROM Category ORDER BY id LIMIT :limit OFFSET :offset", 
+           nativeQuery = true)
+    List<Category> findAllWithPagination(@Param("offset") int offset,
+                                         @Param("limit") int limit);
 
-    @Query(value = "SELECT * FROM (SELECT a.*, ROWNUM rnum FROM (SELECT * FROM Category ORDER BY id) a WHERE ROWNUM <= :endRow) WHERE rnum > :startRow", 
-            nativeQuery = true)
-     List<Category> findAllWithPagination(@Param("startRow") int startRow,
-    		 								@Param("endRow") int endRow);
-    
-     
-     @Query(value = "SELECT COUNT(*) FROM Category", nativeQuery = true)
-     long countCategories();
+    @Query(value = "SELECT COUNT(*) FROM Category", nativeQuery = true)
+    long countCategories();
 
-    @Query(value = "SELECT * FROM ( " +
-            "SELECT a.*, ROWNUM rnum FROM ( " +
-            "SELECT * FROM Category ORDER BY id " +
-            ") a WHERE ROWNUM <= :endRow " +
-            ") WHERE rnum > :startRow", 
-    nativeQuery = true)
-Page<Category> findAllWithPagination(@Param("startRow") int startRow, 
-                                  @Param("endRow") int endRow, 
-                                  Pageable pageable);
-
+    @Query(value = "SELECT * FROM Category ORDER BY id LIMIT :limit OFFSET :offset", 
+           nativeQuery = true)
+    Page<Category> findAllWithPagination(@Param("offset") int offset, 
+                                         @Param("limit") int limit, 
+                                         Pageable pageable);
 
 }

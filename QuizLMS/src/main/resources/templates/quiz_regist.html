@@ -9,25 +9,31 @@
     <h1>퀴즈 등록</h1>
     <form th:action="@{/quiz/create}" th:object="${quizForm}" method="post">
         <div class="form-group">
-            <label for="name">카테고리 이름</label>
+            <label for="categoryName">카테고리 이름</label>
             <input type="text" id="categoryName" th:field="*{categoryName}" class="form-control" required>
             <div th:if="${#fields.hasErrors('categoryName')}" class="text-danger">
                 <span th:errors="*{categoryName}">이름 오류</span>
             </div>
-            <label for="name">제목</label>
+
+            <label for="title">제목</label>
             <input type="text" id="title" th:field="*{title}" class="form-control" required>
             <div th:if="${#fields.hasErrors('title')}" class="text-danger">
                 <span th:errors="*{title}">이름 오류</span>
             </div>
             
-            <label for="name">정답</label>
+            <label for="answer">정답</label>
             <input type="text" id="answer" th:field="*{answer}" class="form-control" required>
             <div th:if="${#fields.hasErrors('answer')}" class="text-danger">
                 <span th:errors="*{answer}">이름 오류</span>
             </div>
-            
-            
+
+            <label for="options">옵션 (쉼표로 구분)</label>
+            <input type="text" id="options" th:field="*{options}" class="form-control" placeholder="예: 옵션1, 옵션2, 옵션3" required>
+            <div th:if="${#fields.hasErrors('options')}" class="text-danger">
+                <span th:errors="*{options}">옵션 오류</span>
+            </div>
         </div>
+        
         <button type="submit" class="btn btn-primary">등록</button>
         <a href="/quiz/list" class="btn btn-secondary">목록으로 돌아가기</a>
     </form>
