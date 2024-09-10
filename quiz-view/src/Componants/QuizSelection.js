@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchCategories } from "./api";
 
@@ -12,7 +12,7 @@ function QuizSelection() {
         loadCategories();
     }, []);
 
-    return(
+    return (
         <div className="quiz-selection">
             <div className="wrapper">
                 <h1>언제나 재미있는 퀴즈!</h1>
@@ -20,14 +20,14 @@ function QuizSelection() {
                 <div className="quiz-category">
                     {categories.length > 0 ? (
                         categories.map((category, index) => (
-                        <Link
-                            key={category.id}
-                            to={`/quiz/${category.id}`}
-                            className={`category-item ${index % 2 === 0 ? 'blue' : 'yellow'}`} // 인덱스에 따라 색상 결정
-                        >
-                            <div className="icon">{index % 2 === 0 ? "💡" : "🤔"}</div>
-                            <span>{category.name}</span>
-                        </Link>
+                            <Link
+                                key={category.id}
+                                to={`/quiz/detail/${category.id}`} // 카테고리 ID를 URL에 추가
+                                className={`category-item ${index % 2 === 0 ? 'blue' : 'yellow'}`}
+                            >
+                                <div className="icon">{index % 2 === 0 ? "💡" : "🤔"}</div>
+                                <span>{category.name}</span>
+                            </Link>
                         ))
                     ) : (
                         <div>카테고리가 없습니다.</div>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import api from '../api'; // axios 대신 api 사용
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import api from '../api'; // axios 대신 api 사용
 
 const QuizList = () => {
     const [quizzes, setQuizzes] = useState([]);

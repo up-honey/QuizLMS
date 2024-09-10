@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Quiz from "./Componants/Quiz";
-import Header from "./Componants/Header";
-import Footer from "./Componants/Footer";
-import Login from "./Componants/Login";
-import Join from "./Componants/Join";
-import QuizSelection from "./Componants/QuizSelection";
-import ChatBot from "./Componants/ChatBot"; // 새로 추가한 ChatBot 컴포넌트
+import React, { useEffect, useState } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import api from "./Componants/api";
 import CategoryAll from "./Componants/CategoryAll"; // 카테고리 컴포넌트 import
+import ChatBot from "./Componants/ChatBot"; // 새로 추가한 ChatBot 컴포넌트
+import Footer from "./Componants/Footer";
+import Header from "./Componants/Header";
+import Join from "./Componants/Join";
+import Login from "./Componants/Login";
+import Quiz from "./Componants/Quiz";
 import QuizCreate from './Componants/quiz/QuizCreate'; // 퀴즈 등록 컴포넌트 import
-import QuizModify from './Componants/quiz/QuizModify'; // 퀴즈 수정 컴포넌트 import
+import QuizDetail from './Componants/quiz/QuizDetail';
 import QuizList from './Componants/quiz/QuizList'; // 퀴즈 목록 컴포넌트 import
+import QuizModify from './Componants/quiz/QuizModify'; // 퀴즈 수정 컴포넌트 import
+import QuizResults from './Componants/quiz/QuizResults';
+import QuizSolution from './Componants/quiz/QuizSolution';
 import QuizSubmit from './Componants/quiz/QuizSubmit'; // 퀴즈 제출 컴포넌트 import
+import QuizSelection from "./Componants/QuizSelection";
 
 function App() {
   const [isLoggedln, setIsLoggedIn] = useState(false);
@@ -77,6 +80,15 @@ function App() {
             <Route path="/quiz/modify/:id" element={<QuizModify />} />
             {/* 퀴즈 등록 경로 */}
             <Route path="/quiz/submit" element={<QuizSubmit />} />
+
+            {/* 퀴즈 상세 페이지 */}
+            <Route path="/quiz/detail/:id" element={<QuizDetail />} />
+
+            {/* 퀴즈 결과 페이지 */}
+            <Route path="/quiz/results" element={<QuizResults />} />
+
+            {/* 퀴즈 솔루션 페이지 */}
+            <Route path="/quiz/solution/:id" element={<QuizSolution />} />
 
             {/* 관리자인 경우에만 카테고리 경로가 렌더됨 */}
             {isAdmin && (

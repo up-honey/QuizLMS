@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.Quiz.lms.domain.Category;
 import com.Quiz.lms.domain.Quiz;
 import com.Quiz.lms.domain.SelectedQuiz;
-import com.Quiz.lms.dto.QuizForm;
 import com.Quiz.lms.repository.CategoryRepository;
 import com.Quiz.lms.repository.QuizRepository;
 import com.Quiz.lms.repository.SelectedQuizRepository;
@@ -126,6 +125,11 @@ public class QuizService {
 //  카테고리 삭제
     public void delete(Long id){
        quizRepository.deleteById(id);
+    }
+
+    public List<Quiz> getRandomQuizzesByCategory(Long categoryId, int limit) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getRandomQuizzesByCategory'");
     }
 
 }
