@@ -15,9 +15,10 @@
                 <input type="radio" th:name="'answer_' + ${stat.index}" th:value="${option}" />
                 <label th:text="${option}"></label>
             </div>
-        </div>
-    </div>
-    <button type="submit">Submit Quiz</button>
+           </div>
+           </div>
+    <button type="submit">제출하기</button>
 </form>
+<a href="/quiz" class="btn btn-primary">퀴즈 목록으로 돌아가기</a>
 </body>
 </html>

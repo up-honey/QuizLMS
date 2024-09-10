@@ -61,8 +61,8 @@ public class QuizController {
     }
 
 
-    @GetMapping("/category")
-    public String getQuizzesByCategory(Model model, @RequestParam(value="categoryName") String categoryName) {
+    @GetMapping("/category/{categoryName}")
+    public String getQuizzesByCategory(Model model, @PathVariable(value="categoryName") String categoryName) {
         Page<SelectedQuiz> quizzes = quizService.selectUniqueQuizzes(categoryName, 10);
         model.addAttribute("quizzes", quizzes.getContent());
         model.addAttribute("categoryName", categoryName);
@@ -141,6 +141,22 @@ public class QuizController {
 	 model.addAttribute("paging", quizz); // Add paging information return
 	 return "quiz_list";
 	  }
+    
+    @GetMapping("/detail/{id}")
+    public String getOneQuiz(@PathVariable("id") Long quizId, Model model) {
+        Quiz quiz = quizService.getQuizById(quizId); // ID로 퀴즈 가져오기
+        model.addAttribute("quiz", quiz); // 모델에 퀴즈 추가
+        return "quiz_detail"; // 퀴즈 상세 페이지로 이동
+    }
+    
+    @GetMapping("/solution/{id}")
+    public String getTrueQuiz(@PathVariable("id") Long quizId, Model model) {
+        Quiz quiz = quizService.getQuizById(quizId); // ID로 퀴즈 가져오기
+        Double radio = quizResultService.getQuizCorrectRadio(quizId);//정답률 계산하는 메소드
+        model.addAttribute("radio", radio); // 모델에 정답률 추가
+        model.addAttribute("quiz", quiz); // 모델에 퀴즈 추가
+        return "quiz_solution"; // 퀴즈 상세 페이지로 이동
+    }
 
  // 퀴즈 수정 폼
     @GetMapping("/modify/{id}")
@@ -164,7 +180,7 @@ public class QuizController {
         return "redirect:/quiz/list"; // 수정 후 목록 페이지로 리다이렉트
     }
     
-    // 카테고리 삭제
+    // 퀴즈 삭제
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         quizService.delete(id);
