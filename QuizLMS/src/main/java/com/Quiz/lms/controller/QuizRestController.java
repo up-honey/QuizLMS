@@ -59,8 +59,8 @@ public class QuizRestController {
     // 전체 퀴즈 목록 조회 (페이징 처리)
     @GetMapping("/list")
     public ResponseEntity<Page<Quiz>> getAllQuizzes(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(name="page", defaultValue = "0") int page,
+            @RequestParam(name="size", defaultValue = "10") int size) {
         Page<Quiz> quizzes = quizService.getQuiz(PageRequest.of(page, size));
         return ResponseEntity.ok(quizzes);
     }

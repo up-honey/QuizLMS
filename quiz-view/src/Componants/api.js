@@ -20,4 +20,14 @@ const api = axios.create({
 //     ?.split('=')[1];
 // }
 
+export const fetchCategories = async () => {
+  try {
+      const response = await api.get('/api/category/list');
+      return response.data.content;
+  } catch (error) {
+      console.error('카테고리 목록을 불러오는 중 오류 발생:', error);
+      throw error; // 에러를 throw하여 호출하는 곳에서 처리할 수 있도록 함
+  }
+};
+
 export default api;
