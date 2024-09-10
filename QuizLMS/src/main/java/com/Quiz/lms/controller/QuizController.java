@@ -62,8 +62,7 @@ public class QuizController {
 
 
     @GetMapping("/category")
-    public String getQuizzesByCategory(Model model) {
-        String categoryName = "국어";
+    public String getQuizzesByCategory(Model model, @RequestParam(value="categoryName") String categoryName) {
         Page<SelectedQuiz> quizzes = quizService.selectUniqueQuizzes(categoryName, 10);
         model.addAttribute("quizzes", quizzes.getContent());
         model.addAttribute("categoryName", categoryName);
@@ -125,7 +124,8 @@ public class QuizController {
         
         // 맞은 갯수 계산
         long correctCount = results.stream().filter(QuizResult::isCorrect).count();
-
+        
+        model.addAttribute("userId", userId);
         model.addAttribute("results", results);
         model.addAttribute("count", results.size());
         model.addAttribute("correctCount", correctCount);
