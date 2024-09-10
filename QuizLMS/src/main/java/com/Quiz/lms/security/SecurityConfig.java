@@ -70,7 +70,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    .requestMatchers("/api/members/register", "/api/members/check", "register", "category", "join", "/login", "/css/**", "/js/**", "/api/chat", "/api/**").permitAll()
+                    .requestMatchers("/api/members/register", "/api/members/check", "register", "category", "join", "/login", "/css/**"
+                            , "/js/**", "/api/chat", "/api/**", "/quiz/**").permitAll()
                     .anyRequest().authenticated()
             )
             .formLogin(formLogin ->

@@ -40,7 +40,7 @@ public class QuizController {
     private final QuizService quizService;
     private final QuizResultService quizResultService;
     private final MemberRepository memberRepository;
-   
+
     // 퀴즈 등록 폼
     @GetMapping("/create")
     public String createForm(Model model) {
@@ -50,8 +50,8 @@ public class QuizController {
 
     // 퀴즈 등록 처리
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute("quizForm") QuizForm quizForm, 
-                         BindingResult bindingResult, 
+    public String create(@Valid @ModelAttribute("quizForm") QuizForm quizForm,
+                         BindingResult bindingResult,
                          Model model) {
         if (bindingResult.hasErrors()) {
             return "quiz_regist"; // 오류가 있을 경우 등록 페이지로 돌아감
@@ -68,14 +68,14 @@ public class QuizController {
         model.addAttribute("categoryName", categoryName);
         return "quiz-page";
     }
-    
-    
+
+
     @PostMapping("/submit")
     public String submitQuiz(@RequestParam("categoryName") String categoryName,
                              Principal pcp,
                              @RequestParam Map<String, String> answers,
                              Model model) {
-    	
+
         // 디버깅: 수신된 답변 로그 출력
         System.out.println("Received answers: " + answers);
         List<String> userAnswers = new ArrayList<>();
@@ -121,16 +121,27 @@ public class QuizController {
 
         // 결과를 저장
         quizResultService.saveResults(results);
-        
+
         // 맞은 갯수 계산
         long correctCount = results.stream().filter(QuizResult::isCorrect).count();
-        
+
         model.addAttribute("userId", userId);
         model.addAttribute("results", results);
         model.addAttribute("count", results.size());
         model.addAttribute("correctCount", correctCount);
         return "quiz-result"; // 결과 페이지로 이동
     }
+
+
+    @GetMapping("/list")
+    public String getQuizList(Model model, @RequestParam(value="page", defaultValue = "0") int page,
+                              @RequestParam(value="size",defaultValue = "10") int size) {
+        Page<Quiz> quizz = quizService.getQuiz(PageRequest.of(page, size));
+        //model.addAttribute("categories", categories.getContent());
+        model.addAttribute("paging", quizz); // Add paging information return
+        return "quiz_list";
+    }
+
     
     
     @GetMapping("/list") 
@@ -148,6 +159,8 @@ public class QuizController {
         model.addAttribute("quiz", quiz); // 모델에 퀴즈 추가
         return "quiz_detail"; // 퀴즈 상세 페이지로 이동
     }
+
+    // 퀴즈 수정 폼
     
     @GetMapping("/solution/{id}")
     public String getTrueQuiz(@PathVariable("id") Long quizId, Model model) {
@@ -173,13 +186,13 @@ public class QuizController {
 
     // 퀴즈 수정 처리
     @PostMapping("/modify/{id}")
-    public String modify(@PathVariable("id") Long id, 
+    public String modify(@PathVariable("id") Long id,
                          @ModelAttribute("quizForm") QuizForm quizForm) {
 
         quizService.modify(id, quizForm.getTitle(), quizForm.getCategoryName(), quizForm.getAnswer());
         return "redirect:/quiz/list"; // 수정 후 목록 페이지로 리다이렉트
     }
-    
+
     // 퀴즈 삭제
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
