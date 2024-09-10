@@ -1,6 +1,7 @@
 // Componants/Category.js
 import React, { useState, useEffect } from 'react';
 import api from './api';
+import "../Css/Common.css";
 
 function Category() {
     const [categories, setCategories] = useState([]);
@@ -56,7 +57,7 @@ function Category() {
     };
 
     return (
-        <div>
+        <div className='wrapper cateRegist'>
             <h1>카테고리 관리</h1>
 
             {/* 카테고리 추가 */}
@@ -72,30 +73,34 @@ function Category() {
 
             {/* 카테고리 목록 */}
             <ul>
-                {categories.map((category) => (
-                    <li key={category.id}>
-                        {editCategory === category.id ? (
-                            <>
-                                <input
-                                    type="text"
-                                    value={editName}
-                                    onChange={(e) => setEditName(e.target.value)}
-                                />
-                                <button onClick={() => handleEditCategory(category.id)}>저장</button>
-                                <button onClick={() => setEditCategory(null)}>취소</button>
-                            </>
-                        ) : (
-                            <>
-                                {category.name}
-                                <button onClick={() => {
-                                    setEditCategory(category.id);
-                                    setEditName(category.name);
-                                }}>수정</button>
-                                <button onClick={() => handleDeleteCategory(category.id)}>삭제</button>
-                            </>
-                        )}
-                    </li>
-                ))}
+                {categories.length > 0 ? (
+                    categories.map((category) => (
+                        <li key={category.id}>
+                            {editCategory === category.id ? (
+                                <>
+                                    <input
+                                        type="text"
+                                        value={editName}
+                                        onChange={(e) => setEditName(e.target.value)}
+                                    />
+                                    <button onClick={() => handleEditCategory(category.id)}>저장</button>
+                                    <button onClick={() => setEditCategory(null)}>취소</button>
+                                </>
+                            ) : (
+                                <>
+                                    {category.name}
+                                    <button onClick={() => {
+                                        setEditCategory(category.id);
+                                        setEditName(category.name);
+                                    }}>수정</button>
+                                    <button onClick={() => handleDeleteCategory(category.id)}>삭제</button>
+                                </>
+                            )}
+                        </li>
+                    ))
+                ) : (
+                    <li>카테고리가 없습니다.</li> // 카테고리가 없을 때 메시지 표시
+                )}
             </ul>
         </div>
     );
