@@ -142,6 +142,17 @@ public class QuizController {
         return "quiz_list";
     }
 
+    
+    
+    @GetMapping("/list") 
+	 public String getQuizList(Model model, @RequestParam(value="page", defaultValue = "0") int page,
+	 @RequestParam(value="size",defaultValue = "10") int size) { 
+	 Page<Quiz> quizz = quizService.getQuiz(PageRequest.of(page, size));
+	 //model.addAttribute("categories", categories.getContent());
+	 model.addAttribute("paging", quizz); // Add paging information return
+	 return "quiz_list";
+	  }
+    
     @GetMapping("/detail/{id}")
     public String getOneQuiz(@PathVariable("id") Long quizId, Model model) {
         Quiz quiz = quizService.getQuizById(quizId); // ID로 퀴즈 가져오기
@@ -150,6 +161,17 @@ public class QuizController {
     }
 
     // 퀴즈 수정 폼
+    
+    @GetMapping("/solution/{id}")
+    public String getTrueQuiz(@PathVariable("id") Long quizId, Model model) {
+        Quiz quiz = quizService.getQuizById(quizId); // ID로 퀴즈 가져오기
+        Double radio = quizResultService.getQuizCorrectRadio(quizId);//정답률 계산하는 메소드
+        model.addAttribute("radio", radio); // 모델에 정답률 추가
+        model.addAttribute("quiz", quiz); // 모델에 퀴즈 추가
+        return "quiz_solution"; // 퀴즈 상세 페이지로 이동
+    }
+
+ // 퀴즈 수정 폼
     @GetMapping("/modify/{id}")
     public String modifyForm(@PathVariable("id") Long id, Model model) {
         Quiz quizz = quizService.getQuiz(id);

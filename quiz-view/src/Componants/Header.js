@@ -1,7 +1,8 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-function Header({ isLoggedln, setIsLoggedIn, username}) {
+function Header({ isLoggedln, setIsLoggedIn, username, isAdmin, setIsAdmin, checkLoginStatus}) {
+    // console.log('Header props:', { isLoggedln, username, isAdmin });
     const location = useLocation(); // Router 내부에서 useLocation을 사용
     const navigate = useNavigate();
 
@@ -16,6 +17,9 @@ function Header({ isLoggedln, setIsLoggedIn, username}) {
 
             if(response.ok){
                 setIsLoggedIn(false);
+                 // 로그인 상태 확인 함수 호출
+                await checkLoginStatus();
+                setIsAdmin('');
                 navigate('/login');
                 console.log(`로그아웃 성공, 사용자 이름: ${username}`);
             }else{
@@ -65,7 +69,11 @@ function Header({ isLoggedln, setIsLoggedIn, username}) {
                         </>
                     )}
 
-                <Link to="/chat">    챗봇</Link>
+                    {/* 관리자인 경우에만 카테고리 메뉴 표시 */}
+                    {isAdmin && (
+                        <Link to="/category">카테고리 등록</Link>
+                    )}
+                    <Link to="/chat">챗봇</Link>
                 </nav>
             </div>
         </div>

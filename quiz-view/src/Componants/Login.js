@@ -2,42 +2,34 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "./api";
 
-function Login({ setIsLoggedIn, setUsername}) {
+function Login({ setIsLoggedIn, setUsername, setIsAdmin, checkLoginStatus }) {
     const [loginUsername, setLoginusername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
 
-    // function getCsrfToken() {
-    //     return document.cookie.split('; ')
-    //     .find(row => row.startsWith('XSRF-TOKEN='))
-    //     ?.split('=')[1];
-    // }
-
     const handleLogin = async (e) => {
         e.preventDefault();
         
         try{
-            // const csrfToken = getCsrfToken();
             const response = await api.post(
                 '/login',
                 `username=${encodeURIComponent(loginUsername)}&password=${encodeURIComponent(password)}&remember-me=${rememberMe}`,
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        // 'X-XSRF-TOKEN': csrfToken
                     },
                     withCredentials: true // 자격 증명 포함
                 }
             );
             
-
-            console.log(response);
             if (response.status === 200 && response.data.success) {
                 alert('Login 성공!');
-                setIsLoggedIn(true);
-                setUsername(loginUsername);
+
+                // 로그인 상태 확인 함수 호출
+                await checkLoginStatus();
+                
                 navigate('/');
                 console.log("로그인 성공" + loginUsername);
             } else{
@@ -89,9 +81,6 @@ function Login({ setIsLoggedIn, setUsername}) {
             </div>
         </div>
     );
-
-
-
 }
 
 export default Login;
