@@ -141,6 +141,13 @@ public class QuizController {
 	 model.addAttribute("paging", quizz); // Add paging information return
 	 return "quiz_list";
 	  }
+    
+    @GetMapping("/detail/{id}")
+    public String getOneQuiz(@PathVariable("id") Long quizId, Model model) {
+        Quiz quiz = quizService.getQuizById(quizId); // ID로 퀴즈 가져오기
+        model.addAttribute("quiz", quiz); // 모델에 퀴즈 추가
+        return "quiz_detail"; // 퀴즈 상세 페이지로 이동
+    }
 
  // 퀴즈 수정 폼
     @GetMapping("/modify/{id}")
@@ -164,7 +171,7 @@ public class QuizController {
         return "redirect:/quiz/list"; // 수정 후 목록 페이지로 리다이렉트
     }
     
-    // 카테고리 삭제
+    // 퀴즈 삭제
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         quizService.delete(id);

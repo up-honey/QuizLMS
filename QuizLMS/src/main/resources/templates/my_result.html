@@ -22,6 +22,7 @@
                 <th>카테고리</th>
                 <th>정답 여부</th>
                 <th>제출한 답변</th>
+                <th>행동</th> <!-- 새로운 열 추가 -->
             </tr>
         </thead>
         <tbody>
@@ -30,6 +31,9 @@
                 <td th:text="${result.quiz.category.name}">카테고리</td>
                 <td th:text="${result.correct ? '정답' : '오답'}">정답 여부</td>
                 <td th:text="${result.answerGiven}">제출한 답변</td>
+                <td>
+                    <a th:if="${!result.correct}" th:href="@{/quiz/detail/{id}(id=${result.quiz.id})}" class="btn btn-warning">다시 풀기</a>
+                </td>
             </tr>
         </tbody>
     </table>

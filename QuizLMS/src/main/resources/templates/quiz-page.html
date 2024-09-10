@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${categoryName} + ' Quiz'"></title>
+    <title th:text="${quiz.quiz.title} + ' - Quiz'"></title>
 </head>
 <body>
-<h1 th:text="${categoryName} + ' Quiz'"></h1>
+<h1 th:text="${quiz.quiz.title}"></h1>
 <form th:action="@{/quiz/submit}" method="post">
-    <input type="hidden" name="categoryName" th:value="${categoryName}" />
-    <div th:each="quiz, stat : ${quizzes}">
-        <div>
-            <h3 th:text="${quiz.quiz.title}"></h3>
-            <input type="hidden" th:name="'quizId_' + ${stat.index}" th:value="${quiz.quiz.id}" /> <!-- 퀴즈 ID 추가 -->
-            <div th:each="option : ${quiz.quiz.options}">
-                <input type="radio" th:name="'answer_' + ${stat.index}" th:value="${option}" />
-                <label th:text="${option}"></label>
-            </div>
+    <input type="hidden" name="quizId" th:value="${quiz.quiz.id}" /> <!-- 퀴즈 ID 추가 -->
+    <div>
+        <h3>문제:</h3>
+        <p th:text="${quiz.quiz.question}"></p> <!-- 퀴즈 질문 표시 -->
+        <div th:each="option : ${quiz.quiz.options}">
+            <input type="radio" th:name="'answer'" th:value="${option}" />
+            <label th:text="${option}"></label>
         </div>
     </div>
-    <button type="submit">Submit Quiz</button>
+    <button type="submit">제출하기</button>
 </form>
+<a href="/quiz" class="btn btn-primary">퀴즈 목록으로 돌아가기</a>
 </body>
 </html>
