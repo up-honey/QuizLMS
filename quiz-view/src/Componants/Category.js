@@ -1,42 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import "../Css/Common.css"; // CSS 파일 경로에 맞게 수정
 
 function Category(){
-    const [categories, setCategories] = useState([]);
-    const [newCategory, setNewCategory] = useState("");
+    //const [newCategory, setNewCategory] = useState("");
 
-    useEffect(() => {
-        fetch("/api/categories")
-            .then((response) => response.json())
-            .then((data) => {
-                if (Array.isArray(data)) {
-                    setCategories(data);
-                } else {
-                    console.error("Unexpected data format:", data);
-                    setCategories([]);
-                }
-            })
-            .catch((error) => {
-                console.error("Error fetching categories:", error);
-                setCategories([]);
-            });
-    }, []);
+    const [formData, setFormData] = useState({
+        name: "",
+    });
 
+    // Handle input change
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    // 카테고리 생성 함수
     const handleCreateCategory = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch("/api/categories", {
+            const response = await fetch("/api/category/create", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ name: newCategory }),
+                body: JSON.stringify(formData),
             });
+            console.log(formData); // formData가 제대로 전달되는지 확인
 
+            console.log(response);
             if (response.ok) {
-                const createdCategory = await response.json();
-                setCategories([...categories, createdCategory]);
-                setNewCategory(""); // 입력 필드 초기화
+                setFormData({name: ""}); // 입력 필드 초기화
+                alert("카테고리 등록 성공");
             } else {
                 console.error("Failed to create category");
             }
@@ -44,24 +42,21 @@ function Category(){
             console.error("Error creating category:", error);
         }
     };
+
     return (
-        <div>
-            <h1>Category List</h1>
-            <ul>
-                {categories.map((category) => (
-                    <li key={category.id}>{category.name}</li>
-                ))}
-            </ul>
+        <div className="wrapper cateRegist">
+            <h1>카테고리 등록</h1>
 
             <form onSubmit={handleCreateCategory}>
                 <input
                     type="text"
-                    value={newCategory}
-                    onChange={(e) => setNewCategory(e.target.value)}
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     placeholder="New Category"
                     required
                 />
-                <button type="submit">Create Category</button>
+                <button type="submit">등록</button>
             </form>
         </div>
     );

@@ -19,22 +19,22 @@ function Join() {
         });
     };
 
-    function getCsrfToken() {
-        return document.cookie.split('; ')
-        .find(row => row.startsWith('XSRF-TOKEN='))
-        ?.split('=')[1];
-    }
+    // function getCsrfToken() {
+    //     return document.cookie.split('; ')
+    //     .find(row => row.startsWith('XSRF-TOKEN='))
+    //     ?.split('=')[1];
+    // }
 
     const handleJoin = async (e) => {
         e.preventDefault();
 
         try{
-            const csrfToken = getCsrfToken();
+            //const csrfToken = getCsrfToken();
             const response = await fetch('/api/members/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-XSRF-TOKEN': csrfToken
+                    //'X-XSRF-TOKEN': csrfToken
                 },
                 body: JSON.stringify(formData),
             });
