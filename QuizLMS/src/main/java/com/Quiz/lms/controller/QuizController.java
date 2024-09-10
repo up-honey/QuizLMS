@@ -148,6 +148,13 @@ public class QuizController {
         model.addAttribute("quiz", quiz); // 모델에 퀴즈 추가
         return "quiz_detail"; // 퀴즈 상세 페이지로 이동
     }
+    
+    @GetMapping("/solution/{id}")
+    public String getTrueQuiz(@PathVariable("id") Long quizId, Model model) {
+        Quiz quiz = quizService.getQuizById(quizId); // ID로 퀴즈 가져오기
+        model.addAttribute("quiz", quiz); // 모델에 퀴즈 추가
+        return "quiz_solution"; // 퀴즈 상세 페이지로 이동
+    }
 
  // 퀴즈 수정 폼
     @GetMapping("/modify/{id}")

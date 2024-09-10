@@ -33,6 +33,7 @@
                 <td th:text="${result.answerGiven}">제출한 답변</td>
                 <td>
                     <a th:if="${!result.correct}" th:href="@{/quiz/detail/{id}(id=${result.quiz.id})}" class="btn btn-warning">다시 풀기</a>
+                  <a th:if="${result.correct}" th:href="@{/quiz/solution/{id}(id=${result.quiz.id})}" class="btn btn-info">상세 보기</a>
                 </td>
             </tr>
         </tbody>
