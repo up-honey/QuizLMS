@@ -1,3 +1,7 @@
+a {
+    text-decoration: none;
+}
+
 .header {
     display: flex;
     align-items: center;
@@ -80,3 +84,108 @@ ul {
     font-size: 18px;
 }
 
+
+/* 퀴즈 등록, 리스트 확인 */
+/* App.css */
+
+
+.quiz h1 {
+    text-align: center;
+    color: #343a40;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.quiz .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.quiz .table th,
+.quiz .table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #dee2e6;
+}
+
+.quiz .table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.quiz .table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.quiz .btn {
+    margin-right: 5px;
+}
+
+.quiz .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.quiz .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.quiz .btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.quiz .btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
+.quiz .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.quiz .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.quiz .pagination {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.quiz .page-item.disabled .page-link {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    color: #6c757d;
+}
+
+.quiz .page-link {
+    color: #007bff;
+}
+
+.quiz .page-link:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.quiz .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.quiz .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, .5);
+}
+
+.quiz label {
+    font-weight: bold;
+}

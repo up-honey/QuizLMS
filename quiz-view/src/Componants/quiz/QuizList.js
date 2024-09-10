@@ -24,57 +24,59 @@ const QuizList = () => {
     }, [currentPage]);
 
     return (
-        <div className="container">
-            <h1>퀴즈 목록</h1>
-            <Link to="/quiz/create" className="btn btn-primary">퀴즈 등록</Link>
-            <table className="table table-bordered mt-3">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>카테고리</th>
-                        <th>제목</th>
-                        <th>정답</th>
-                        <th>액션</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {quizzes.length > 0 ? (
-                        quizzes.map(quiz => (
-                            <tr key={quiz.id}>
-                                <td>{quiz.id}</td>
-                                <td>{quiz.category.name}</td>
-                                <td>{quiz.title}</td>
-                                <td>{quiz.answer}</td>
-                                <td>
-                                    <Link to={`/quiz/modify/${quiz.id}`} className="btn btn-warning">수정</Link>
-                                    <Link to={`/quiz/delete/${quiz.id}`} className="btn btn-danger"
-                                          onClick={() => window.confirm('정말 삭제하시겠습니까?')}>삭제</Link>
-                                </td>
-                            </tr>
-                        ))
-                    ) : (
+        <div className=" quiz">
+            <div className="wrapper">
+                <h1>퀴즈 목록</h1>
+                <Link to="/quiz/create" className="btn btn-primary">퀴즈 등록</Link>
+                <table className="table table-bordered mt-3">
+                    <thead>
                         <tr>
-                            <td colSpan="5">퀴즈가 없습니다.</td>
+                            <th>ID</th>
+                            <th>카테고리</th>
+                            <th>제목</th>
+                            <th>정답</th>
+                            <th>액션</th>
                         </tr>
-                    )}
-                </tbody>
-            </table>
-            <div>
-                <nav>
-                    <ul className="pagination">
-                        <li className={`page-item ${paging.hasPrevious ? '' : 'disabled'}`}>
-                            <Link className="page-link" to={`/quiz/list?page=${paging.number - 1}`}>이전</Link>
-                        </li>
-                        {Array.from({ length: paging.totalPages }).map((_, i) => (
-                            <li key={i} className={`page-item ${i === paging.number ? 'active' : ''}`}>
-                                <Link className="page-link" to={`/quiz/list?page=${i}`}>{i + 1}</Link>
+                    </thead>
+                    <tbody>
+                        {quizzes.length > 0 ? (
+                            quizzes.map(quiz => (
+                                <tr key={quiz.id}>
+                                    <td>{quiz.id}</td>
+                                    <td>{quiz.category.name}</td>
+                                    <td>{quiz.title}</td>
+                                    <td>{quiz.answer}</td>
+                                    <td>
+                                        <Link to={`/quiz/modify/${quiz.id}`} className="btn btn-warning">수정</Link>
+                                        <Link to={`/quiz/delete/${quiz.id}`} className="btn btn-danger"
+                                            onClick={() => window.confirm('정말 삭제하시겠습니까?')}>삭제</Link>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="5">퀴즈가 없습니다.</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+                <div>
+                    <nav>
+                        <ul className="pagination">
+                            <li className={`page-item ${paging.hasPrevious ? '' : 'disabled'}`}>
+                                <Link className="page-link" to={`/quiz/list?page=${paging.number - 1}`}>이전</Link>
                             </li>
-                        ))}
-                        <li className={`page-item ${paging.hasNext ? '' : 'disabled'}`}>
-                            <Link className="page-link" to={`/quiz/list?page=${paging.number + 1}`}>다음</Link>
-                        </li>
-                    </ul>
-                </nav>
+                            {Array.from({ length: paging.totalPages }).map((_, i) => (
+                                <li key={i} className={`page-item ${i === paging.number ? 'active' : ''}`}>
+                                    <Link className="page-link" to={`/quiz/list?page=${i}`}>{i + 1}</Link>
+                                </li>
+                            ))}
+                            <li className={`page-item ${paging.hasNext ? '' : 'disabled'}`}>
+                                <Link className="page-link" to={`/quiz/list?page=${paging.number + 1}`}>다음</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 // Componants/Category.js
 import React, { useState, useEffect } from 'react';
-import api from './api';
+import api, { fetchCategories } from './api';
 import "../Css/Common.css";
 
 function Category() {
@@ -10,17 +10,13 @@ function Category() {
     const [editName, setEditName] = useState('');
 
     useEffect(() => {
-        fetchCategories();
+        loadCategories();
     }, []);
 
     // 카테고리 목록 불러오기
-    const fetchCategories = async () => {
-        try {
-            const response = await api.get('/api/category/list');
-            setCategories(response.data.content);
-        } catch (error) {
-            console.error('카테고리 목록을 불러오는 중 오류 발생:', error);
-        }
+    const loadCategories = async () => {
+        const categories = await fetchCategories();
+        setCategories(categories);
     };
 
     // 카테고리 추가
