@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Quiz Results</title>
-
 </head>
 <body>
     <h1>퀴즈 결과</h1>
@@ -14,18 +13,23 @@
         </h2>
     </div>
 
-    <div th:each="result : ${results}">
-        <p>
-            <strong>문제:</strong> <span th:text="${result.quiz.title}"></span><br/>
-            <strong>제출한 답:</strong> <span th:text="${result.answerGiven}"></span><br/>
-            <strong>정답:</strong> <span th:text="${result.quiz.answer}"></span><br/>
-            <strong>결과:</strong> <span th:text="${result.correct ? '정답' : '오답'}"></span>
-        </p>
-    </div>
+    <form th:action="@{/result/save}" method="post">
+        <input type="hidden" name="userId" th:value="${userId}"/>
+        <input type="hidden" name="categoryName" th:value="${results[0].quiz.category.name}"/>
+        
+        <div th:each="result : ${results}">
+            <p>
+                <strong>문제:</strong> <span th:text="${result.quiz.title}"></span><br/>
+                <strong>제출한 답:</strong> 
+                <input type="text" name="userAnswers" th:value="${result.answerGiven}" required/><br/>
+                <strong>정답:</strong> <span th:text="${result.quiz.answer}"></span><br/>
+                <strong>결과:</strong> <span th:text="${result.correct ? '정답' : '오답'}"></span>
+            </p>
+        </div>
+
+        <button type="submit">Save Quiz Results</button>
+    </form>
 
     <a th:href="@{/quiz/category/{categoryName}(categoryName=${results[0].quiz.category.name})}">Take Another Quiz</a>
-    
 </body>
-
-
 </html>
