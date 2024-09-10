@@ -53,7 +53,6 @@ public class QuizService {
     	return quizRepository.findById(id);
     }
 
-
     // 카테고리 별로 퀴즈 10개 뽑기
     public Page<Quiz> selectTenQuiz(String CategoryName,int pageNumber,int pageSize){
       Page<Quiz> quizPage = quizRepository.findByCategoryName(CategoryName, PageRequest.of(pageNumber, pageSize));
@@ -93,8 +92,6 @@ public class QuizService {
         return new PageImpl<>(selectedQuizList, quizPage.getPageable(), quizPage.getTotalElements());
     }
 
-    
-    
     public Page<Quiz> getQuiz(Pageable pageable) {
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();

@@ -8,6 +8,11 @@ import Join from "./Componants/Join";
 import QuizSelection from "./Componants/QuizSelection";
 import ChatBot from "./Componants/ChatBot"; // 새로 추가한 ChatBot 컴포넌트
 import api from "./Componants/api";
+import CategoryAll from "./Componants/CategoryAll"; // 카테고리 컴포넌트 import
+import QuizCreate from './Componants/quiz/QuizCreate'; // 퀴즈 등록 컴포넌트 import
+import QuizModify from './Componants/quiz/QuizModify'; // 퀴즈 수정 컴포넌트 import
+import QuizList from './Componants/quiz/QuizList'; // 퀴즈 목록 컴포넌트 import
+import QuizSubmit from './Componants/quiz/QuizSubmit'; // 퀴즈 제출 컴포넌트 import
 
 function App() {
   const [isLoggedln, setIsLoggedIn] = useState(false);
@@ -53,6 +58,15 @@ function App() {
             {/* 새로운 ChatBot 라우트 */}
             <Route path="/chat" element={<ChatBot />} />
             {/* 카테고리 경로 */}
+            <Route path="/categoryAll" element={<CategoryAll />} />
+            {/* 퀴즈 목록 경로 */}
+            <Route path="/quiz/list" element={<QuizList />} />
+            {/* 퀴즈 등록 경로 */}
+            <Route path="/quiz/create" element={<QuizCreate />} />
+            {/* 퀴즈 수정 경로 */}
+            <Route path="/quiz/modify/:id" element={<QuizModify />} />
+            {/* 퀴즈 등록 경로 */}
+            <Route path="/quiz/submit" element={<QuizSubmit />} />
 
           </Routes>
         </div>
