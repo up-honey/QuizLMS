@@ -8,6 +8,7 @@ import Join from "./Componants/Join";
 import QuizSelection from "./Componants/QuizSelection";
 import ChatBot from "./Componants/ChatBot"; // 새로 추가한 ChatBot 컴포넌트
 import api from "./Componants/api";
+import CategoryAll from "./Componants/CategoryAll";
 
 function App() {
   const [isLoggedln, setIsLoggedIn] = useState(false);
@@ -64,7 +65,8 @@ function App() {
             <Route path="/chat" element={<ChatBot />} />
             {/* 관리자인 경우에만 카테고리 경로가 렌더됨 */}
             {isAdmin && (
-              <Route path="/category" element={<Category />} />
+              <Route path="/category" element={<CategoryAll />} />
+            )}
           </Routes>
         </div>
         {/* Footer는 모든 페이지에서 공통으로 보여줍니다 */}
