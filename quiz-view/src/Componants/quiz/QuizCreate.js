@@ -1,81 +1,91 @@
 import React, { useState } from 'react';
-import api from '../api'; // axios 대신 api 사용
+import api from '../api'; // api 모듈을 사용
 import { useNavigate } from 'react-router-dom';
 
 const QuizCreate = () => {
-    const [quizForm, setQuizForm] = useState({ categoryName: '', title: '', answer: '', options: '' });
     const navigate = useNavigate();
+    const [form, setForm] = useState({
+        title: '',
+        categoryName: '',
+        answer: '',
+        options: ['', '', '', ''] // 옵션을 4개로 초기화
+    });
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setQuizForm({ ...quizForm, [name]: value });
+    const handleChange = (e) => {
+        const { name, value, dataset } = e.target;
+        if (name === 'options') {
+            const index = parseInt(dataset.index, 10);
+            setForm(prevForm => {
+                const newOptions = [...prevForm.options];
+                newOptions[index] = value;
+                return { ...prevForm, options: newOptions };
+            });
+        } else {
+            setForm(prevForm => ({ ...prevForm, [name]: value }));
+        }
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // API 경로를 /quiz/create로 설정
-        api.post('/quiz/create', quizForm) // axios 대신 api 사용
-            .then(() => navigate('/quiz/list')) // 성공 시 목록으로 이동
-            .catch(error => console.error('Error creating quiz:', error));
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await api.post('/api/quiz/create', form);
+            alert('Quiz created successfully');
+            navigate('/quiz/list');
+        } catch (error) {
+            console.error(error);
+            alert('Failed to create quiz');
+        }
     };
 
     return (
-        <div className="container">
-            <h1>퀴즈 등록</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="categoryName">카테고리 이름</label>
-                    <input
-                        type="text"
-                        id="categoryName"
-                        name="categoryName"
-                        value={quizForm.categoryName}
-                        onChange={handleChange}
-                        className="form-control"
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="title">제목</label>
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        value={quizForm.title}
-                        onChange={handleChange}
-                        className="form-control"
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="answer">정답</label>
-                    <input
-                        type="text"
-                        id="answer"
-                        name="answer"
-                        value={quizForm.answer}
-                        onChange={handleChange}
-                        className="form-control"
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="options">옵션 (쉼표로 구분)</label>
-                    <input
-                        type="text"
-                        id="options"
-                        name="options"
-                        value={quizForm.options}
-                        onChange={handleChange}
-                        className="form-control"
-                        placeholder="예: 옵션1, 옵션2, 옵션3"
-                        required
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">등록</button>
-                <button type="button" className="btn btn-secondary" onClick={() => navigate('/quiz/list')}>목록으로 돌아가기</button>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <div>
+                <label>Title:</label>
+                <input
+                    type="text"
+                    name="title"
+                    value={form.title}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+            <div>
+                <label>Category Name:</label>
+                <input
+                    type="text"
+                    name="categoryName"
+                    value={form.categoryName}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+            <div>
+                <label>Answer:</label>
+                <input
+                    type="text"
+                    name="answer"
+                    value={form.answer}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+            <div>
+                <label>Options:</label>
+                {form.options.map((option, index) => (
+                    <div key={index}>
+                        <input
+                            type="text"
+                            name="options"
+                            data-index={index}
+                            value={option}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                ))}
+            </div>
+            <button type="submit">Create Quiz</button>
+        </form>
     );
 };
 
