@@ -8,7 +8,7 @@
 
 <!-- 정답률 표시 -->
 <div>
-    <h3>정답률: <span th:text="${radio} + '%'"></span></h3>
+    <h3>전체 정답률: <span th:text="${#numbers.formatDecimal(radio, 1, 1)} + '%'"></span></h3>
 </div>
 
 <form th:action="@{/quiz/submit}" method="post">
