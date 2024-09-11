@@ -41,25 +41,25 @@ public class QuizRestController {
     //private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final QuizResultService quizResultService;
-    
+
     @PostMapping("/submit")
     public ResponseEntity<?> submitQuiz(@RequestBody Map<String, Object> payload,
                                         Principal principal) {
         System.out.println("Received payload: " + payload);
         String categoryName = (String) payload.get("categoryName");
-        
+
         List<Map<String, Object>> answers = new ArrayList<>();
-        
+
         // 단일 퀴즈 응답 처리
         Long quizId = Long.valueOf(payload.get("quizId").toString());
         Object answerObj = payload.get("answer");
         String userAnswer = (answerObj instanceof Integer) ? String.valueOf(answerObj) : (String) answerObj;
-        
+
         Map<String, Object> singleAnswer = new HashMap<>();
         singleAnswer.put("quizId", quizId);
         singleAnswer.put("answer", userAnswer);
         answers.add(singleAnswer);
-        
+
         System.out.println("Processed answers: " + answers);
 
         Long userId = memberRepository.findByUsername(principal.getName())
@@ -97,7 +97,7 @@ public class QuizRestController {
 
         return ResponseEntity.ok(response);
     }
-    
+
     // 퀴즈 등록
     @PostMapping("/create")
     public ResponseEntity<String> createQuiz(@RequestBody QuizForm quizForm) {
@@ -128,9 +128,12 @@ public class QuizRestController {
     public ResponseEntity<String> modifyQuiz(
             @PathVariable Long id,
             @RequestBody QuizForm quizForm) {
-        quizService.modify(id, quizForm.getTitle(), quizForm.getCategoryName(), quizForm.getAnswer());
+        // 퀴즈 수정 호출
+        quizService.modify(id, quizForm.getTitle(), quizForm.getCategoryName(), quizForm.getAnswer(), quizForm.getOptions());
         return ResponseEntity.ok("Quiz modified successfully");
     }
+
+
 
     // 퀴즈 삭제
     @DeleteMapping("/delete/{id}")

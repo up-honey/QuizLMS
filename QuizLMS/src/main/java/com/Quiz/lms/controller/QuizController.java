@@ -176,8 +176,8 @@ public class QuizController {
     @PostMapping("/modify/{id}")
     public String modify(@PathVariable("id") Long id,
                          @ModelAttribute("quizForm") QuizForm quizForm) {
-
-        quizService.modify(id, quizForm.getTitle(), quizForm.getCategoryName(), quizForm.getAnswer());
+        // 퀴즈 수정 서비스 호출
+        quizService.modify(id, quizForm.getTitle(), quizForm.getCategoryName(), quizForm.getAnswer(), quizForm.getOptions());
         return "redirect:/quiz/list"; // 수정 후 목록 페이지로 리다이렉트
     }
 

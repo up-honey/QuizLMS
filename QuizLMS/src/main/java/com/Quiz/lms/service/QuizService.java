@@ -32,7 +32,7 @@ public class QuizService {
 
     //    퀴즈 등록
     public void create(String CategoryName, String title, String answer, List<String> options  ){
-       // 카테고리 이름으로 카테고리 레포지토리에서 카테고리를 찾아옴
+        // 카테고리 이름으로 카테고리 레포지토리에서 카테고리를 찾아옴
         Category category = categoryRepository.findByName(CategoryName);
         // 퀴즈를 등록하기 위해 새로운 퀴즈를 생성후 값 세팅
         Quiz quiz = new Quiz();
@@ -43,20 +43,20 @@ public class QuizService {
         // 생성한 퀴즈를 레포지토리를 사용하여 저장
         quizRepository.save(quiz);
     }
-    
+
     //퀴즈 정답을 들고오는 메소드
     public String getCorrectAnswer(long id) {
-    	return quizRepository.findById(id).getAnswer();
-    	
+        return quizRepository.findById(id).getAnswer();
+
     }
     public Quiz getQuizById(long id) {
-    	return quizRepository.findById(id);
+        return quizRepository.findById(id);
     }
 
     // 카테고리 별로 퀴즈 10개 뽑기
     public Page<Quiz> selectTenQuiz(String CategoryName,int pageNumber,int pageSize){
-      Page<Quiz> quizPage = quizRepository.findByCategoryName(CategoryName, PageRequest.of(pageNumber, pageSize));
-      return quizPage;
+        Page<Quiz> quizPage = quizRepository.findByCategoryName(CategoryName, PageRequest.of(pageNumber, pageSize));
+        return quizPage;
     }
 
     @Transactional
@@ -79,7 +79,7 @@ public class QuizService {
 
         // 새로 선택된 퀴즈를 저장할 리스트
         List<SelectedQuiz> selectedQuizList = new ArrayList<>();
-        
+
         quizPage.getContent().forEach(quiz -> {
             SelectedQuiz selectedQuiz = new SelectedQuiz();
             selectedQuiz.setCategoryName(categoryName);
@@ -97,35 +97,42 @@ public class QuizService {
         int currentPage = pageable.getPageNumber();
         int startRow = currentPage * pageSize;
         int endRow = (currentPage + 1) * pageSize;
-        
+
         List<Quiz> categories = quizRepository.findAllWithPagination(startRow, endRow);
         long total = categoryRepository.countCategories();
-        
+
         return new PageImpl<>(categories, pageable, total);
     }
-    
+
     public Quiz getQuiz(Long id){
         return quizRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Quiz not found"));
 
     }
-    
-//  퀴즈 수정
-    public void modify( Long id, String title, String categoryName, String answer){
-    	Optional<Quiz> quiz = quizRepository.findById(id);
-    	
-    	Category category = categoryRepository.findByName(categoryName);
-    	
-        quiz.get().setTitle(title);
-    	
-        quiz.get().setCategory(category);
-        quiz.get().setAnswer(answer);
-        quizRepository.save(quiz.get());
+
+    //  퀴즈 수정
+    @Transactional
+    public void modify(Long id, String title, String categoryName, String answer, List<String> options) {
+        // 퀴즈를 조회
+        Quiz quiz = quizRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Quiz not found"));
+
+        // 카테고리 조회
+        Category category = categoryRepository.findByName(categoryName);
+
+        // 퀴즈 정보 수정
+        quiz.setTitle(title);
+        quiz.setCategory(category);
+        quiz.setAnswer(answer);
+        quiz.setOptions(options); // 옵션 업데이트
+
+        // 수정된 퀴즈를 저장
+        quizRepository.save(quiz);
     }
-    
-//  카테고리 삭제
+
+    //  카테고리 삭제
     public void delete(Long id){
-       quizRepository.deleteById(id);
+        quizRepository.deleteById(id);
     }
 
 }
