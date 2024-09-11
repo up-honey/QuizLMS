@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // useNavigate 추가
+// import "../Css/QuizDetail.css";
 
 const QuizDetail = () => {
     const { quizId } = useParams(); // URL 파라미터에서 quizId 가져오기

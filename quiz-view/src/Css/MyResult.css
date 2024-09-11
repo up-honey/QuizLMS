@@ -1,0 +1,213 @@
+/* MyResult 컴포넌트를 위한 전체 스타일 */
+.my-result-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* 퀴즈 결과 요약 스타일 */
+  .quiz-summary {
+    background-color: #e9f5f9;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .quiz-summary strong {
+    color: #2c3e50;
+    margin-right: 5px;
+  }
+  
+  .quiz-summary span {
+    font-weight: bold;
+    color: #3498db;
+  }
+  
+  /* 테이블 스타일 */
+  .result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .result-table th, .result-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .result-table th {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .result-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+  
+  .result-table tr:hover {
+    background-color: #e9f5f9;
+  }
+  
+  /* 버튼 스타일 */
+  .btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-warning {
+    background-color: #f39c12;
+    color: white;
+  }
+  
+  .btn-warning:hover {
+    background-color: #e67e22;
+  }
+  
+  .btn-info {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .btn-info:hover {
+    background-color: #2980b9;
+  }
+  
+  .btn-primary {
+    background-color: #64b0c7;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #5499ad;
+  }
+  
+  /* 페이지네이션 스타일 */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .page-item {
+    margin: 0 5px;
+  }
+  
+  .page-link {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    color: #3498db;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .page-link:hover {
+    background-color: #e9f5f9;
+  }
+  
+  .page-item.active .page-link {
+    background-color: #3498db;
+    color: white;
+    border-color: #3498db;
+  }
+  
+  .page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+  
+  /* 로딩 메시지 스타일 */
+  .loading {
+    text-align: center;
+    font-size: 18px;
+    color: #3498db;
+    margin-top: 20px;
+  }
+
+  /* 테이블 스타일 업데이트 */
+.result-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.result-table th, .result-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.result-table th {
+  background-color: #3498db;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.result-table tr:last-child td {
+  border-bottom: none;
+}
+
+.result-table tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.result-table tbody tr:hover {
+  background-color: #e9f5f9;
+  transition: background-color 0.3s ease;
+}
+
+.result-table td:nth-child(3),
+.result-table td:nth-child(4) {
+  font-weight: bold;
+}
+
+.result-table td:nth-child(3) {
+  color: #27ae60;  /* 정답일 경우 녹색 */
+}
+
+.result-table td:nth-child(3):not(:contains('정답')) {
+  color: #e74c3c;  /* 오답일 경우 빨간색 */
+}
+
+/* 버튼 스타일 업데이트 */
+.result-table .btn {
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.result-table .btn-warning {
+  background-color: #f39c12;
+  color: white;
+}
+
+.result-table .btn-warning:hover {
+  background-color: #e67e22;
+}
+
+.result-table .btn-info {
+  background-color: #3498db;
+  color: white;
+}
+
+.result-table .btn-info:hover {
+  background-color: #2980b9;
+}
