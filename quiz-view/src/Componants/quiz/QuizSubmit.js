@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../api'; // axios 인스턴스
+import api from '../api';
 
 const QuizSubmit = () => {
     const { categoryName } = useParams();
@@ -9,28 +9,26 @@ const QuizSubmit = () => {
     const [currentPage] = useState(0);
     const [error, setError] = useState(null);
     
-    useEffect(() => {
+    const fetchQuizzes = useCallback(async () => {
         if (categoryName) {
-            fetchQuizzes();
+            try {
+                const response = await api.get(`/api/quiz/category/${categoryName}`, {
+                    params: { page: currentPage, size: 10 }
+                });
+                setQuizzes(response.data.content);
+                setError(null);
+            } catch (error) {
+                console.error('Error fetching quizzes:', error);
+                setError('Failed to fetch quizzes.');
+            }
         } else {
             setError('Invalid category name.');
         }
-    
     }, [categoryName, currentPage]);
 
-    const fetchQuizzes = () => {
-        api.get(`/api/quiz/category/${categoryName}`, {
-            params: { page: currentPage, size: 10 }
-        })
-            .then(response => {
-                setQuizzes(response.data.content);
-                setError(null);
-            })
-            .catch(error => {
-                console.error('Error fetching quizzes:', error);
-                setError('Failed to fetch quizzes.');
-            });
-    };
+    useEffect(() => {
+        fetchQuizzes();
+    }, [fetchQuizzes]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -50,10 +48,6 @@ const QuizSubmit = () => {
         <div className='wrapper'>
             <h1>{categoryName ? `${categoryName} Quiz` : 'Quiz'}</h1>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            {/* <div className="status-bar">
-                <div>남은 개수: 9개</div>
-                <div>맞힌 개수: 1개</div>
-            </div> */}
             <div className="timer-bar">
                 <div className="timer" style={{ width: '50%' }}></div> {/* Example progress */}
             </div>
