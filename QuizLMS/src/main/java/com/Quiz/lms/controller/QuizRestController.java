@@ -134,7 +134,29 @@ public class QuizRestController {
         Quiz quiz = quizService.getQuiz(id);
         return ResponseEntity.ok(quiz);
     }
+    
+    // 퀴즈 디테일(다시 풀기)
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<Quiz> getOneQuiz(@PathVariable("id") Long quizId) {
+        Quiz quiz = quizService.getQuizById(quizId); // ID로 퀴즈 가져오기
+        return ResponseEntity.ok(quiz); // 퀴즈 객체를 JSON으로 반환
+    }
 
+    // 퀴즈 솔루션(상세보기)
+    @GetMapping("/solution/{id}")
+    public ResponseEntity<?> getTrueQuiz(@PathVariable("id") Long quizId) {
+        Quiz quiz = quizService.getQuizById(quizId); // ID로 퀴즈 가져오기
+        Double radio = quizResultService.getQuizCorrectRadio(quizId); // 정답률 계산하는 메소드
+
+        Map<String, Object> response = Map.of(
+                "quiz", quiz,
+                "correctRate", radio
+        );
+
+        return ResponseEntity.ok(response); // 응답 객체를 JSON으로 반환
+    }
+    
+    
     // 퀴즈 수정
     @PutMapping("/modify/{id}")
     public ResponseEntity<String> modifyQuiz(

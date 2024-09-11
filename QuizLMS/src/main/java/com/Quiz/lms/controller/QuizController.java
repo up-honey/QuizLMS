@@ -141,6 +141,7 @@ public class QuizController {
 	 return "quiz_list";
 	  }
     
+    //퀴즈 디테일(다시 풀기)
     @GetMapping("/detail/{id}")
     public String getOneQuiz(@PathVariable("id") Long quizId, Model model) {
         Quiz quiz = quizService.getQuizById(quizId); // ID로 퀴즈 가져오기
@@ -148,8 +149,7 @@ public class QuizController {
         return "quiz_detail"; // 퀴즈 상세 페이지로 이동
     }
 
-    // 퀴즈 수정 폼
-    
+    //퀴즈 솔루션(상세보기)
     @GetMapping("/solution/{id}")
     public String getTrueQuiz(@PathVariable("id") Long quizId, Model model) {
         Quiz quiz = quizService.getQuizById(quizId); // ID로 퀴즈 가져오기
