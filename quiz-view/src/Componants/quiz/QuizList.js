@@ -37,6 +37,17 @@ const QuizList = () => {
             }
         }
     };
+    const handleDelete = (id) => {
+        if (window.confirm('정말 삭제하시겠습니까?')) {
+            api.delete(`/api/quiz/delete/${id}`)
+                .then(() => {
+                    // 삭제 후 퀴즈 목록을 다시 불러옴
+                    setQuizzes(quizzes.filter(quiz => quiz.id !== id));
+                })
+                .catch(error => console.error('Error deleting quiz:', error));
+        }
+    };
+    
 
     return (
         <div className="quiz">
@@ -64,6 +75,14 @@ const QuizList = () => {
                                     <td>
                                         <Link to={`/quiz/modify/${quiz.id}`} className="btn btn-warning">수정</Link>
                                         <button className="btn btn-danger" onClick={() => handleDelete(quiz.id)}>삭제</button>
+                                        <button 
+                                            className="btn btn-danger"
+                                            onClick={() => handleDelete(quiz.id)}
+                                        >
+                                            삭제
+                                        </button>
+                                        {/* <Link to={`/quiz/delete/${quiz.id}`} className="btn btn-danger"
+                                            onClick={() => window.confirm('정말 삭제하시겠습니까?')}>삭제</Link> */}
                                     </td>
                                 </tr>
                             ))

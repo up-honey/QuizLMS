@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // useHistory를 useNavigate로 변경
 import api from '../api'; // axios 인스턴스
 
 const QuizSubmit = () => {
     const { categoryName } = useParams();
+    const navigate = useNavigate(); // useNavigate 훅을 사용하여 history 객체 가져오기
     const [quizzes, setQuizzes] = useState([]);
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
     const [userAnswers, setUserAnswers] = useState({});
@@ -18,6 +19,7 @@ const QuizSubmit = () => {
             setError('Invalid category name.');
             setLoading(false);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [categoryName]);
 
     const fetchQuizzes = () => {
@@ -38,28 +40,54 @@ const QuizSubmit = () => {
     };
 
     const handleAnswer = (quizId, answer) => {
-        setUserAnswers(prev => ({ ...prev, [quizId]: answer }));
-        
-        // Submit the answer immediately
+        // 현재 퀴즈의 답변 저장
+        setUserAnswers(prev => {
+            const updatedAnswers = { ...prev, [quizId]: answer };
+    
+            // 현재 퀴즈가 마지막 퀴즈일 경우, 모든 답변을 제출
+            if (currentQuizIndex === quizzes.length - 1) {
+                submitAllAnswers(updatedAnswers); // 업데이트된 답변을 전달
+            } else {
+                // 다음 질문으로 이동
+                setCurrentQuizIndex(prevIndex => prevIndex + 1);
+            }
+    
+            return updatedAnswers; // 상태 업데이트
+        });
+    };
+    
+    const submitAllAnswers = (answers) => {
+        const answersWithId = Object.entries(answers).map(([quizId, answer]) => ({
+            quizId,
+            answer,
+        }));
+    
         api.post('/api/quiz/submit', {
             categoryName: categoryName,
-            quizId: quizId,
-            answer: answer
+            answers: answersWithId // 각 퀴즈 ID와 답변을 포함
         })
             .then(response => {
-                console.log('Answer submitted successfully:', response.data);
-                // Move to the next question
-                if (currentQuizIndex < quizzes.length - 1) {
-                    setCurrentQuizIndex(prevIndex => prevIndex + 1);
-                } else {
-                    setQuizCompleted(true);
-                }
+                console.log('All answers submitted successfully:', response.data);
+    
+                const { correctCount, count, userId, results } = response.data;
+    
+                navigate('/quiz/submit', {
+                    state: {
+                        correctCount,
+                        count,
+                        userId,
+                        results
+                    }
+                });
+    
+                setQuizCompleted(true);
             })
             .catch(error => {
-                console.error('Error submitting answer:', error);
-                setError('Failed to submit answer. Please try again.');
+                console.error('Error submitting answers:', error);
+                setError('Failed to submit answers. Please try again.');
             });
     };
+    
 
     if (loading) {
         return <div>Loading...</div>;
@@ -79,8 +107,8 @@ const QuizSubmit = () => {
         <div className='wrapper'>
             <h1>{categoryName ? `${categoryName} Quiz` : 'Quiz'}</h1>
             <div className="status-bar">
-                <div>Question: {currentQuizIndex + 1}/{quizzes.length}</div>
-                <div>Correct Answers: {Object.values(userAnswers).filter(Boolean).length}</div>
+                <div>문제 개수: {currentQuizIndex + 1}/{quizzes.length}</div>
+                <div>정답 유무: {Object.values(userAnswers).filter(Boolean).length}</div>
             </div>
             <div className="timer-bar">
                 <div className="timer" style={{ width: `${((currentQuizIndex + 1) / quizzes.length) * 100}%` }}></div>
