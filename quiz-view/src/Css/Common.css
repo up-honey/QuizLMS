@@ -62,12 +62,7 @@ header, footer {
     font-size: 16px;
 }
 
-footer {
-    
-    font-size: 14px;
-    color: var(--text-light-color);
-    margin-top: 20px;
-}
+
 
 button {
     padding: 10px 15px;
