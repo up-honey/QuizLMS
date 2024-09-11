@@ -99,7 +99,7 @@ li {
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-    border-bottom: 1px solid var(--border-light-color);
+    
 }
 
 li:last-child {
@@ -750,7 +750,7 @@ form button:hover {
     width: 100%;
     max-width: 600px; /* 최대 너비 설정 */
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    
     box-sizing: border-box;
 }
 
