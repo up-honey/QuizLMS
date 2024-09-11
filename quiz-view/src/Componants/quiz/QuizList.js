@@ -37,16 +37,6 @@ const QuizList = () => {
             }
         }
     };
-    const handleDelete = (id) => {
-        if (window.confirm('정말 삭제하시겠습니까?')) {
-            api.delete(`/api/quiz/delete/${id}`)
-                .then(() => {
-                    // 삭제 후 퀴즈 목록을 다시 불러옴
-                    setQuizzes(quizzes.filter(quiz => quiz.id !== id));
-                })
-                .catch(error => console.error('Error deleting quiz:', error));
-        }
-    };
     
 
     return (

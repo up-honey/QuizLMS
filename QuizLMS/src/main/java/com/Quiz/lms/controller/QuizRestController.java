@@ -47,24 +47,7 @@ public class QuizRestController {
     @PostMapping("/submit")
     public ResponseEntity<?> submitQuiz(@RequestBody Map<String, Object> payload,
                                         Principal principal) {
-      
         System.out.println("Received payload: " + payload);
-      
-        String categoryName = (String) payload.get("categoryName");
-
-        List<Map<String, Object>> answers = new ArrayList<>();
-
-        // 단일 퀴즈 응답 처리
-        Long quizId = Long.valueOf(payload.get("quizId").toString());
-        Object answerObj = payload.get("answer");
-        String userAnswer = (answerObj instanceof Integer) ? String.valueOf(answerObj) : (String) answerObj;
-
-        Map<String, Object> singleAnswer = new HashMap<>();
-        singleAnswer.put("quizId", quizId);
-        singleAnswer.put("answer", userAnswer);
-        answers.add(singleAnswer);
-
-        System.out.println("Processed answers: " + answers);
         
         String categoryName = (String) payload.get("categoryName");
         List<Map<String, Object>> answers = (List<Map<String, Object>>) payload.get("answers");
