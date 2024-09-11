@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import '../Css/ChatBot.css';
+import { FaTimes } from 'react-icons/fa';
 
 const ChatBot = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isRaccoon, setIsRaccoon] = useState(false);
-  const [fontSize, setFontSize] = useState('medium');
   const chatContainerRef = useRef(null);
 
   useEffect(() => {
@@ -49,14 +49,10 @@ const ChatBot = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleFontSizeChange = (e) => {
-    setFontSize(e.target.value);
-  };
-
   if (!isOpen) return null;
 
   return (
-    <div className="chat-container">
+    <div className={`chat-container ${isOpen ? 'open' : ''}`}>
       <div className="chat-header">
         <img 
           src={isRaccoon
@@ -66,20 +62,12 @@ const ChatBot = ({ isOpen, onClose }) => {
           alt={isRaccoon ? "너구리" : "판다"}
           className="chat-avatar"
         />
-        <h3>{isRaccoon ? '🦝 너굴맨과 대화해요' : '🐼 푸바오와 대화해요'}</h3>
-        <button onClick={onClose}>닫기</button>
+        <h3>{isRaccoon ? '🦝 너굴맨과 공부하기' : '🐼 푸바오와 공부하기'}</h3>
+        <button onClick={onClose} className="close-button">
+          <FaTimes />
+        </button>
       </div>
-      <div className="chat-options">
-        <label>
-          글씨 크기:
-          <select value={fontSize} onChange={handleFontSizeChange}>
-            <option value="small">작게</option>
-            <option value="medium">보통</option>
-            <option value="large">크게</option>
-          </select>
-        </label>
-      </div>
-      <div className={`chat-messages ${fontSize}`} ref={chatContainerRef}>
+      <div className="chat-messages" ref={chatContainerRef}>
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.role}`}>
             <strong>{msg.role === 'user' ? '👤 당신:' : (isRaccoon ? '🦝 너굴맨:' : '🐼 푸바오:')}</strong> {msg.content}
