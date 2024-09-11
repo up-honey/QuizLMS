@@ -7,12 +7,19 @@ import Login from "./Componants/Login";
 import Join from "./Componants/Join";
 import QuizSelection from "./Componants/QuizSelection";
 import ChatBot from "./Componants/ChatBot"; // 새로 추가한 ChatBot 컴포넌트
+import ChatBotButton from './Componants/ChatBotButton'; //새로 추가한 ChatBotButton 컴포넌트
 import api from "./Componants/api";
+import './App.css';
 
 function App() {
   const [isLoggedln, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   
+  const [isChatBotOpen, setIsChatBotOpen] = useState(false);
+  const toggleChatBot = () => {
+      setIsChatBotOpen(!isChatBotOpen);
+  };
+
   useEffect(() => {
 
       const checkLoginStatus = async () => {
@@ -40,6 +47,11 @@ function App() {
         {/* Header는 모든 페이지에서 공통으로 보여줍니다 */}
         <Header isLoggedln={isLoggedln} setIsLoggedIn={setIsLoggedIn} username={username} />
         {/* <Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} /> */}
+        <div className="App">
+            {/* 기타 앱 컨텐츠 */}
+            <ChatBotButton onClick={toggleChatBot} />
+            <ChatBot isOpen={isChatBotOpen} onClose={() => setIsChatBotOpen(false)} />
+        </div>
         <div className="container">
           <Routes>
             {/* 홈 경로 */}

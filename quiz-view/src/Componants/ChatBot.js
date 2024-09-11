@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import '../Css/ChatBot.css';
 
-const ChatBot = () => {
+const ChatBot = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isRaccoon, setIsRaccoon] = useState(false);
+  const [fontSize, setFontSize] = useState('medium');
   const chatContainerRef = useRef(null);
 
   useEffect(() => {
@@ -47,32 +49,44 @@ const ChatBot = () => {
     }
   };
 
+  const handleFontSizeChange = (e) => {
+    setFontSize(e.target.value);
+  };
+
+  if (!isOpen) return null;
+
   return (
     <div className="chat-container">
-      <h1>{isRaccoon ? '🦝 너굴맨과 대화해요' : '🐼 푸바오와 대화해요'}</h1>
-      <p>{isRaccoon ? '안녕하세요! 저는 너굴맨이에요. 함께 이야기 나눠볼까요너굴?' : '안녕하세요! 저는 판다 푸바오예요. 함께 이야기 나눠볼까요바오?'}</p>
-
-      <div className="chat-layout">
-        <div className="chat-messages" ref={chatContainerRef}>
-          {messages.map((msg, index) => (
-            <div key={index} className={`message ${msg.role}`}>
-              <strong>{msg.role === 'user' ? '👤 당신:' : (isRaccoon ? '🦝 너굴맨:' : '🐼 푸바오:')}</strong> {msg.content}
-            </div>
-          ))}
-        </div>
-        <div className="chat-image">
-          <img 
-            src={isRaccoon
-              ? "https://cdn.pixabay.com/photo/2018/11/16/22/27/raccoon-3820327_1280.jpg"
-              : "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/640px-Grosser_Panda.JPG"
-            }
-            alt={isRaccoon ? "너굴맨" : "푸바오"}
-          />
-          <p>{isRaccoon ? "나는 사실 너굴맨이에요!" : "푸바오예요바오!"}</p>
-        </div>
+      <div className="chat-header">
+        <img 
+          src={isRaccoon
+            ? "https://cdn.pixabay.com/photo/2018/11/16/22/27/raccoon-3820327_1280.jpg"
+            : "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/640px-Grosser_Panda.JPG"
+          }
+          alt={isRaccoon ? "너구리" : "판다"}
+          className="chat-avatar"
+        />
+        <h3>{isRaccoon ? '🦝 너굴맨과 대화해요' : '🐼 푸바오와 대화해요'}</h3>
+        <button onClick={onClose}>닫기</button>
       </div>
-
-      <form onSubmit={handleSubmit}>
+      <div className="chat-options">
+        <label>
+          글씨 크기:
+          <select value={fontSize} onChange={handleFontSizeChange}>
+            <option value="small">작게</option>
+            <option value="medium">보통</option>
+            <option value="large">크게</option>
+          </select>
+        </label>
+      </div>
+      <div className={`chat-messages ${fontSize}`} ref={chatContainerRef}>
+        {messages.map((msg, index) => (
+          <div key={index} className={`message ${msg.role}`}>
+            <strong>{msg.role === 'user' ? '👤 당신:' : (isRaccoon ? '🦝 너굴맨:' : '🐼 푸바오:')}</strong> {msg.content}
+          </div>
+        ))}
+      </div>
+      <form onSubmit={handleSubmit} className="chat-input-form">
         <input
           type="text"
           value={input}
