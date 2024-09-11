@@ -40,7 +40,7 @@ function Header({ isLoggedln, setIsLoggedIn, username, isAdmin, setIsAdmin, chec
                 <nav className="gnb">
                     {isLoggedln && (
                     <div className="nav-links">
-                        <Link to="/my/result">내 퀴즈 결과</Link>
+                        <Link to="/result/list">내 퀴즈 결과</Link>
                         <Link to="/mypage">마이페이지</Link>
                     </div>
                     )}
