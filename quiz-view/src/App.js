@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Quiz from "./Componants/Quiz";
 import Header from "./Componants/Header";
 import Footer from "./Componants/Footer";
 import Login from "./Componants/Login";
@@ -10,11 +9,18 @@ import ChatBot from "./Componants/ChatBot";
 import ChatBotButton from './Componants/ChatBotButton';
 import api from "./Componants/api";
 import './App.css';
+import './Css/Quiz.css'
 import CategoryAll from "./Componants/CategoryAll";
 import QuizCreate from './Componants/quiz/QuizCreate';
 import QuizModify from './Componants/quiz/QuizModify';
 import QuizList from './Componants/quiz/QuizList';
 import QuizSubmit from './Componants/quiz/QuizSubmit';
+
+import QuizResults from "./Componants/quiz/QuizResults";
+import MyPage from "./Componants/MyPage";
+import MyResult from "./Componants/MyResult";
+import QuizDetail from "./Componants/quiz/QuizDetail";
+import QuizSolution from "./Componants/quiz/QuizSolution";
 
 function App() {
   const [isLoggedln, setIsLoggedIn] = useState(false);
@@ -73,7 +79,6 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" element={<QuizSelection />} />
-            <Route path="/quiz" element={<Quiz />} />
             <Route path="/login" element={
               <Login 
                 setIsLoggedIn={setIsLoggedIn} 
@@ -89,6 +94,11 @@ function App() {
             <Route path="/quiz/create" element={<QuizCreate />} />
             <Route path="/quiz/modify/:id" element={<QuizModify />} />
             <Route path="/quiz/category/:categoryName" element={<QuizSubmit />} />
+            <Route path="/quiz/submit" element={<QuizResults />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/result/list" element={<MyResult />} />
+            <Route path="/quiz/detail/:quizId" element={<QuizDetail />} />
+            <Route path="/quiz/solution/:quizId" element={<QuizSolution />} />
             {isAdmin && (
               <Route path="/category" element={<CategoryAll />} />
             )}

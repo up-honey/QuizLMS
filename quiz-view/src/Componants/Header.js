@@ -35,8 +35,23 @@ function Header({ isLoggedln, setIsLoggedIn, username, isAdmin, setIsAdmin, chec
         <div className="quiz-header">
             <div className="wrapper">
                 <div className="quiz-icon">
-                    <Link to="/">퀴즈맞춰봐</Link>
+                    <Link to="/"><img src="/images/logo.png" alt="QUIZ TEST Logo" className="footer-logo" /> </Link>
                 </div>
+                <nav className="gnb">
+                    {isLoggedln && (
+                    <div className="nav-links">
+                        <Link to="/my/result">내 퀴즈 결과</Link>
+                        <Link to="/mypage">마이페이지</Link>
+                    </div>
+                    )}
+                    {/* 관리자인 경우에만 카테고리 메뉴 표시 */}
+                    {isAdmin && (
+                        <div className="admin-links">
+                            <Link to="/category">카테고리 등록</Link>
+                            <Link to="/quiz/list">퀴즈 등록</Link>
+                        </div>
+                    )}
+                </nav>
                 <div className="quiz-info">
                     {/* 로그인 이름 처리 */}
                     {location.pathname !== '/login' ? (
@@ -54,27 +69,6 @@ function Header({ isLoggedln, setIsLoggedIn, username, isAdmin, setIsAdmin, chec
                         
                     ) : null}
                 </div>
-                <nav className="gnb">
-                    {/* 홈이 아닐 때 생성 */}
-                    {/* {location.pathname !== "/" && (
-                        <>
-                        <Link to="/">Home</Link>
-                        </>
-                    )} */}
-
-                    {/* 현재 경로가 /quiz가 아닌 경우에만 '퀴즈 테스트 페이지 이동' 링크를 표시 */}
-                    {location.pathname !== "/quiz" && (
-                        <>
-                        <Link to="/quiz">퀴즈 테스트 페이지 이동</Link>
-                        </>
-                    )}
-
-                    {/* 관리자인 경우에만 카테고리 메뉴 표시 */}
-                    {isAdmin && (
-                        <Link to="/category">카테고리 등록</Link>
-                    )}
-                    <Link to="/chat">챗봇</Link>
-                </nav>
             </div>
         </div>
     );

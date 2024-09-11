@@ -25,8 +25,8 @@ function Footer() {
                 <div className="footer-section contact">
                     <h2>연락처</h2>
                     <p><FaPhone /> 010-1234-1234</p>
-                    <p><FaEnvelope /> hello@hello.com</p>
-                    <p><FaMapMarkerAlt /> 대구광역시 한국 it </p>
+                    <p><FaEnvelope /> hell0@hello.com</p>
+                    <p><FaMapMarkerAlt /> 대구광역시 한국 it 아카데미</p>
 
                     <div className="socials">
                         <a href="https://x.com" target="_blank" rel="noopener noreferrer"><FaXTwitter /></a>
