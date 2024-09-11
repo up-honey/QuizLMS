@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "../Css/formStyle.css"; // CSS 파일 임포트
 import api from "./api";
 
 function Login({ setIsLoggedIn, setUsername, setIsAdmin, checkLoginStatus }) {
@@ -12,7 +13,7 @@ function Login({ setIsLoggedIn, setUsername, setIsAdmin, checkLoginStatus }) {
     const handleLogin = async (e) => {
         e.preventDefault();
         
-        try{
+        try {
             const response = await api.post(
                 '/login',
                 `username=${encodeURIComponent(loginUsername)}&password=${encodeURIComponent(password)}&remember-me=${rememberMe}`,
@@ -26,43 +27,41 @@ function Login({ setIsLoggedIn, setUsername, setIsAdmin, checkLoginStatus }) {
             
             if (response.status === 200 && response.data.success) {
                 alert('Login 성공!');
-
-                // 로그인 상태 확인 함수 호출
                 await checkLoginStatus();
-                
                 navigate('/');
-                console.log("로그인 성공" + loginUsername);
-            } else{
+            } else {
                 setErrorMessage(response.data.error || 'Login 실패!');
             }
-        } catch(error){
+        } catch (error) {
             console.error('Login error:', error);
             setErrorMessage(error.response?.data?.error || '네트워크 오류가 발생했습니다.');
         }
     };
 
     return (
-        <div className="container login">
-            <div className="wrapper">
+        <div className="form-container">
+            <div className="form-box">
                 <h2>로그인</h2>
-                <form onSubmit={handleLogin}>
+                <form className="login-form" onSubmit={handleLogin}>
                     <div>
-                        <label>로그인:</label>
+                        <label>아이디</label>
                         <input
                             type="text"
                             value={loginUsername}
                             onChange={(e) => setLoginusername(e.target.value)}
+                            required
                         />
                     </div>
                     <div>
-                        <label>비밀번호:</label>
+                        <label>비밀번호</label>
                         <input
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                     </div>
-                    <div className="login_check">
+                    <div>
                         <label>
                             <input
                                 type="checkbox"
@@ -72,12 +71,10 @@ function Login({ setIsLoggedIn, setUsername, setIsAdmin, checkLoginStatus }) {
                             로그인 상태 유지
                         </label>
                     </div>
-                    <div>
-                        <button type="submit">로그인</button>
-                        <Link to="/join">회원가입</Link>
-                    </div>
+                    <button type="submit">로그인</button>
+                    <Link to="/join">회원가입</Link>
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                 </form>
-                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
             </div>
         </div>
     );
