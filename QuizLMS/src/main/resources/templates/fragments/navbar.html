@@ -11,6 +11,12 @@
         <button type="submit" class="nav-link btn btn-link">Logout</button>
       </form>
     </li>
+    
+    <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
+      <form action="/result/list" method="get">
+        <button type="submit" class="nav-link btn btn-link">퀴즈 결과 조회</button>
+      </form>
+    </li>
 
     <li class="nav-item" th:if="${#authorization.expression('!isAuthenticated()')}">
       <a class="nav-link" th:href="@{/login}">Login</a>

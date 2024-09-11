@@ -2,12 +2,17 @@ package com.Quiz.lms.controller;
 
 
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -45,6 +50,15 @@ public class MemberController {
         if (authentication != null && authentication.isAuthenticated()) {
             response.put("loggedIn", true);
             response.put("username", authentication.getName()); // 사용자 이름을 반환
+            
+         // 사용자의 권한 정보 추가
+            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+            List<String> roles = authorities.stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+            
+            response.put("roles", roles);
+            System.out.println("User roles: " + roles);
         } else {
             response.put("loggedIn", false);
         }
