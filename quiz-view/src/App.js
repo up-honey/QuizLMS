@@ -20,11 +20,11 @@ function App() {
   const [isLoggedln, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [isChatBotOpen, setIsChatBotOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false); // 관리자 여부를 useEffect 밖으로 이동
+
   const toggleChatBot = () => {
       setIsChatBotOpen(!isChatBotOpen);
   };
-  useEffect(() => {
-  const [isAdmin, setIsAdmin] = useState(false); // 관리자 여부
 
   // 로그인 상태 확인 함수
   const checkLoginStatus = async () => {
@@ -41,7 +41,6 @@ function App() {
           console.log("폴스 누구?", response.data.roles);
           setIsAdmin(false);
         }
-
       } else {
         setIsLoggedIn(false);
         setIsAdmin(false);
@@ -61,16 +60,13 @@ function App() {
     <Router>
       <div>
         {/* Header는 모든 페이지에서 공통으로 보여줍니다 */}
-
         <Header isLoggedln={isLoggedln} setIsLoggedIn={setIsLoggedIn} username={username} />
-        {/* <Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} /> */}
         <div className="App">
-            {/* 기타 앱 컨텐츠 */}
-            <ChatBotButton onClick={toggleChatBot} />
-            <ChatBot isOpen={isChatBotOpen} onClose={() => setIsChatBotOpen(false)} />
+          {/* 기타 앱 컨텐츠 */}
+          <ChatBotButton onClick={toggleChatBot} />
+          <ChatBot isOpen={isChatBotOpen} onClose={() => setIsChatBotOpen(false)} />
         </div>
-        <Header isLoggedln={isLoggedln} setIsLoggedIn={setIsLoggedIn} username={username} isAdmin={isAdmin} setIsAdmin={setIsAdmin} checkLoginStatus={checkLoginStatus} />
-
+        
         <div className="container">
           <Routes>
             {/* 홈 경로 */}
@@ -108,3 +104,4 @@ function App() {
 }
 
 export default App;
+

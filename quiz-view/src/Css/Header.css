@@ -1,0 +1,83 @@
+/* Header.css */
+
+.quiz-header {
+    background-color: #f8f9fa; /* 배경 색상 */
+    padding: 10px 20px; /* 상하 좌우 패딩 */
+    border-bottom: 1px solid #ddd; /* 하단 경계선 */
+}
+
+.quiz-header .wrapper {
+    display: flex;
+    justify-content: space-between; /* 양쪽 끝으로 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+.quiz-icon a {
+    font-size: 1.5rem; /* 아이콘 폰트 크기 */
+    text-decoration: none; /* 밑줄 제거 */
+    color: #007bff; /* 링크 색상 */
+    margin-right: 2rem; /* 홈 버튼과 옆 메뉴들 사이의 간격을 설정 */
+}
+
+.quiz-info {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+.quiz-info-text {
+    margin-right: 15px; /* 링크 간 간격 */
+}
+
+.gnb {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+.gnb a {
+    margin-right: 15px; /* 링크 간 간격 */
+    text-decoration: none; /* 밑줄 제거 */
+    color: #007bff; /* 링크 색상 */
+}
+
+/* 드롭다운 메뉴 스타일 */
+.admin-menu {
+    position: relative; /* 드롭다운 위치를 상대적으로 설정 */
+}
+
+.admin-menu-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.admin-menu-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    top: 100%;
+    left: 0;
+    z-index: 1000; /* 드롭다운 메뉴가 다른 요소 위에 표시되도록 */
+}
+
+.admin-menu-dropdown a {
+    padding: 8px 16px;
+    color: #007bff;
+    text-decoration: none;
+    display: block;
+}
+
+.admin-menu-dropdown a:hover {
+    background-color: #f1f1f1;
+}
+
+/* 좌측 메뉴 스타일 */
+.left-menu {
+    display: flex;
+    align-items: center;
+}
