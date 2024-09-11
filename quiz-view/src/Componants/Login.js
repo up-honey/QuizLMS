@@ -42,7 +42,7 @@ function Login({ setIsLoggedIn, setUsername, setIsAdmin, checkLoginStatus }) {
     };
 
     return (
-        <div className="container">
+        <div className="container login">
             <div className="wrapper">
                 <h2>로그인</h2>
                 <form onSubmit={handleLogin}>
@@ -62,7 +62,7 @@ function Login({ setIsLoggedIn, setUsername, setIsAdmin, checkLoginStatus }) {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <div>
+                    <div className="login_check">
                         <label>
                             <input
                                 type="checkbox"

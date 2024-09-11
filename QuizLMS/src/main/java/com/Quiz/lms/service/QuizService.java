@@ -15,13 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.Quiz.lms.domain.Category;
 import com.Quiz.lms.domain.Quiz;
 import com.Quiz.lms.domain.SelectedQuiz;
-import com.Quiz.lms.dto.QuizForm;
 import com.Quiz.lms.repository.CategoryRepository;
 import com.Quiz.lms.repository.QuizRepository;
+import com.Quiz.lms.repository.QuizResultRepository;
 import com.Quiz.lms.repository.SelectedQuizRepository;
 
 import lombok.RequiredArgsConstructor;
 
+@jakarta.transaction.Transactional
 @Service
 @RequiredArgsConstructor
 public class QuizService {
@@ -29,7 +30,7 @@ public class QuizService {
     private final QuizRepository quizRepository;
     private final SelectedQuizRepository selectedQuizRepository;
     private final CategoryRepository categoryRepository;
-
+    private final QuizResultRepository quizResultRepository;
     //    퀴즈 등록
     public void create(String CategoryName, String title, String answer, List<String> options  ){
        // 카테고리 이름으로 카테고리 레포지토리에서 카테고리를 찾아옴
@@ -125,7 +126,7 @@ public class QuizService {
     
 //  카테고리 삭제
     public void delete(Long id){
-       quizRepository.deleteById(id);
+    	quizRepository.deleteById(id);
     }
 
 }

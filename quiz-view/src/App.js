@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Quiz from "./Componants/Quiz";
 import Header from "./Componants/Header";
 import Footer from "./Componants/Footer";
 import Login from "./Componants/Login";
@@ -10,6 +9,7 @@ import ChatBot from "./Componants/ChatBot";
 import ChatBotButton from './Componants/ChatBotButton';
 import api from "./Componants/api";
 import './App.css';
+import './Css/Quiz.css'
 import CategoryAll from "./Componants/CategoryAll";
 import QuizCreate from './Componants/quiz/QuizCreate';
 import QuizModify from './Componants/quiz/QuizModify';
@@ -75,7 +75,6 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" element={<QuizSelection />} />
-            <Route path="/quiz" element={<Quiz />} />
             <Route path="/login" element={
               <Login 
                 setIsLoggedIn={setIsLoggedIn} 

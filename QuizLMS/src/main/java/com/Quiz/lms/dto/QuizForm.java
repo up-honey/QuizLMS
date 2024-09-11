@@ -3,6 +3,7 @@ package com.Quiz.lms.dto;
 import java.util.List;
 
 import com.Quiz.lms.domain.Category;
+import com.Quiz.lms.domain.SelectedQuiz;
 
 import lombok.Getter;
 import lombok.Setter;
