@@ -12,8 +12,8 @@ const QuizModify = () => {
     const { id } = useParams(); // URL에서 ID 가져오기
     const navigate = useNavigate();
 
+    // 컴포넌트 마운트 시 퀴즈 정보 로드
     useEffect(() => {
-        // 컴포넌트 마운트 시 퀴즈 정보 로드
         const fetchQuiz = async () => {
             try {
                 const response = await api.get(`/api/quiz/${id}`);
@@ -22,16 +22,17 @@ const QuizModify = () => {
                     title: quiz.title,
                     categoryName: quiz.category.name, // Assuming category is an object with a name property
                     answer: quiz.answer,
-                    options: quiz.options
+                    options: quiz.options || ['', '', '', ''] // options가 없는 경우 초기화
                 });
             } catch (error) {
                 console.error('Error fetching quiz:', error);
             }
         };
-
+    
         fetchQuiz();
     }, [id]);
 
+    // 입력 필드 변경 처리
     const handleChange = (e) => {
         const { name, value, dataset } = e.target;
         if (name === 'options') {
@@ -46,10 +47,18 @@ const QuizModify = () => {
         }
     };
 
+    // 폼 제출 처리
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('Submitting form:', form); // 상태 확인
         try {
-            await api.put(`/api/quiz/modify/${id}`, form);
+            const response = await api.put(`/api/quiz/modify/${id}`, {
+                title: form.title,
+                categoryName: form.categoryName,
+                answer: form.answer,
+                options: form.options // options 포함
+            });
+            console.log('Response from API:', response); // 응답 확인
             alert('Quiz modified successfully');
             navigate('/quiz/list');
         } catch (error) {

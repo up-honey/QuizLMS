@@ -18,6 +18,9 @@ import QuizSubmit from './Componants/quiz/QuizSubmit';
 
 import QuizResults from "./Componants/quiz/QuizResults";
 import MyPage from "./Componants/MyPage";
+import MyResult from "./Componants/MyResult";
+import QuizDetail from "./Componants/quiz/QuizDetail";
+import QuizSolution from "./Componants/quiz/QuizSolution";
 
 function App() {
   const [isLoggedln, setIsLoggedIn] = useState(false);
@@ -93,6 +96,9 @@ function App() {
             <Route path="/quiz/category/:categoryName" element={<QuizSubmit />} />
             <Route path="/quiz/submit" element={<QuizResults />} />
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/result/list" element={<MyResult />} />
+            <Route path="/quiz/detail/:quizId" element={<QuizDetail />} />
+            <Route path="/quiz/solution/:quizId" element={<QuizSolution />} />
             {isAdmin && (
               <Route path="/category" element={<CategoryAll />} />
             )}

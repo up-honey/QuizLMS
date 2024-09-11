@@ -43,11 +43,28 @@ public class QuizRestController {
     //private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final QuizResultService quizResultService;
-    
+
     @PostMapping("/submit")
     public ResponseEntity<?> submitQuiz(@RequestBody Map<String, Object> payload,
                                         Principal principal) {
+      
         System.out.println("Received payload: " + payload);
+      
+        String categoryName = (String) payload.get("categoryName");
+
+        List<Map<String, Object>> answers = new ArrayList<>();
+
+        // 단일 퀴즈 응답 처리
+        Long quizId = Long.valueOf(payload.get("quizId").toString());
+        Object answerObj = payload.get("answer");
+        String userAnswer = (answerObj instanceof Integer) ? String.valueOf(answerObj) : (String) answerObj;
+
+        Map<String, Object> singleAnswer = new HashMap<>();
+        singleAnswer.put("quizId", quizId);
+        singleAnswer.put("answer", userAnswer);
+        answers.add(singleAnswer);
+
+        System.out.println("Processed answers: " + answers);
         
         String categoryName = (String) payload.get("categoryName");
         List<Map<String, Object>> answers = (List<Map<String, Object>>) payload.get("answers");
@@ -117,15 +134,40 @@ public class QuizRestController {
         Quiz quiz = quizService.getQuiz(id);
         return ResponseEntity.ok(quiz);
     }
+    
+    // 퀴즈 디테일(다시 풀기)
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<Quiz> getOneQuiz(@PathVariable("id") Long quizId) {
+        Quiz quiz = quizService.getQuizById(quizId); // ID로 퀴즈 가져오기
+        return ResponseEntity.ok(quiz); // 퀴즈 객체를 JSON으로 반환
+    }
 
+    // 퀴즈 솔루션(상세보기)
+    @GetMapping("/solution/{id}")
+    public ResponseEntity<?> getTrueQuiz(@PathVariable("id") Long quizId) {
+        Quiz quiz = quizService.getQuizById(quizId); // ID로 퀴즈 가져오기
+        Double radio = quizResultService.getQuizCorrectRadio(quizId); // 정답률 계산하는 메소드
+
+        Map<String, Object> response = Map.of(
+                "quiz", quiz,
+                "correctRate", radio
+        );
+
+        return ResponseEntity.ok(response); // 응답 객체를 JSON으로 반환
+    }
+    
+    
     // 퀴즈 수정
     @PutMapping("/modify/{id}")
     public ResponseEntity<String> modifyQuiz(
             @PathVariable Long id,
             @RequestBody QuizForm quizForm) {
-        quizService.modify(id, quizForm.getTitle(), quizForm.getCategoryName(), quizForm.getAnswer());
+        // 퀴즈 수정 호출
+        quizService.modify(id, quizForm.getTitle(), quizForm.getCategoryName(), quizForm.getAnswer(), quizForm.getOptions());
         return ResponseEntity.ok("Quiz modified successfully");
     }
+
+
 
     // 퀴즈 삭제
     @Transactional
