@@ -46,21 +46,9 @@ public class QuizRestController {
     public ResponseEntity<?> submitQuiz(@RequestBody Map<String, Object> payload,
                                         Principal principal) {
         System.out.println("Received payload: " + payload);
+        
         String categoryName = (String) payload.get("categoryName");
-        
-        List<Map<String, Object>> answers = new ArrayList<>();
-        
-        // 단일 퀴즈 응답 처리
-        Long quizId = Long.valueOf(payload.get("quizId").toString());
-        Object answerObj = payload.get("answer");
-        String userAnswer = (answerObj instanceof Integer) ? String.valueOf(answerObj) : (String) answerObj;
-        
-        Map<String, Object> singleAnswer = new HashMap<>();
-        singleAnswer.put("quizId", quizId);
-        singleAnswer.put("answer", userAnswer);
-        answers.add(singleAnswer);
-        
-        System.out.println("Processed answers: " + answers);
+        List<Map<String, Object>> answers = (List<Map<String, Object>>) payload.get("answers");
 
         Long userId = memberRepository.findByUsername(principal.getName())
                 .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."))
@@ -69,14 +57,17 @@ public class QuizRestController {
         List<QuizResult> results = new ArrayList<>();
 
         for (Map<String, Object> answer : answers) {
-            Quiz quiz = quizService.getQuizById((Long) answer.get("quizId"));
+            Long quizId = Long.valueOf(answer.get("quizId").toString());
+            String userAnswer = (String) answer.get("answer");
+
+            Quiz quiz = quizService.getQuizById(quizId);
             String correctAnswer = quizService.getCorrectAnswer(quiz.getId());
 
-            boolean isCorrect = answer.get("answer").equals(correctAnswer);
+            boolean isCorrect = userAnswer.equals(correctAnswer);
 
             QuizResult quizResult = new QuizResult();
             quizResult.setUserId(userId);
-            quizResult.setAnswerGiven((String) answer.get("answer"));
+            quizResult.setAnswerGiven(userAnswer);
             quizResult.setCorrect(isCorrect);
             quizResult.setTimestamp(LocalDateTime.now());
             quizResult.setQuiz(quiz);
@@ -84,6 +75,7 @@ public class QuizRestController {
             results.add(quizResult);
         }
 
+        // 모든 결과 저장
         quizResultService.saveResults(results);
 
         long correctCount = results.stream().filter(QuizResult::isCorrect).count();
@@ -97,6 +89,7 @@ public class QuizRestController {
 
         return ResponseEntity.ok(response);
     }
+
     
     // 퀴즈 등록
     @PostMapping("/create")
