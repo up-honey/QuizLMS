@@ -21,21 +21,34 @@
 
 .footer-logo {
     width: 100px;
-    /* margin-bottom: 10px; */
+
+    margin-bottom: 10px;
+    margin-left: 30px;
+
 }
 
 .about p {
     margin-bottom: 10px;
+    padding-left: 30px;
     line-height: 1.6;
+    
 }
 
 .links h2, .contact h2 {
     margin-bottom: 15px;
+    margin-left: 190px;
+    
     font-size: 18px;
+}
+
+/* .contact h2에 대한 추가 규칙 */
+.contact h2 {
+    margin-left: 190px; /* 170px에서 더 늘린 값 */
 }
 
 .links ul {
     list-style-type: none;
+    margin-left: 190px;
     padding: 0;
 }
 
@@ -55,10 +68,12 @@
 
 .contact p {
     margin-bottom: 5px;
+    margin-left: 190px;
 }
 
 .socials {
     margin-top: 15px;
+    margin-left: 190px;
 }
 
 .socials a {
