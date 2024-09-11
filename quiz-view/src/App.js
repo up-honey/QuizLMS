@@ -7,7 +7,9 @@ import Login from "./Componants/Login";
 import Join from "./Componants/Join";
 import QuizSelection from "./Componants/QuizSelection";
 import ChatBot from "./Componants/ChatBot"; // 새로 추가한 ChatBot 컴포넌트
+import ChatBotButton from './Componants/ChatBotButton'; //새로 추가한 ChatBotButton 컴포넌트
 import api from "./Componants/api";
+import './App.css';
 import CategoryAll from "./Componants/CategoryAll"; // 카테고리 컴포넌트 import
 import QuizCreate from './Componants/quiz/QuizCreate'; // 퀴즈 등록 컴포넌트 import
 import QuizModify from './Componants/quiz/QuizModify'; // 퀴즈 수정 컴포넌트 import
@@ -17,6 +19,11 @@ import QuizSubmit from './Componants/quiz/QuizSubmit'; // 퀴즈 제출 컴포�
 function App() {
   const [isLoggedln, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [isChatBotOpen, setIsChatBotOpen] = useState(false);
+  const toggleChatBot = () => {
+      setIsChatBotOpen(!isChatBotOpen);
+  };
+  useEffect(() => {
   const [isAdmin, setIsAdmin] = useState(false); // 관리자 여부
 
   // 로그인 상태 확인 함수
@@ -54,7 +61,16 @@ function App() {
     <Router>
       <div>
         {/* Header는 모든 페이지에서 공통으로 보여줍니다 */}
+
+        <Header isLoggedln={isLoggedln} setIsLoggedIn={setIsLoggedIn} username={username} />
+        {/* <Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} /> */}
+        <div className="App">
+            {/* 기타 앱 컨텐츠 */}
+            <ChatBotButton onClick={toggleChatBot} />
+            <ChatBot isOpen={isChatBotOpen} onClose={() => setIsChatBotOpen(false)} />
+        </div>
         <Header isLoggedln={isLoggedln} setIsLoggedIn={setIsLoggedIn} username={username} isAdmin={isAdmin} setIsAdmin={setIsAdmin} checkLoginStatus={checkLoginStatus} />
+
         <div className="container">
           <Routes>
             {/* 홈 경로 */}
