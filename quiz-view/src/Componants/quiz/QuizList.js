@@ -65,12 +65,12 @@ const QuizList = () => {
                                     <td>
                                         <Link to={`/quiz/modify/${quiz.id}`} className="btn btn-warning">수정</Link>
                                         <button className="btn btn-danger" onClick={() => handleDelete(quiz.id)}>삭제</button>
-                                        <button 
+                                        {/* <button 
                                             className="btn btn-danger"
                                             onClick={() => handleDelete(quiz.id)}
                                         >
                                             삭제
-                                        </button>
+                                        </button> */}
                                         {/* <Link to={`/quiz/delete/${quiz.id}`} className="btn btn-danger"
                                             onClick={() => window.confirm('정말 삭제하시겠습니까?')}>삭제</Link> */}
                                     </td>
