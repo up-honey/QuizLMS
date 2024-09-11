@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../api'; // axios 인스턴스
+import api from '../api';
 
 const QuizSubmit = () => {
     const { categoryName } = useParams();
@@ -11,9 +11,18 @@ const QuizSubmit = () => {
     const [loading, setLoading] = useState(true);
     const [quizCompleted, setQuizCompleted] = useState(false);
     
-    useEffect(() => {
+    const fetchQuizzes = useCallback(async () => {
         if (categoryName) {
-            fetchQuizzes();
+            try {
+                const response = await api.get(`/api/quiz/category/${categoryName}`, {
+                    params: { page: currentPage, size: 10 }
+                });
+                setQuizzes(response.data.content);
+                setError(null);
+            } catch (error) {
+                console.error('Error fetching quizzes:', error);
+                setError('Failed to fetch quizzes.');
+            }
         } else {
             setError('Invalid category name.');
             setLoading(false);
