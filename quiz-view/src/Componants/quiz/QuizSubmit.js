@@ -108,7 +108,6 @@ const QuizSubmit = () => {
             <h1>{categoryName ? `${categoryName} Quiz` : 'Quiz'}</h1>
             <div className="status-bar">
                 <div>문제 개수: {currentQuizIndex + 1}/{quizzes.length}</div>
-                <div>정답 유무: {Object.values(userAnswers).filter(Boolean).length}</div>
             </div>
             <div className="timer-bar">
                 <div className="timer" style={{ width: `${((currentQuizIndex + 1) / quizzes.length) * 100}%` }}></div>

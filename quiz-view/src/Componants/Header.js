@@ -41,7 +41,7 @@ function Header({ isLoggedln, setIsLoggedIn, username, isAdmin, setIsAdmin, chec
                     {isLoggedln && (
                     <div className="nav-links">
                         <Link to="/my/result">내 퀴즈 결과</Link>
-                        <Link to="/my/result">마이페이지</Link>
+                        <Link to="/mypage">마이페이지</Link>
                     </div>
                     )}
                     {/* 관리자인 경우에만 카테고리 메뉴 표시 */}

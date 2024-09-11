@@ -2,6 +2,7 @@ package com.Quiz.lms.controller;
 
 
 
+import java.security.Principal;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Quiz.lms.domain.Member;
 import com.Quiz.lms.dto.MemberDTO;
 import com.Quiz.lms.repository.MemberRepository;
 import com.Quiz.lms.service.MemberService;
@@ -66,6 +69,15 @@ public class MemberController {
         return response;
     }
     
+    //유저 하나 찾아서 가져오기
+    @GetMapping("/getUser")
+	public ResponseEntity<Member> getUser(Principal principal){
+		Member user = memberService.getUser(principal.getName());
+		
+		return ResponseEntity.ok(user);
+	}
+    
+    
     @PostMapping("/register")
     public ResponseEntity<String> register(@Valid @RequestBody MemberDTO memberDTO) {
         log.info("Register request received: {}", memberDTO);  // 요청 로그 남기기
@@ -84,7 +96,6 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred: " + e.getMessage());
         }
     }
-
 
 
     @PostMapping("/login")

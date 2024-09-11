@@ -73,4 +73,9 @@ public class MemberService {
         user.getRoles().add(UserRole.ROLE_ADMIN);
         memberRepository.save(user);
     }
+    
+    //유저 하나 가져오기
+    public Member getUser(String username) {
+    	return memberRepository.findByUsername(username).get();
+    }
 }
