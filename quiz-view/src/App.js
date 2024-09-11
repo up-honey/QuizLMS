@@ -13,6 +13,7 @@ import QuizCreate from './Componants/quiz/QuizCreate'; // 퀴즈 등록 컴포�
 import QuizModify from './Componants/quiz/QuizModify'; // 퀴즈 수정 컴포넌트 import
 import QuizList from './Componants/quiz/QuizList'; // 퀴즈 목록 컴포넌트 import
 import QuizSubmit from './Componants/quiz/QuizSubmit'; // 퀴즈 제출 컴포넌트 import
+import QuizResult from "./Componants/QuizResult";
 
 function App() {
   const [isLoggedln, setIsLoggedIn] = useState(false);
@@ -77,6 +78,9 @@ function App() {
             <Route path="/quiz/modify/:id" element={<QuizModify />} />
             {/* 퀴즈 풀기 경로 */}
             <Route path="/quiz/category/:categoryName" element={<QuizSubmit />} />
+
+             {/* 퀴즈 결과 경로 */}
+            <Route path="/quiz/result/list" element={<QuizResult />} />
 
             {/* 관리자인 경우에만 카테고리 경로가 렌더됨 */}
             {isAdmin && (
