@@ -18,6 +18,7 @@ const QuizSubmit = () => {
             setError('Invalid category name.');
             setLoading(false);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [categoryName]);
 
     const fetchQuizzes = () => {
@@ -79,8 +80,8 @@ const QuizSubmit = () => {
         <div className='wrapper'>
             <h1>{categoryName ? `${categoryName} Quiz` : 'Quiz'}</h1>
             <div className="status-bar">
-                <div>Question: {currentQuizIndex + 1}/{quizzes.length}</div>
-                <div>Correct Answers: {Object.values(userAnswers).filter(Boolean).length}</div>
+                <div>문제 개수: {currentQuizIndex + 1}/{quizzes.length}</div>
+                <div>정답 유무: {Object.values(userAnswers).filter(Boolean).length}</div>
             </div>
             <div className="timer-bar">
                 <div className="timer" style={{ width: `${((currentQuizIndex + 1) / quizzes.length) * 100}%` }}></div>

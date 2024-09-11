@@ -30,8 +30,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
+@Transactional
 @RestController
 @RequestMapping("/api/quiz")
 @RequiredArgsConstructor
@@ -133,9 +135,11 @@ public class QuizRestController {
     }
 
     // 퀴즈 삭제
+    @Transactional
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteQuiz(@PathVariable Long id) {
+    public ResponseEntity<String> deleteQuiz(@PathVariable("id") Long id) {
         quizService.delete(id);
+        System.out.println("삭제가 뭐지?" + id);
         return ResponseEntity.ok("Quiz deleted successfully");
     }
 
