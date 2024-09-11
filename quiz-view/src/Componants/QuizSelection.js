@@ -22,7 +22,7 @@ function QuizSelection() {
                         categories.map((category, index) => (
                         <Link
                             key={category.id}
-                            to={`/quiz/${category.id}`}
+                            to={`/quiz/category/${category.name}`}
                             className={`category-item ${index % 2 === 0 ? 'blue' : 'yellow'}`} // 인덱스에 따라 색상 결정
                         >
                             <div className="icon">{index % 2 === 0 ? "💡" : "🤔"}</div>

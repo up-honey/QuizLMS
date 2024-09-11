@@ -75,8 +75,8 @@ function App() {
             <Route path="/quiz/create" element={<QuizCreate />} />
             {/* 퀴즈 수정 경로 */}
             <Route path="/quiz/modify/:id" element={<QuizModify />} />
-            {/* 퀴즈 등록 경로 */}
-            <Route path="/quiz/submit" element={<QuizSubmit />} />
+            {/* 퀴즈 풀기 경로 */}
+            <Route path="/quiz/category/:categoryName" element={<QuizSubmit />} />
 
             {/* 관리자인 경우에만 카테고리 경로가 렌더됨 */}
             {isAdmin && (
