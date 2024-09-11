@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../api'; // axios 인스턴스
-
+import '../../Css/Quiz.css';
 const QuizResults = () => {
     const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
     const location = useLocation();
@@ -35,7 +35,7 @@ const QuizResults = () => {
     };
 
     return (
-        <div>
+        <div className="wrapper result">
             <h1>퀴즈 결과</h1>
             <div>
                 <h2>
@@ -48,11 +48,11 @@ const QuizResults = () => {
                 <input type="hidden" name="categoryName" value={results[0]?.quiz.category.name} />
 
                 {results.map((result, index) => (
-                    <div key={index}>
+                    <div key={index} className="quiz-result">
                         <p>
                             <strong>문제:</strong> <span>{result.quiz.title}</span><br />
                             <strong>제출한 답:</strong>
-                            <input type="text" name={`userAnswers[${index}]`} defaultValue={result.answerGiven} required /><br />
+                            <input type="text" name={`userAnswers[${index}]`} defaultValue={result.answerGiven} readOnly /><br />
                             <strong>정답:</strong> <span>{result.quiz.answer}</span><br />
                             <strong>결과:</strong> <span>{result.correct ? '정답' : '오답'}</span>
                         </p>

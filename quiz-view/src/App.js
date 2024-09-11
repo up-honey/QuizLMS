@@ -17,6 +17,7 @@ import QuizList from './Componants/quiz/QuizList';
 import QuizSubmit from './Componants/quiz/QuizSubmit';
 
 import QuizResults from "./Componants/quiz/QuizResults";
+import MyPage from "./Componants/MyPage";
 
 function App() {
   const [isLoggedln, setIsLoggedIn] = useState(false);
@@ -91,6 +92,7 @@ function App() {
             <Route path="/quiz/modify/:id" element={<QuizModify />} />
             <Route path="/quiz/category/:categoryName" element={<QuizSubmit />} />
             <Route path="/quiz/submit" element={<QuizResults />} />
+            <Route path="/mypage" element={<MyPage />} />
             {isAdmin && (
               <Route path="/category" element={<CategoryAll />} />
             )}
