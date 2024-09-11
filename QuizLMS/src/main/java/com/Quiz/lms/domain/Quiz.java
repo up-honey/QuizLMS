@@ -1,5 +1,6 @@
 package com.Quiz.lms.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -26,9 +27,13 @@ public class Quiz {
 
     @Column(name = "answer")
     private String answer;
-    
-    @ElementCollection // 선택지를 저장하기 위한 어노테이션
-    @Column(name = "options") // 선택지 컬럼
-    private List<String> options; // 선택지 리스트
+
+
+    //이때 @ElementCollection은 options 테이블을 사용해 퀴즈의 옵션을 저장합니다. CascadeType.REMOVE 대신 기본적으로 orphanRemoval=true가 내장되어 있어 퀴즈를 삭제할 때 options도 함께 삭제됩니다.
+    @ElementCollection
+    @CollectionTable(name = "quiz_options", joinColumns = @JoinColumn(name = "quiz_id"))
+    @Column(name = "quiz_option")  // 'option' 대신 'quiz_option'으로 변경
+    private List<String> options = new ArrayList<>();
+
 
 }
