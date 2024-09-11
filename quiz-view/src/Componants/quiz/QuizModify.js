@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import api from '../api'; // api 모듈을 사용
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import api from '../api'; // api 모듈을 사용
 
 const QuizModify = () => {
     const [form, setForm] = useState({
@@ -106,7 +106,7 @@ const QuizModify = () => {
                         <input
                             type="text"
                             name="options"
-                            data-index={index} // 각 입력 필드에 인덱스를 데이터로 전달
+                            data-index={index}
                             value={option}
                             onChange={handleChange}
                             required
@@ -117,6 +117,7 @@ const QuizModify = () => {
             <button type="submit">Modify Quiz</button>
         </form>
     );
+    
 };
 
 export default QuizModify;

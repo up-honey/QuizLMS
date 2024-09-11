@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import '../Css/ChatBot.css';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import '../Css/ChatBot.css';
 
 const ChatBot = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([]);

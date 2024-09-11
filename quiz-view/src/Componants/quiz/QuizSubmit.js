@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // useHistory를 useNavigate로 변경
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom'; // useHistory를 useNavigate로 변경
 import api from '../api'; // axios 인스턴스
 
 const QuizSubmit = () => {

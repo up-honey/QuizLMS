@@ -1,98 +1,155 @@
+:root {
+    --primary-color: #007bff;
+    --primary-dark-color: #0056b3;
+    --secondary-color: #ffc107;
+    --secondary-dark-color: #e0a800;
+    --danger-color: #dc3545;
+    --danger-dark-color: #c82333;
+    --background-color: #f9f9f9;
+    --text-color: #333;
+    --text-light-color: #666;
+    --border-color: #ccc;
+    --border-light-color: #dee2e6;
+    --hover-background: #f0f0f0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    line-height: 1.6;
+}
+
 a {
     text-decoration: none;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+header, footer {
+    background-color: var(--background-color);
+    padding: 10px 20px;
 }
 
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    }
-
-.footer {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #666;
-    line-height: 1.4;
-    text-align: left;
-    }
-
-/* 카테고리등록 */
-/* Common.css */
-
-
-.cateRegist h1 {
-    text-align: center;
-    color: #333;
+    border-bottom: 1px solid var(--border-light-color);
 }
 
-.cateRegist input[type="text"] {
-    width: calc(100% - 100px);
-    padding: 10px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.header .nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.header .nav-links a {
     font-size: 16px;
 }
 
-.cateRegist button {
+footer {
+    
+    font-size: 14px;
+    color: var(--text-light-color);
+    margin-top: 20px;
+}
+
+button {
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
-    background-color: #007bff;
-    color: white;
+    background-color: var(--primary-color);
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
-.cateRegist button:hover {
-    background-color: #0056b3;
+button:hover {
+    background-color: var(--primary-dark-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
 }
 
-.cateRegist li {
+li {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-light-color);
 }
 
-.cateRegist li:last-child {
+li:last-child {
     border-bottom: none;
 }
 
-.cateRegist li input[type="text"] {
-    width: 70%;
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    
+    font-size: 16px;
 }
 
-.edit-buttons {
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.login {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.edit-buttons button {
-    margin-left: 5px;
+.login h2 {
+    margin-bottom: 20px;
+    color: var(--text-color);
 }
 
-.no-category {
-    text-align: center;
-    color: #888;
-    font-size: 18px;
+.login label {
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-
-/* 퀴즈 등록, 리스트 확인 */
-/* App.css */
-
+.login button {
+    width: 100%;
+}
 
 .quiz h1 {
     text-align: center;
-    color: #343a40;
-    border-bottom: 2px solid #007bff;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
@@ -107,16 +164,16 @@ ul {
 .quiz .table td {
     padding: 12px;
     text-align: left;
-    border: 1px solid #dee2e6;
+    border: 1px solid var(--border-light-color);
 }
 
 .quiz .table th {
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white;
 }
 
 .quiz .table tr:hover {
-    background-color: #f1f1f1;
+    background-color: var(--hover-background);
 }
 
 .quiz .btn {
@@ -124,33 +181,33 @@ ul {
 }
 
 .quiz .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .quiz .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+    background-color: var(--primary-dark-color);
+    border-color: var(--primary-dark-color);
 }
 
 .quiz .btn-warning {
-    background-color: #ffc107;
-    border-color: #ffc107;
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
 }
 
 .quiz .btn-warning:hover {
-    background-color: #e0a800;
-    border-color: #d39e00;
+    background-color: var(--secondary-dark-color);
+    border-color: var(--secondary-dark-color);
 }
 
 .quiz .btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
 }
 
 .quiz .btn-danger:hover {
-    background-color: #c82333;
-    border-color: #bd2130;
+    background-color: var(--danger-dark-color);
+    border-color: var(--danger-dark-color);
 }
 
 .quiz .pagination {
@@ -159,17 +216,17 @@ ul {
 }
 
 .quiz .page-item.disabled .page-link {
-    background-color: #e9ecef;
-    border-color: #dee2e6;
+    background-color: var(--border-light-color);
+    border-color: var(--border-light-color);
     color: #6c757d;
 }
 
 .quiz .page-link {
-    color: #007bff;
+    color: var(--primary-color);
 }
 
 .quiz .page-link:hover {
-    color: #0056b3;
+    color: var(--primary-dark-color);
     text-decoration: none;
 }
 
@@ -177,12 +234,12 @@ ul {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ced4da;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
 }
 
 .quiz .form-control:focus {
-    border-color: #007bff;
+    border-color: var(--primary-color);
     box-shadow: 0 0 5px rgba(0, 123, 255, .5);
 }
 
@@ -190,185 +247,518 @@ ul {
     font-weight: bold;
 }
 
-/* 기본 네비게이션 스타일 */
 .gnb {
     display: flex;
-    justify-content: space-between; /* 좌우 정렬 */
-    align-items: center; /* 세로 중앙 정렬 */
-    padding: 10px 20px; /* 네비게이션 내부 패딩 */
-    background: none; /* 배경 제거 */
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: none;
 }
 
 .nav-links, .admin-links {
     display: flex;
-    gap: 20px; /* 링크 간격 */
+    gap: 20px;
 }
 
 .nav-links a, .admin-links a {
-    text-decoration: none; /* 밑줄 제거 */
-    color: #333; /* 기본 텍스트 색상 */
+    text-decoration: none;
+    color: var(--text-color);
     font-size: 16px;
     font-weight: 500;
-    padding: 5px 10px; /* 텍스트 주위 여백 */
-    border-radius: 4px; /* 링크의 모서리 둥글게 */
-    transition: background 0.3s ease, color 0.3s ease; /* 호버 효과 부드럽게 */
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .nav-links a:hover, .admin-links a:hover {
-    background: #f0f0f0; /* 호버 시 배경색 */
-    color: #007BFF; /* 호버 시 텍스트 색상 */
+    background: var(--hover-background);
+    color: var(--primary-color);
 }
 
 .admin-links {
-    /* 관리자인 경우에만 보이므로 다른 스타일을 부여 */
     display: flex;
-    gap: 20px; /* 관리 링크 간격 */
+    gap: 20px;
 }
 
 @media (max-width: 768px) {
     .gnb {
-        flex-direction: column; /* 모바일 뷰에서 세로 정렬 */
-        align-items: flex-start; /* 좌측 정렬 */
+        flex-direction: column;
+        align-items: flex-start;
     }
+
     .nav-links, .admin-links {
-        flex-direction: column; /* 모바일에서 세로 정렬 */
+        flex-direction: column;
         gap: 10px;
     }
 }
 
-
-/* 로그인 */
-.login h2 {
-    text-align: center;
-    color: #333; /* 제목 색상 */
-    margin-bottom: 20px; /* 제목과 폼 간격 */
-}
-
-.login form {
-    display: flex;
-    flex-direction: column; /* 세로 방향 정렬 */
-}
-
-.login label {
-    margin-bottom: 5px; /* 레이블과 입력 필드 간격 */
-    font-weight: bold; /* 레이블 두껍게 */
-}
-
-.login input[type="text"],
-.login input[type="password"] {
-    padding: 10px;
-    border: 1px solid #ccc; /* 테두리 색상 */
-    border-radius: 5px; /* 모서리 둥글기 */
-    margin-bottom: 15px; /* 입력 필드 간격 */
-    font-size: 16px; /* 글씨 크기 */
-}
-
-.login input[type="checkbox"] {
-    margin-right: 5px; /* 체크박스와 텍스트 간격 */
-}
-.login a { margin-left: 10px; }
-.login a,  
-.login button {
-    background-color: #007bff; /* 버튼 배경색 */
-    color: white; /* 버튼 글자색 */
-    border: none; /* 테두리 없음 */
-    padding: 10px;
-    border-radius: 5px; /* 모서리 둥글기 */
-    font-size: 16px; /* 글씨 크기 */
-    cursor: pointer; /* 커서 포인터로 변경 */
-    transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
-}
-
-.login button:hover {
-    background-color: #0056b3; /* 버튼 호버 색상 */
-}
-
-
-.login p {
-    text-align: center; /* 에러 메시지 가운데 정렬 */
-    margin-top: 15px; /* 에러 메시지 위 간격 */
-}
-.login_check{
-    margin-bottom: 16px;
-}
-
-/* MyPage.css */
-
 .wrapper.mypage {
-    max-width: 600px; /* 최대 너비 설정 */
-    margin: 40px auto; /* 중앙 정렬 */
-    padding: 20px; /* 안쪽 여백 */
-    background-color: #f9f9f9; /* 배경 색상 */
-    border-radius: 10px; /* 모서리 둥글게 */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-    text-align: center; /* 텍스트 중앙 정렬 */
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .mypage h1 {
-    font-size: 2.5rem; /* 제목 크기 */
-    color: #333; /* 제목 색상 */
-    margin-bottom: 20px; /* 아래 여백 */
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
 }
 
 .mypage p {
-    font-size: 1.2rem; /* 본문 크기 */
-    color: #555; /* 본문 색상 */
-    margin: 10px 0; /* 위 아래 여백 */
+    font-size: 1.2rem;
+    color: #555;
+    margin: 10px 0;
 }
 
 .mypage strong {
-    color: #007bff; /* 강조 색상 */
+    color: var(--primary-color);
 }
 
 @media (max-width: 768px) {
     .mypage h1 {
-        font-size: 2rem; /* 작은 화면에서 제목 크기 조정 */
+        font-size: 2rem;
     }
 
     .mypage p {
-        font-size: 1rem; /* 작은 화면에서 본문 크기 조정 */
+        font-size: 1rem;
     }
 }
 
 .button-group {
-    margin-top: 20px; /* 버튼 그룹 위 여백 */
-    display: flex; /* 버튼을 가로로 나열 */
-    justify-content: center; /* 중앙 정렬 */
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .button-group button {
-    margin: 0 10px; /* 버튼 간격 */
-    padding: 10px 20px; /* 버튼 안쪽 여백 */
-    border: none; /* 테두리 제거 */
-    border-radius: 5px; /* 둥근 모서리 */
-    background-color: #007bff; /* 배경 색상 */
-    color: white; /* 텍스트 색상 */
-    cursor: pointer; /* 커서 포인터로 변경 */
-    transition: background-color 0.3s; /* 배경 색상 변화에 애니메이션 추가 */
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .button-group button:hover {
-    background-color: #0056b3; /* 호버 시 색상 변화 */
+    background-color: var(--primary-dark-color);
 }
 
 .delete-button {
-    background-color: #dc3545 !important; /* 빨간색 배경 */
+    background-color: var(--danger-color) !important;
 }
 
 .delete-button:hover {
-    background-color: #c82333 !important; /* 호버 시 색상 변화 */
+    background-color: var(--danger-dark-color) !important;
 }
 
-/* 입력 필드 스타일 */
-input[type="text"],
-input[type="password"] {
-    width: 100%; /* 전체 너비 */
-    padding: 10px; /* 안쪽 여백 */
-    margin: 10px 0; /* 위 아래 여백 */
-    border: 1px solid #ccc; /* 테두리 */
-    border-radius: 5px; /* 둥근 모서리 */
+/* 버튼 그룹 스타일 */
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-.pwd input {
-    width: 200px;
-} 
+.button-group .btn {
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button-group .btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+}
+
+.button-group .btn-primary:hover {
+    background-color: var(--primary-dark-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.button-group .btn-danger {
+    background-color: var(--danger-color);
+    border: none;
+    color: white;
+}
+
+.button-group .btn-danger:hover {
+    background-color: var(--danger-dark-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 폼 스타일 */
+form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+form input[type="text"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+form button {
+    padding: 12px 24px;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form button:hover {
+    background-color: var(--primary-dark-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* 결과 페이지 스타일 */
+.result {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.result h1 {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.result h2 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.result .quiz-result {
+    background-color: var(--hover-background);
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.result .quiz-result p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.result .quiz-result input[type="text"] {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+    width: calc(100% - 18px);
+    margin: 5px 0;
+    background-color: #f5f5f5;
+}
+
+.result .btn {
+    padding: 12px 24px;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.result .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.result .btn-primary:hover {
+    background-color: var(--primary-dark-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.result .btn-link {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: none;
+    text-decoration: underline;
+}
+
+.result .btn-link:hover {
+    color: var(--primary-dark-color);
+}
+
+/* 퀴즈 세부사항 페이지 스타일 */
+.quiz-detail {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.quiz-detail h1 {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.quiz-detail h3 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.quiz-detail .correct-rate {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.quiz-detail form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.quiz-detail .option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.quiz-detail input[type="radio"] {
+    margin-right: 10px;
+}
+
+.quiz-detail label {
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.quiz-detail .btn {
+    padding: 12px 24px;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quiz-detail .btn-info {
+    
+    color: white;
+}
+
+.quiz-detail .btn-info:hover {
+    background-color: var(--info-dark-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none; /* 버튼에 기본 테두리 제거 */
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover-color);
+}
+
+.btn-warning {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: var(--warning-hover-color);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: var(--danger-hover-color);
+}
+
+/* 링크와 버튼의 크기와 여백을 일치시킵니다. */
+.btn-link {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: var(--primary-color);
+    border-radius: 6px;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.btn-link:hover {
+    background-color: var(--primary-hover-color);
+    color: white;
+}
+
+.btn-link.btn-warning {
+    color: var(--warning-color);
+}
+
+.btn-link.btn-danger {
+    color: var(--danger-color);
+}
+
+/* 카테고리 관리 페이지 스타일 */
+.wrapper.cateRegist {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.wrapper.cateRegist h1 {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.wrapper.cateRegist > div {
+    margin-bottom: 20px;
+}
+
+.wrapper.cateRegist input[type="text"] {
+    width: calc(100% - 120px); /* Adjust width to account for button */
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.wrapper.cateRegist button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.wrapper.cateRegist button:hover {
+    background-color: var(--primary-dark-color);
+}
+
+.wrapper.cateRegist ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.wrapper.cateRegist li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-light-color);
+}
+
+.wrapper.cateRegist li:last-child {
+    border-bottom: none;
+}
+
+.wrapper.cateRegist li input[type="text"] {
+    width: calc(100% - 150px); /* Adjust width for edit inputs */
+    margin-right: 10px;
+}
+
+.wrapper.cateRegist li button {
+    margin-left: 10px;
+    padding: 6px 12px;
+}
+
+.wrapper.cateRegist li button:nth-child(2) {
+    background-color: var(--secondary-color);
+}
+
+.wrapper.cateRegist li button:nth-child(2):hover {
+    background-color: var(--secondary-dark-color);
+}
+
+.wrapper.cateRegist li button:nth-child(3) {
+    background-color: var(--danger-color);
+}
+
+.wrapper.cateRegist li button:nth-child(3):hover {
+    background-color: var(--danger-dark-color);
+}
+
+.category-details {
+    
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px; /* 최대 너비 설정 */
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.category-details button {
+    margin-left: 5px; /* 버튼들 사이의 간격을 줄입니다 */
+}
+
+.category-details .buttons {
+    display: flex;
+    gap: 5px; /* 버튼들 사이의 간격을 줄입니다 */
+}

@@ -1,7 +1,7 @@
 // Componants/Category.js
-import React, { useState, useEffect } from 'react';
-import api, { fetchCategories } from './api';
+import React, { useEffect, useState } from 'react';
 import "../Css/Common.css";
+import api, { fetchCategories } from './api';
 
 function CategoryAll() {
     const [categories, setCategories] = useState([]);
@@ -62,9 +62,9 @@ function CategoryAll() {
     return (
         <div className='wrapper cateRegist'>
             <h1>카테고리 관리</h1>
-
+    
             {/* 카테고리 추가 */}
-            <div>
+            <div className='add-category'>
                 <input
                     type="text"
                     placeholder="새 카테고리 이름"
@@ -73,14 +73,14 @@ function CategoryAll() {
                 />
                 <button onClick={handleAddCategory}>추가</button>
             </div>
-
+    
             {/* 카테고리 목록 */}
-            <ul>
+            <ul className='category-list'>
                 {categories.length > 0 ? (
                     categories.map((category) => (
-                        <li key={category.id}>
+                        <li key={category.id} className='category-item1'>
                             {editCategory === category.id ? (
-                                <>
+                                <div className='edit-category'>
                                     <input
                                         type="text"
                                         value={editName}
@@ -88,16 +88,16 @@ function CategoryAll() {
                                     />
                                     <button onClick={() => handleEditCategory(category.id)}>저장</button>
                                     <button onClick={() => setEditCategory(null)}>취소</button>
-                                </>
+                                </div>
                             ) : (
-                                <>
+                                <div className='category-details'>
                                     {category.name}
                                     <button onClick={() => {
                                         setEditCategory(category.id);
                                         setEditName(category.name);
                                     }}>수정</button>
                                     <button onClick={() => handleDeleteCategory(category.id)}>삭제</button>
-                                </>
+                                </div>
                             )}
                         </li>
                     ))
@@ -107,6 +107,7 @@ function CategoryAll() {
             </ul>
         </div>
     );
+    
 }
 
 export default CategoryAll;

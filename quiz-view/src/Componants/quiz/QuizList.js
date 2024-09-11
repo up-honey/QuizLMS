@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import api from '../api'; // axios 대신 api 사용
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import api from '../api'; // axios 대신 api 사용
 
 const QuizList = () => {
     const [quizzes, setQuizzes] = useState([]);
@@ -63,17 +63,15 @@ const QuizList = () => {
                                     <td>{quiz.title}</td>
                                     <td>{quiz.answer}</td>
                                     <td>
-                                        <Link to={`/quiz/modify/${quiz.id}`} className="btn btn-warning">수정</Link>
-                                        <button className="btn btn-danger" onClick={() => handleDelete(quiz.id)}>삭제</button>
-                                        {/* <button 
+                                    <Link to={`/quiz/modify/${quiz.id}`} className="btn btn-warning">수정</Link>
+                                        <button 
                                             className="btn btn-danger"
                                             onClick={() => handleDelete(quiz.id)}
                                         >
                                             삭제
-                                        </button> */}
-                                        {/* <Link to={`/quiz/delete/${quiz.id}`} className="btn btn-danger"
-                                            onClick={() => window.confirm('정말 삭제하시겠습니까?')}>삭제</Link> */}
+                                        </button>
                                     </td>
+
                                 </tr>
                             ))
                         ) : (
@@ -103,6 +101,7 @@ const QuizList = () => {
             </div>
         </div>
     );
+    
 };
 
 export default QuizList;
