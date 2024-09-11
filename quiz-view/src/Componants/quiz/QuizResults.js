@@ -58,8 +58,6 @@ const QuizResults = () => {
                         </p>
                     </div>
                 ))}
-
-                <button type="submit">퀴즈 결과 저장</button>
             </form>
 
             <button onClick={handleTakeAnotherQuiz}>다른 퀴즈 풀기</button>
