@@ -32,15 +32,6 @@ public class QuizResultController {
     private final MemberRepository memberRepository;
     
     
-    // 퀴즈 결과 저장
-    @PostMapping("/save")
-    public ResponseEntity<List<QuizResult>> saveQuizResults(
-            @RequestParam(value="userId") Long userId,
-            @RequestParam(value="categoryName") String categoryName,
-            @RequestParam(value="userAnswers") List<String> userAnswers) {
-        List<QuizResult> results = quizResultService.takeQuizAndSaveResults(userId, categoryName, userAnswers);
-        return ResponseEntity.ok(results);
-    }
 
     @GetMapping("/list")
     public String getQuizResults(
