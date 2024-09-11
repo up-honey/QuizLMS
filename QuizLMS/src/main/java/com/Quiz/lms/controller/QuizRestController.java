@@ -26,10 +26,11 @@ public class QuizRestController {
     // 카테고리 별 퀴즈 목록 조회
     @GetMapping("/category/{categoryName}")
     public ResponseEntity<Page<Quiz>> getQuizzesByCategory(
-            @PathVariable String categoryName,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @PathVariable("categoryName") String categoryName,
+            @RequestParam(name="page", defaultValue = "0") int page,
+            @RequestParam(name="size", defaultValue = "10") int size) {
         Page<Quiz> quizzes = quizService.selectTenQuiz(categoryName, page, size);
+        System.out.println(categoryName);
         return ResponseEntity.ok(quizzes);
     }
 
