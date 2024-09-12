@@ -4,7 +4,7 @@
     /* padding: 40px 20px; */
 }
 .wrapper {
-    padding: 0 20px;
+    padding: 20px 20px;
 }
 
 .quiz-container{
@@ -79,6 +79,7 @@ text-align: left;
 font-size: 16px;
 cursor: pointer;
 transition: background-color 0.3s ease;
+color: #000;
 }
 
 .quiz-option.selected {
@@ -86,7 +87,8 @@ background-color: #ffcc00;
 }
 
 .quiz-option:hover {
-background-color: #d6d6d6;
+background-color: #ffcc00;
+
 }
 
 .status-bar {

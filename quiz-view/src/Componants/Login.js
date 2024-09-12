@@ -72,7 +72,7 @@ function Login({ setIsLoggedIn, setUsername, setIsAdmin, checkLoginStatus }) {
                         </label>
                     </div>
                     <button type="submit">로그인</button>
-                    <Link to="/join">회원가입</Link>
+                    <Link to="/join" className="join">회원가입</Link>
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
                 </form>
             </div>

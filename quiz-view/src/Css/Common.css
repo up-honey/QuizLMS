@@ -57,7 +57,10 @@ header {
     font-size: 1.5rem;
     font-weight: bold;
 }
-
+.header-logo{
+    width: 100px;
+    margin-top: 10px;
+}
 .header .nav-links {
     display: flex;
     gap: 20px;
@@ -92,7 +95,6 @@ footer {
     
     font-size: 14px;
     color: var(--text-light-color);
-    margin-top: 20px;
 }
 
 button {
@@ -110,9 +112,7 @@ button:hover {
 }
 
 .container {
-    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
 }
 
 ul {
@@ -246,7 +246,10 @@ input[type="checkbox"] {
     border-color: var(--border-light-color);
     color: #6c757d;
 }
-
+.join {
+    text-align: center;
+    margin-top: 16px;
+}
 .quiz .page-link {
     color: var(--primary-color);
 }

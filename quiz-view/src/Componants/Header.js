@@ -35,7 +35,7 @@ function Header({ isLoggedln, setIsLoggedIn, username, isAdmin, setIsAdmin, chec
         <div className="quiz-header">
             <div className="wrapper">
                 <div className="quiz-icon">
-                    <Link to="/"><img src="/images/logo.png" alt="QUIZ TEST Logo" className="footer-logo" /> </Link>
+                    <Link to="/"><img src="/images/logo.png" alt="QUIZ TEST Logo" className="header-logo" /> </Link>
                 </div>
                 <nav className="gnb">
                     {isLoggedln && (
