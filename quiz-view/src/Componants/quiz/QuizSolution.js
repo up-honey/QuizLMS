@@ -29,23 +29,22 @@ const QuizSolution = () => {
     const { quiz, correctRate } = quizData; // quiz와 correctRate 구조 분해 할당
 
     return (
-        <div>
+        <div className="quiz-detail">
             <h1>{quiz.category.name} 퀴즈</h1>
-
+    
             {/* 정답률 표시 */}
             <div>
                 <h3>
-                    전체 정답률: 
-                    <span style={{ fontSize: '1.2em' }}>{(correctRate).toFixed(1)}%</span>
+                    전체 정답률: <span className="correct-rate">{(correctRate).toFixed(1)}%</span>
                 </h3>
             </div>
-
+    
             <div>
                 <h3>{quiz.title}</h3>
                 <form>
                     {/* 옵션 표시 */}
                     {quiz.options.map((option, index) => (
-                        <div key={index}>
+                        <div key={index} className="option">
                             <input
                                 type="radio"
                                 name="answer"
@@ -60,6 +59,7 @@ const QuizSolution = () => {
             </div>
         </div>
     );
+    
 };
 
 export default QuizSolution;

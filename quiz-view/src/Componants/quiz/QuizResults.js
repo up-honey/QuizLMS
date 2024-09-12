@@ -1,7 +1,7 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import api from '../api'; // axios 인스턴스
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../../Css/Quiz.css';
+import api from '../api'; // axios 인스턴스
 const QuizResults = () => {
     const navigate = useNavigate(); // useHistory 대신 useNavigate 사용
     const location = useLocation();
@@ -42,11 +42,11 @@ const QuizResults = () => {
                     총 점수: <span>{correctCount}</span> / <span>{count}</span>
                 </h2>
             </div>
-
+    
             <form onSubmit={handleSaveResults}>
                 <input type="hidden" name="userId" value={userId} />
                 <input type="hidden" name="categoryName" value={results[0]?.quiz.category.name} />
-
+    
                 {results.map((result, index) => (
                     <div key={index} className="quiz-result">
                         <p>
@@ -59,12 +59,13 @@ const QuizResults = () => {
                     </div>
                 ))}
             </form>
-
-            <button onClick={handleTakeAnotherQuiz}>다른 퀴즈 풀기</button>
-
-            <button onClick={() => navigate('/result/list')} className="nav-link btn btn-link">퀴즈 결과 조회</button>
+    
+            <button onClick={handleTakeAnotherQuiz} className="btn btn-primary">다른 퀴즈 풀기</button>
+    
+            <button onClick={() => navigate('/result/list')} className="btn btn-link">퀴즈 결과 조회</button>
         </div>
     );
+    
 };
 
 export default QuizResults;

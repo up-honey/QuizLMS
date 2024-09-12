@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../Css/formStyle.css"; // CSS 파일 임포트
 
 function Join() {
     const [formData, setFormData] = useState({
@@ -10,7 +11,6 @@ function Join() {
     const navigate = useNavigate();
     const [error, setError] = useState(null);
 
-    // Handle input change
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -19,29 +19,19 @@ function Join() {
         });
     };
 
-    // function getCsrfToken() {
-    //     return document.cookie.split('; ')
-    //     .find(row => row.startsWith('XSRF-TOKEN='))
-    //     ?.split('=')[1];
-    // }
-
     const handleJoin = async (e) => {
         e.preventDefault();
 
-        try{
-            //const csrfToken = getCsrfToken();
+        try {
             const response = await fetch('/api/members/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    //'X-XSRF-TOKEN': csrfToken
                 },
                 body: JSON.stringify(formData),
             });
 
-            console.log(response);
-            if(response.ok) {
-                console.log('회원가입 성공', formData);
+            if (response.ok) {
                 navigate("/login");
             } else {
                 const errorData = await response.json();
@@ -54,42 +44,44 @@ function Join() {
     };
 
     return (
-        <div className="join-form">
-            <h2>회원가입</h2>
-            <form onSubmit={handleJoin}>
-                <div>
-                    <label>이름</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>아이디</label>
-                    <input
-                        type="text"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>비밀번호</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                {error && <p style={{ color: "red" }}>{error}</p>}
-                <button type="submit">회원가입</button>
-            </form>
+        <div className="form-container">
+            <div className="form-box">
+                <h2>회원가입</h2>
+                <form className="join-form" onSubmit={handleJoin}>
+                    <div>
+                        <label>이름</label>
+                        <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label>아이디</label>
+                        <input
+                            type="text"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label>비밀번호</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    {error && <p className="error-message">{error}</p>}
+                    <button type="submit">회원가입</button>
+                </form>
+            </div>
         </div>
     );
 }

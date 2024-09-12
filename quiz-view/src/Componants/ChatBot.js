@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import '../Css/ChatBot.css';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import '../Css/ChatBot.css';
 
 const ChatBot = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([]);
@@ -52,29 +52,29 @@ const ChatBot = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className={`chat-container ${isOpen ? 'open' : ''}`}>
-      <div className="chat-header">
+    <div className={`chat-bot-container ${isOpen ? 'open' : ''}`}>
+      <div className="chat-bot-header">
         <img 
           src={isRaccoon
             ? "https://cdn.pixabay.com/photo/2018/11/16/22/27/raccoon-3820327_1280.jpg"
             : "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/640px-Grosser_Panda.JPG"
           }
           alt={isRaccoon ? "너구리" : "판다"}
-          className="chat-avatar"
+          className="chat-bot-avatar"
         />
         <h3>{isRaccoon ? '🦝 너굴맨과 공부하기' : '🐼 푸바오와 공부하기'}</h3>
-        <button onClick={onClose} className="close-button">
+        <button onClick={onClose} className="chat-bot-close-button">
           <FaTimes />
         </button>
       </div>
-      <div className="chat-messages" ref={chatContainerRef}>
+      <div className="chat-bot-messages" ref={chatContainerRef}>
         {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.role}`}>
+          <div key={index} className={`chat-bot-message ${msg.role}`}>
             <strong>{msg.role === 'user' ? '👤 당신:' : (isRaccoon ? '🦝 너굴맨:' : '🐼 푸바오:')}</strong> {msg.content}
           </div>
         ))}
       </div>
-      <form onSubmit={handleSubmit} className="chat-input-form">
+      <form onSubmit={handleSubmit} className="chat-bot-input-form">
         <input
           type="text"
           value={input}

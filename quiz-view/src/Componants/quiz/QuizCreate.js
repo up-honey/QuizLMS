@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import api, { fetchCategories } from '../api'; // api 모듈을 사용
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api, { fetchCategories } from '../api'; // api 모듈을 사용
 
 const QuizCreate = () => {
     const navigate = useNavigate();
@@ -49,7 +49,7 @@ const QuizCreate = () => {
     return (
         <div className="container quiz">
             <div className='wrapper'>
-            <h1>퀴즈 생성</h1>
+                <h1>퀴즈 생성</h1>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label>카테고리: </label>
@@ -107,7 +107,9 @@ const QuizCreate = () => {
                             </div>
                         ))}
                     </div>
-                    <button type="submit" className="btn btn-primary">생성</button>
+                    <div className="button-group">
+                        <button type="submit" className="btn btn-primary">생성</button>
+                    </div>
                 </form>
             </div>
         </div>
