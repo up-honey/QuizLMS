@@ -8,7 +8,7 @@ function Footer() {
         <footer className="footer">
             <div className="footer-content">
                 <div className="footer-section about">
-                    <img src="/images/logo.png" alt="QUIZ TEST Logo" className="footer-logo" /> 
+                    <img src="/images/logo.png" alt="QUIZ TEST Logo" className="footer-logo" />
                     <p>QUIZ TEST는 혁신적인 온라인 학습 플랫폼으로, 사용자들에게 다양한 퀴즈와 테스트를 제공합니다.</p>
                 </div>
                 <div className="footer-section links">
@@ -25,10 +25,10 @@ function Footer() {
                 <div className="footer-section contact">
                     <h2>연락처</h2>
                     <p><FaPhone /> 010-1234-1234</p>
-                    <p><FaEnvelope /> hell0@hello.com</p>
-                    <p><FaMapMarkerAlt /> 대구광역시 한국 it 아카데미</p>
+                    <p><FaEnvelope /> hello@quiztest.com</p>
+                    <p><FaMapMarkerAlt /> 대구광역시 한국 IT 아카데미</p>
 
-                    <div className="socials">
+                    <div className="footer-socials">
                         <a href="https://x.com" target="_blank" rel="noopener noreferrer"><FaXTwitter /></a>
                         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
                         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>

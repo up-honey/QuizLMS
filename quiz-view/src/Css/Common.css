@@ -36,16 +36,21 @@ a:hover {
     color: var(--primary-color);
 }
 
-header, footer {
+header {
     background-color: var(--background-color);
-    padding: 10px 20px;
+    padding: 20px; /* 좌우 간격을 동일하게 */
+    width: 100%; /* 화면 너비를 꽉 채우도록 */
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    box-sizing: border-box; /* 패딩과 경계까지 포함한 크기를 맞추기 위해 */
 }
 
 .header {
+    max-width: 1200px; /* 중앙에 정렬되는 영역의 최대 너비 */
+    width: 100%; /* 최대 너비까지 확장 */
     display: flex;
+    justify-content: space-between; /* 양 끝에 요소 배치 */
     align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--border-light-color);
 }
 
 .header .logo {
@@ -60,7 +65,28 @@ header, footer {
 
 .header .nav-links a {
     font-size: 16px;
+    text-decoration: none;
+    color: #333;
 }
+
+.footer {
+    border-top: 1px solid var(--border-light-color);
+    padding-top: 20px; /* 헤더와 비슷한 간격 유지 */
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .header, .footer {
+        flex-direction: column; /* 작은 화면에서는 세로 정렬 */
+        align-items: center;
+    }
+
+    .header .nav-links, .footer .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
 
 footer {
     

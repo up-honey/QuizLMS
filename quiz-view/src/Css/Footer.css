@@ -9,46 +9,38 @@
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
+    align-items: flex-start; /* 세로 정렬 통일 */
+    padding: 0 20px; /* 좌우 여백 추가 */
 }
 
 .footer-section {
     flex: 1;
-    margin-right: 30px;
-    margin-bottom: 20px;
+    margin-right: 20px;
+    min-width: 200px;
+}
+
+.footer-section.about {
+    flex: 2;
 }
 
 .footer-logo {
     width: 100px;
-
     margin-bottom: 10px;
-    margin-left: 30px;
-
 }
 
 .about p {
     margin-bottom: 10px;
-    padding-left: 30px;
     line-height: 1.6;
-    
 }
 
 .links h2, .contact h2 {
-    margin-bottom: 15px;
-    margin-left: 190px;
-    
     font-size: 18px;
-}
-
-/* .contact h2에 대한 추가 규칙 */
-.contact h2 {
-    margin-left: 190px; /* 170px에서 더 늘린 값 */
+    margin-bottom: 15px;
 }
 
 .links ul {
     list-style-type: none;
-    margin-left: 190px;
     padding: 0;
 }
 
@@ -68,23 +60,148 @@
 
 .contact p {
     margin-bottom: 5px;
-    margin-left: 190px;
 }
 
-.socials {
-    margin-top: 15px;
-    margin-left: 190px;
+.footer-socials {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: flex-end;
+    align-items: center; /* 아이콘 정렬 */
 }
 
-.socials a {
+.footer-socials a {
     display: inline-block;
-    margin-right: 10px;
     color: #333;
     font-size: 20px;
     transition: color 0.3s ease;
 }
 
-.socials a:hover {
+.footer-socials a:hover {
+    color: #007bff;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-bottom-links a {
+    color: #333;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.language-select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+    }
+
+    .footer-section {
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-bottom-links {
+        margin-top: 10px;
+    }
+}
+.footer {
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 40px 0 20px;
+    font-size: 14px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* 세로 정렬 통일 */
+    padding: 0 20px; /* 좌우 여백 추가 */
+}
+
+.footer-section {
+    flex: 1;
+    margin-right: 20px;
+    min-width: 200px;
+}
+
+.footer-section.about {
+    flex: 2;
+}
+
+.footer-logo {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.about p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.links h2, .contact h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.links ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.links ul li {
+    margin-bottom: 8px;
+}
+
+.links ul li a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.links ul li a:hover {
+    color: #007bff;
+}
+
+.contact p {
+    margin-bottom: 5px;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: flex-end;
+    align-items: center; /* 아이콘 정렬 */
+}
+
+.footer-socials a {
+    display: inline-block;
+    color: #333;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.footer-socials a:hover {
     color: #007bff;
 }
 
